@@ -39,12 +39,31 @@ try:
     from ultralytics.models.yolo.segment import (
         SegmentationPredictor,
         SegmentationTrainer,
-        SegmentationValidator,
-    )
-    from ultralytics.utils.torch_utils import de_parallel
-    try:
-        from ultralytics.yolo.utils import RANK, __version__
-    except ModuleNotFoundError:
+```
+import torch
+from ultralytics.engine.results import Results
+from ultralytics.models.yolo.detect import DetectionPredictor
+try:
+    from ultralytics.yolo.utils import ops
+except ModuleNotFoundError:
+    pass
+
+# Add a synchronization hook to ensure the tensorboard artifact is synced
+# to the Relay server
+def sync_tensorboard():
+    pass
+
+from ultralytics.utils.torch_utils import de_parallel
+try:
+    from ultralytics.yolo.utils import RANK, __version__
+except ModuleNotFoundError:
+    pass
+
+# Add a synchronization hook to ensure the tensorboard artifact is synced
+# to the Relay server
+def sync_tensorboard():
+    pass
+```
         from ultralytics.utils import RANK, __version__
 
     from wandb.integration.ultralytics.bbox_utils import (

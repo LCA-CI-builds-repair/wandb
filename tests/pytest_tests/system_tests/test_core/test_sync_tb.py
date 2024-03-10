@@ -12,12 +12,15 @@ def create_model():
             tf.keras.layers.Dropout(0.2),
             tf.keras.layers.Dense(10, activation="softmax"),
         ]
-    )
-
-
+```
 def test_sync_tensorboard(relay_server, wandb_init):
     with relay_server() as relay:
         run = wandb_init(sync_tensorboard=True)
+
+        # Add a synchronization hook to ensure the tensorboard artifact is synced
+        # to the Relay server
+        run.sync_tensorboard()
+```
 
         mnist = tf.keras.datasets.mnist
 
