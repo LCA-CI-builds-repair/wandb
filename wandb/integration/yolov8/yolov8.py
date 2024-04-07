@@ -12,6 +12,7 @@ except ModuleNotFoundError:
 from ultralytics.yolo.v8.classify.train import ClassificationTrainer
 
 import wandb
+
 from wandb.sdk.lib import telemetry
 
 
