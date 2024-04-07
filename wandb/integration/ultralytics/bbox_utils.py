@@ -3,9 +3,16 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 import torch
 from ultralytics.engine.results import Results
 from ultralytics.models.yolo.detect import DetectionPredictor
+
+# Removed unnecessary import
+# import ultralytics.yolo.utils.ops
+
 try:
     from ultralytics.yolo.utils import ops
 except ModuleNotFoundError:
+    
+    # Code to handle ModuleNotFoundError goes here
+        
     from ultralytics.utils import ops
 
 import wandb

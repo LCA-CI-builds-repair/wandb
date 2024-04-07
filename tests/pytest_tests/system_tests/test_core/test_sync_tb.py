@@ -18,6 +18,9 @@ def create_model():
 def test_sync_tensorboard(relay_server, wandb_init):
     with relay_server() as relay:
         run = wandb_init(sync_tensorboard=True)
+        
+        # Test code goes here
+        
 
         mnist = tf.keras.datasets.mnist
 

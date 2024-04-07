@@ -45,6 +45,9 @@ try:
     try:
         from ultralytics.yolo.utils import RANK, __version__
     except ModuleNotFoundError:
+    
+        # Code to handle ModuleNotFoundError goes here
+        
         from ultralytics.utils import RANK, __version__
 
     from wandb.integration.ultralytics.bbox_utils import (
