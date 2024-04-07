@@ -1,15 +1,14 @@
 from typing import Any, Callable, Dict, List, Optional
-
-from ultralytics.yolo.engine.model import YOLO
-from ultralytics.yolo.engine.trainer import BaseTrainer
+from wandb.integration.ultralytics.yolo.engine.model import YOLO
+from wandb.integration.ultralytics.yolo.engine.trainer import BaseTrainer
 
 try:
-    from ultralytics.yolo.utils import RANK
-    from ultralytics.yolo.utils.torch_utils import get_flops, get_num_params
+    from wandb.integration.ultralytics.yolo.utils import RANK
+    from wandb.integration.ultralytics.yolo.utils.torch_utils import get_flops, get_num_params
 except ModuleNotFoundError:
-    from ultralytics.utils import RANK
-    from ultralytics.utils.torch_utils import get_flops, get_num_params
-from ultralytics.yolo.v8.classify.train import ClassificationTrainer
+    from wandb.integration.ultralytics.utils import RANK
+    from wandb.integration.ultralytics.utils.torch_utils import get_flops, get_num_params
+from wandb.integration.ultralytics.yolo.v8.classify.train import ClassificationTrainer
 
 import wandb
 from wandb.sdk.lib import telemetry

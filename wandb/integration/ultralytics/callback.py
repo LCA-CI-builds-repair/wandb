@@ -41,14 +41,14 @@ try:
         SegmentationTrainer,
         SegmentationValidator,
     )
-    from ultralytics.utils.torch_utils import de_parallel
+    from wandb.integration.ultralytics.utils.torch_utils import de_parallel
     try:
-        from ultralytics.yolo.utils import RANK, __version__
+        from wandb.integration.ultralytics.yolo.utils import RANK, __version__
     except ModuleNotFoundError:
-        from ultralytics.utils import RANK, __version__
+        from wandb.integration.ultralytics.utils import RANK, __version__
 
-    from wandb.integration.ultralytics.bbox_utils import (
-        plot_predictions,
+    from wandb.integration.ultralytics.bbox_utils import plot_predictions
+
         plot_validation_results,
     )
     from wandb.integration.ultralytics.classification_utils import (
