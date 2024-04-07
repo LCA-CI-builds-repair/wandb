@@ -1498,7 +1498,8 @@ def launch(
             raise LaunchError("'--set-var' flag requires queue to be set")
         public_api = PublicApi()
         runqueue = RunQueue(client=public_api.client, name=queue, entity=entity)
-        template_variables = launch_utils.fetch_and_validate_template_variables(
+        template_variables = launch_utils.fetch_and_validate_template_variables(runqueue, cli_template_vars)
+
             runqueue, cli_template_vars
         )
 
