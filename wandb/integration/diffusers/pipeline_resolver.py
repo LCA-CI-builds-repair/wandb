@@ -21,6 +21,10 @@ class DiffusersPipelineResolver:
 
     def __call__(
         self,
+        pipeline_name: str
+    ) -> None:
+        if pipeline_name in SUPPORTED_MULTIMODAL_PIPELINES:
+            self.wandb_table = SUPPORTED_MULTIMODAL_PIPELINES[pipeline_name]["table-schema"]
         args: Sequence[Any],
         kwargs: Dict[str, Any],
         response: Response,
