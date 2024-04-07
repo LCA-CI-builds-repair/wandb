@@ -21,6 +21,8 @@ class DiffusersPipelineResolver:
 
     def __call__(
         self,
+        pipeline_name: str  # Add missing data type hint
+    ) -> None:
         args: Sequence[Any],
         kwargs: Dict[str, Any],
         response: Response,

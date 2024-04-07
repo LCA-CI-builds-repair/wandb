@@ -69,4 +69,5 @@ autolog = AutologAPI(
     ),
     resolver=DiffusersPipelineResolver(),
     telemetry_feature="diffusers_autolog",
+    config={"use_telemetry": True}  # Add this line to set use_telemetry config option to True
 )
