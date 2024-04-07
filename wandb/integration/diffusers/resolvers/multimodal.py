@@ -499,7 +499,7 @@ class DiffusersMultiModalPipelineResolver:
     This is based on `wandb.sdk.integration_utils.auto_logging.RequestResponseResolver`.
 
     Arguments:
-        pipeline_name: (str) The name of the Diffusion Pipeline.
+        pipeline_name: str  # Remove unnecessary parentheses around str
     """
 
     def __init__(self, pipeline_name: str) -> None:
