@@ -1,12 +1,12 @@
 from typing import Any, Dict, List, Optional, Tuple, Union
 
 import torch
-from ultralytics.engine.results import Results
-from ultralytics.models.yolo.detect import DetectionPredictor
+from wandb.integration.ultralytics.engine.results import Results
+from wandb.integration.ultralytics.models.yolo.detect import DetectionPredictor
 try:
-    from ultralytics.yolo.utils import ops
+    from wandb.integration.ultralytics.yolo.utils import ops
 except ModuleNotFoundError:
-    from ultralytics.utils import ops
+    from wandb.integration.ultralytics.utils import ops
 
 import wandb
 
