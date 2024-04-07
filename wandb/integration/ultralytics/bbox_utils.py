@@ -1,11 +1,19 @@
 from typing import Any, Dict, List, Optional, Tuple, Union
 
 import torch
-from ultralytics.engine.results import Results
-from ultralytics.models.yolo.detect import DetectionPredictor
+
+try:
+    from ultralytics.engine.results import Results
+    from ultralytics.models.yolo.detect import DetectionPredictor
+except ModuleNotFoundError:
+    # This is to catch a ModuleNotFoundError if ultralytics is not installed
+    Results = None
+    DetectionPredictor = None
+
 try:
     from ultralytics.yolo.utils import ops
 except ModuleNotFoundError:
+    ops = None
     from ultralytics.utils import ops
 
 import wandb

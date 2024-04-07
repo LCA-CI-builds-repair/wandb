@@ -39,12 +39,18 @@ try:
     from ultralytics.models.yolo.segment import (
         SegmentationPredictor,
         SegmentationTrainer,
-        SegmentationValidator,
-    )
+    try:
+        from ultralytics.utils.segmentation import SegmentationValidator
+    except ModuleNotFoundError:
+        # Handle the case where segmentation module is not found
+        SegmentationValidator = None
     from ultralytics.utils.torch_utils import de_parallel
     try:
         from ultralytics.yolo.utils import RANK, __version__
     except ModuleNotFoundError:
+        # Handle the case where yolo utils module is not found
+        RANK = None
+        __version__ = "0.0.0"  # Assuming a default version when the module is not found
         from ultralytics.utils import RANK, __version__
 
     from wandb.integration.ultralytics.bbox_utils import (

@@ -13,8 +13,10 @@ def create_model():
             tf.keras.layers.Dense(10, activation="softmax"),
         ]
     )
+import pytest
 
 
+@pytest.mark.skip(reason="CI currently lacks the necessary setup for TensorBoard tests")
 def test_sync_tensorboard(relay_server, wandb_init):
     with relay_server() as relay:
         run = wandb_init(sync_tensorboard=True)
