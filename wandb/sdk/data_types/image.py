@@ -274,13 +274,14 @@ class Image(BatchableMedia):
         pil_image = util.get_module(
             "PIL.Image",
             required='wandb.Image needs the PIL package. To get it, run "pip install pillow".',
-        )
-        if util.is_matplotlib_typename(util.get_full_typename(data)):
-            buf = BytesIO()
-            util.ensure_matplotlib_figure(data).savefig(buf, format='png')
-            self._image = pil_image.open(buf, formats=["PNG"])
-        elif isinstance(data, pil_image.Image):
-            self._image = data
+```
+if util.is_matplotlib_typename(util.get_full_typename(data)):
+    buf = BytesIO()
+    util.ensure_matplotlib_figure(data).savefig(buf, format='png')
+    self._image = pil_image.open(buf, formats=["PNG"])
+elif isinstance(data, pil_image.Image):
+    self._image = data
+```
         elif util.is_pytorch_tensor_typename(util.get_full_typename(data)):
             vis_util = util.get_module(
                 "torchvision.utils", "torchvision is required to render images"
