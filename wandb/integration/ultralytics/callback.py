@@ -39,12 +39,42 @@ try:
     from ultralytics.models.yolo.segment import (
         SegmentationPredictor,
         SegmentationTrainer,
-        SegmentationValidator,
-    )
-    from ultralytics.utils.torch_utils import de_parallel
-    try:
-        from ultralytics.yolo.utils import RANK, __version__
-    except ModuleNotFoundError:
+
+from collections import defaultdict
+import torch
+from torch.nn.parallel.distributed import DistributedDataParallel
+import warnings
+from wandb.sdk.internal.utils import json_encoder
+
+from . import core, runner, utils
+from .core import (
+    SummaryMetric,
+    SummaryMetricWrapper,
+    SyncCallback,
+    WeightedSum,
+    WeightedSumWrapper,
+    WeightedMean,
+    WeightedMeanWrapper,
+    RunningAverage,
+    RunningAverageWrapper,
+    SegmentationValidator,
+)
+from .runner import Callback
+from .utils import (
+    Config,
+    Results,
+    SummaryMetric,
+    SummaryMetricWrapper,
+    SyncCallback,
+    WeightedSum,
+    WeightedSumWrapper,
+    WeightedMean,
+    WeightedMeanWrapper,
+    RunningAverage,
+    RunningAverageWrapper,
+    SegmentationValidator,
+)
+
         from ultralytics.utils import RANK, __version__
 
     from wandb.integration.ultralytics.bbox_utils import (
