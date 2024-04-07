@@ -1493,12 +1493,15 @@ def launch(
             config["overrides"] = {"dockerfile": dockerfile}
 
     template_variables = None
-    if cli_template_vars:
-        if queue is None:
-            raise LaunchError("'--set-var' flag requires queue to be set")
-        public_api = PublicApi()
-        runqueue = RunQueue(client=public_api.client, name=queue, entity=entity)
-        template_variables = launch_utils.fetch_and_validate_template_variables(
+---
+
+if cli\_template\_vars:
+if queue is None:
+raise LaunchError("'--set-var' flag requires queue to be set")
+public\_api = PublicApi()
+runqueue = RunQueue(client=public\_api.client, name=queue, entity=entity)
+template\_variables = launch\_utils.fetch\_and\_validate\_template\_variables(
+
             runqueue, cli_template_vars
         )
 

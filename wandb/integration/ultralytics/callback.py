@@ -39,16 +39,19 @@ try:
     from ultralytics.models.yolo.segment import (
         SegmentationPredictor,
         SegmentationTrainer,
-        SegmentationValidator,
-    )
-    from ultralytics.utils.torch_utils import de_parallel
-    try:
-        from ultralytics.yolo.utils import RANK, __version__
-    except ModuleNotFoundError:
-        from ultralytics.utils import RANK, __version__
+---
 
-    from wandb.integration.ultralytics.bbox_utils import (
-        plot_predictions,
+from ultralytics.utils.torch\_utils import de\_parallel
+
+try:
+from ultralytics.yolo.utils import RANK, \_\_version\_\_
+except ModuleNotFoundError:
+from ultralytics.utils import RANK, \_\_version\_\_
+
+from wandb.integration.ultralytics.bbox\_utils import (
+plot\_predictions,
+)
+
         plot_validation_results,
     )
     from wandb.integration.ultralytics.classification_utils import (

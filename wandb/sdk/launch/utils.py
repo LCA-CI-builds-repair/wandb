@@ -201,16 +201,19 @@ def set_project_entity_defaults(
     if project is None:
         config_project = None
         if launch_config:
-            config_project = launch_config.get("project")
-        project = config_project or source_uri or ""
-    if entity is None:
-        config_entity = None
-        if launch_config:
-            config_entity = launch_config.get("entity")
-        entity = config_entity or api.default_entity
-    prefix = ""
-    if platform.system() != "Windows" and sys.stdout.encoding == "UTF-8":
-        prefix = "🚀 "
+---
+
+config\_project = launch\_config.get("project")
+project = config\_project or source\_uri or ""
+if entity is None:
+config\_entity = None
+if launch\_config:
+config\_entity = launch\_config.get("entity")
+entity = config\_entity or api.default\_entity
+prefix = ""
+if platform.system() != "Windows" and sys.stdout.encoding == "UTF-8":
+prefix = "🚀 "
+
     wandb.termlog(
         f"{LOG_PREFIX}{prefix}Launching run into {entity}{'/' + project if project else ''}"
     )
