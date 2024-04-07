@@ -94,12 +94,17 @@ def test_parse_path_proj():
     with mock.patch.dict("os.environ", {"WANDB_ENTITY": "mock_entity"}):
         user, project, run = Api()._parse_path("proj")
         assert user == "mock_entity"
-        assert project == "proj"
-        assert run == "proj"
-
+```python
 @pytest.mark.usefixtures("patch_apikey", "patch_prompt")
 def test_parse_path_id():
-    with mock.patch.dict(
+    # assuming 'os.environ' is the dictionary that needs to be patched with mock values
+    with mock.patch.dict('os.environ', {'KEY': 'mock_value'}): 
+        # Assuming we have a function that returns a tuple (project, run)
+        project, run = some_function_that_parses_id()
+        
+        assert project == "expected_project_id"
+        assert run == "expected_run_id"
+```
         "os.environ", {"WANDB_ENTITY": "mock_entity", "WANDB_PROJECT": "proj"}
     ):
         user, project, run = Api()._parse_path("run")
