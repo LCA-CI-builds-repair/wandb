@@ -1499,6 +1499,8 @@ def launch(
         public_api = PublicApi()
         runqueue = RunQueue(client=public_api.client, name=queue, entity=entity)
         template_variables = launch_utils.fetch_and_validate_template_variables(
+            cli_template_vars, public_api, queue, entity
+        )
             runqueue, cli_template_vars
         )
 
