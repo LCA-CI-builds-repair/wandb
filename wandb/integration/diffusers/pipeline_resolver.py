@@ -21,6 +21,7 @@ class DiffusersPipelineResolver:
 
     def __call__(
         self,
+
         args: Sequence[Any],
         kwargs: Dict[str, Any],
         response: Response,

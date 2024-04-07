@@ -69,4 +69,5 @@ autolog = AutologAPI(
     ),
     resolver=DiffusersPipelineResolver(),
     telemetry_feature="diffusers_autolog",
+
 )

@@ -507,6 +507,7 @@ class DiffusersMultiModalPipelineResolver:
         columns = []
         if pipeline_name in SUPPORTED_MULTIMODAL_PIPELINES:
             columns += SUPPORTED_MULTIMODAL_PIPELINES[pipeline_name]["table-schema"]
+
         else:
             wandb.Error("Pipeline not supported for logging")
         self.wandb_table = wandb.Table(columns=columns)
