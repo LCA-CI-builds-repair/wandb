@@ -16,11 +16,22 @@ class DiffusersPipelineResolver:
     This is based off `wandb.sdk.integration_utils.auto_logging.RequestResponseResolver`.
     """
 
+```python
+class DiffusersPipelineResolver:
     def __init__(self) -> None:
         self.wandb_table = None
 
     def __call__(
         self,
+        pipeline_name: str,
+    ) -> None:
+        if pipeline_name in SUPPORTED_MULTIMODAL_PIPELINES:
+            columns = SUPPORTED_MULTIMODAL_PIPELINES[pipeline_name]["table-schema"]
+            self.wandb_table = wandb.Table(columns=columns)
+        else:
+            raise ValueError(f"Pipeline {pipeline_name} not supported.")
+```
+
         args: Sequence[Any],
         kwargs: Dict[str, Any],
         response: Response,
