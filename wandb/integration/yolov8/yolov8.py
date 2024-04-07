@@ -1,4 +1,5 @@
 from typing import Any, Callable, Dict, List, Optional
+```python
 
 from ultralytics.yolo.engine.model import YOLO
 from ultralytics.yolo.engine.trainer import BaseTrainer
@@ -12,6 +13,7 @@ except ModuleNotFoundError:
 from ultralytics.yolo.v8.classify.train import ClassificationTrainer
 
 import wandb
+```
 from wandb.sdk.lib import telemetry
 
 

@@ -39,7 +39,7 @@ try:
     from ultralytics.models.yolo.segment import (
         SegmentationPredictor,
         SegmentationTrainer,
-        SegmentationValidator,
+```python
     )
     from ultralytics.utils.torch_utils import de_parallel
     try:
@@ -49,6 +49,8 @@ try:
 
     from wandb.integration.ultralytics.bbox_utils import (
         plot_predictions,
+        # ...assuming code continues here in the actual file
+```
         plot_validation_results,
     )
     from wandb.integration.ultralytics.classification_utils import (

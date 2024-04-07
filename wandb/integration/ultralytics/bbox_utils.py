@@ -1,5 +1,6 @@
 from typing import Any, Dict, List, Optional, Tuple, Union
 
+```python
 import torch
 from ultralytics.engine.results import Results
 from ultralytics.models.yolo.detect import DetectionPredictor
@@ -9,7 +10,7 @@ except ModuleNotFoundError:
     from ultralytics.utils import ops
 
 import wandb
-
+```
 
 def scale_bounding_box_to_original_image_shape(
     box: torch.Tensor,
