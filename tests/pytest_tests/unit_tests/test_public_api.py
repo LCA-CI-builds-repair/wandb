@@ -94,12 +94,14 @@ def test_parse_path_proj():
     with mock.patch.dict("os.environ", {"WANDB_ENTITY": "mock_entity"}):
         user, project, run = Api()._parse_path("proj")
         assert user == "mock_entity"
-        assert project == "proj"
-        assert run == "proj"
-
 @pytest.mark.usefixtures("patch_apikey", "patch_prompt")
 def test_parse_path_id():
     with mock.patch.dict(
+        os.environ, {"API_KEY": "test_key", "PROMPT_API_URL": "test_url"}
+    ):
+        project, run = public_api.parse_path_id("proj_run")
+        assert project == "proj"
+        assert run == "proj"
         "os.environ", {"WANDB_ENTITY": "mock_entity", "WANDB_PROJECT": "proj"}
     ):
         user, project, run = Api()._parse_path("run")
