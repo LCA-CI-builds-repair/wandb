@@ -16,11 +16,12 @@ class DiffusersPipelineResolver:
     This is based off `wandb.sdk.integration_utils.auto_logging.RequestResponseResolver`.
     """
 
+class DiffusersPipelineResolver:
+
     def __init__(self) -> None:
         self.wandb_table = None
 
-    def __call__(
-        self,
+    def __call__(self, pipeline: Union[str, DiffusionPipeline]) -> None:
         args: Sequence[Any],
         kwargs: Dict[str, Any],
         response: Response,

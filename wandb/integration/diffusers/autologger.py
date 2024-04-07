@@ -62,11 +62,13 @@ autolog = AutologAPI(
         "VersatileDiffusionImageVariationPipeline.__call__",
         "VersatileDiffusionDualGuidedPipeline.__call__",
         "LDMPipeline.__call__",
-        "TextToVideoSDPipeline.__call__",
-        "TextToVideoZeroPipeline.__call__",
-        "StableVideoDiffusionPipeline.__call__",
-        "AmusedPipeline.__call__"
+```python
+        "__call__",
+        "TextToVideoSDPipeline",
+        "TextToVideoZeroPipeline",
+        "StableVideoDiffusionPipeline",
+        "AmusedPipeline"
     ),
     resolver=DiffusersPipelineResolver(),
-    telemetry_feature="diffusers_autolog",
+    telemetry_feature="diffusions_autolog",
 )

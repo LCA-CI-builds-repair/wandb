@@ -499,14 +499,27 @@ class DiffusersMultiModalPipelineResolver:
     This is based on `wandb.sdk.integration_utils.auto_logging.RequestResponseResolver`.
 
     Arguments:
-        pipeline_name: (str) The name of the Diffusion Pipeline.
-    """
+def get_multimodal_pipeline_schema(pipeline_name: str) -> List[str]:
+    if pipeline_name in SUPPORTED_MULTIMODAL_PIPELINES:
+        return SUPPORTED_MULTIMODAL_PIPELINES[pipeline_name]["table-schema"]
+    else:
+        raise ValueError(f"Pipeline {pipeline_name} is not supported")
 
-    def __init__(self, pipeline_name: str) -> None:
-        self.pipeline_name = pipeline_name
-        columns = []
-        if pipeline_name in SUPPORTED_MULTIMODAL_PIPELINES:
-            columns += SUPPORTED_MULTIMODAL_PIPELINES[pipeline_name]["table-schema"]
+class DiffusersPipelineResolver:
+
+    def __init__(self) -> None:
+        self.wandb_table = None
+
+    def __call__(self, pipeline: Union[str, DiffusionPipeline]) -> None:
+        if isinstance(pipeline, str):
+            pipeline = wandb.load(pipeline)
+        pipeline_name = pipeline.__class__.__name__
+        columns = get_multimodal_pipeline_schema(pipeline_name)
+        self.wandb_table = wandb.Table(
+            pipeline_name,
+            columns=columns,
+            rows=[],
+        )
         else:
             wandb.Error("Pipeline not supported for logging")
         self.wandb_table = wandb.Table(columns=columns)
