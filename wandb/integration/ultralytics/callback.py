@@ -44,6 +44,7 @@ try:
     from ultralytics.utils.torch_utils import de_parallel
     try:
         from ultralytics.yolo.utils import RANK, __version__
+        from ultralytics import Ultralytics  # Import Ultralytics to make sure it's available when running the tests
     except ModuleNotFoundError:
         from ultralytics.utils import RANK, __version__
 
