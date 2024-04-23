@@ -84,7 +84,10 @@ from .lib import (
 )
 from .lib.exit_hooks import ExitHooks
 from .lib.gitlib import GitRepo
-from .lib.mailbox import MailboxError, MailboxHandle, MailboxProbe, MailboxProgress
+from .lib.mailbox i        if hook.stage == TeardownStage.EARLY:
+            hook.call()
+        
+        self._atexit_cleanup(exit_code=exit_code)t MailboxError, MailboxHandle, MailboxProbe, MailboxProgress
 from .lib.printer import get_printer
 from .lib.proto_util import message_to_dict
 from .lib.reporting import Reporter
