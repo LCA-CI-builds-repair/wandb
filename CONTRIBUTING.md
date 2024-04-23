@@ -1,6 +1,10 @@
 <p align="center">
   <img src="./docs/README_images/logo-dark.svg#gh-dark-mode-only" width="600" alt="Weights & Biases" />
-  <img src="./docs/README_images/logo-light.svg#gh-light-mode-only" width="600" alt="Weights & Biases" />
+  <img src="./docs/README_images/logo| perf     | 🚀 Performance Improvements  | A code change that improves performance                                                      | No           |
+| test     | 🚨 Tests                     | Adding new or missing tests or correcting existing tests                                     | No           |
+| build    | 🛠 Builds                    | Changes that affect the build system (e.g. protobuf) or external dependencies                | Maybe        |
+| ci       | ⚙️ Continuous Integrations   | Changes to our CI configuration files and scripts                                            | No           |
+| chore    | ♻️ Chores                    | Other changes that don't modify source code files.                                           | No           |t.svg#gh-light-mode-only" width="600" alt="Weights & Biases" />
 </p>
 
 # Contributing to `wandb`

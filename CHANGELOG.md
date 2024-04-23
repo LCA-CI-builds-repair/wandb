@@ -3,7 +3,44 @@
 ## What's Changed
 ### :magic_wand: Enhancements
 * perf(artifacts): remove recursive download by @szymon-piechowicz-wandb in https://github.com/wandb/wandb/pull/6544
-* feat(nexus): add debounce summary in handler by @kptkin in https://github.com/wandb/wandb/pull/6570
+* feat(nexus): add debounce summary in handler by @kptkin in https://github* fix: Support namespace in metadata key of resource args by @KyleGoyette in https://github.com/wandb/wandb/pull/5639
+* fix: Use "" instead of None for project kwarg when no project given by @bcsherma in https://github.com/wandb/wandb/pull/5839
+* fix: Add + to torch cpu regex by @bcsherma in https://github.com/wandb/wandb/pull/5833
+* fix: Implement timeout for file_stream an* docs: Fix broken refere* test: Fix several import tests by @dmitryduev in https://github.com/wandb/* chore: Use pytest tmp_path so we can inspect failures by @raubitsj in https://github.com/wandb/wandb/pull/4664
+* chore: Reset build command after building by @gtarpenning in https://github.com/wandb/wandb/pull/4626
+* ci: Rerun flaking tests in CI with pytest-rerunfailures by @dmitryduev in https://github.com/wandb/wandb/pull/4430
+* chore: Remove dead code from filesync logic by @speezepearson in https://github.com/wandb/wandb/pull/4638
+* chore: Remove unused fields from a filesync message by @speezepearson in https://github.com/wandb/wandb/pull/4662
+* chore: Refactor retry logic to use globals instead of dependency-injecting them by @speezepearson in https://github.com/wandb/wandb/pull/4588
+* test: Add unit tests for filesync.StepUpload by @speezepearson in https://github.com/wandb/wandb/pull/4652
+* test: Add tests for Api.upload_file_retry by @speezepearson in https://github.com/wandb/wandb/pull/4639
+* chore: Remove fallback resource when not specified for a queue by @gtarpenning in https://github.com/wandb/wandb/pull/4637
+* test: Improve storage handler test coverage by @moredatarequired in https://github.com/wandb/wandb/pull/4674
+* test: Fix import tests by @dmitryduev in https://github.com/wandb/wandb/pull/4690
+* chore: Make MetricsMonitor less verbose on errors by @dmitryduev in https://github.com/wandb/wandb/pull/4618
+* test: Address fixture server move from port 9003 to 9010 in local-testcontainer by @dmitryduev in https://github.com/wandb/wandb/pull/4716
+* chore: Vendor promise==2.3.0 to unequivocally rm six dependency by @dmitryduev in https://github.com/wandb/wandb/pull/46229
+* test: Don't use symlinks for SSL test assets, especially for Windows by @speezepearson in https://github.com/wandb/wandb/pull/4847
+* test: Add unit tests for filesync.Stats by @speezepearson in https://github.com/wandb/wandb/pull/4855
+* chore: Add async retry logic by @speezepearson in https://github.com/wandb/wandb/pull/4738
+* test: Strengthen tests for ArtifactSaver, StepUpload by @speezepearson in https://github.com/wandb/wandb/pull/4808ink to W&B Settings page in Sweeps by @ngrayluna in https://github.com/wandb/wandb/pull/4820
+* docs: Docodile autogen docs by @ngrayluna in https://github.com/wandb/wandb/pull/4734
+
+### :gear: Dev
+* test: Ensure manifest version is verified by @moredatarequired in https://github.com/wandb/wandb/pull/4691
+* test: Add tests for custom SSL certs and disabling SSL by @speezepearson in https://github.com/wandb/wandb/pull/4692
+* test: Fix nightly docker builds by @dmitryduev in https://github.com/wandb/wandb/pull/4787
+* chore: Don't create universal py2/py3 package by @raubitsj in https://github.com/wandb/wandb/pull/4797
+* chore: Fix flake8-bugbear B028 and ignore B017 by @kptkin in https://github.com/wandb/wandb/pull/4799
+* test: Fix gcloud sdk version requested in nightly tests by @dmitryduev in https://github.com/wandb/wandb/pull/4802
+* chore: Remove unused parameters in StorageHandler.load_{path,file,reference} by @moredatarequired in https://github.com/wandb/wandb/pull/4678
+* chore: Split unit tests to system tests and proper unit tests by @kptkin in https://github.com/wandb/wandb/pull/4811
+* test: Address fixture server move from port 9010 to 9015 in local-testcontainer by @dmitryduev in https://github.com/wandb/wandb/pull/4814
+* chore: Add aliases to ac query response by @ibindlish in https://github.com/wandb/wandb/pull/4813
+* test: Run regression suite nightly by @dmitryduev in https://github.com/wandb/wandb/pull/4788
+* test: Fix broken lightning test by @kptkin in https://github.com/wandb/wandb/pull/4823s by @kptkin in https://github.com/wandb/wandb/pull/5812
+* fix: Fix collection filtering when getting aliases by @szymon-piechowicz-wandb in https://github.com/wandb/wandb/pull/5810
+* fix: Replace `dir_watcher` settings with SettingsStatic by @kptkin in https://github.com/wandb/wandb/pull/5863andb/wandb/pull/6570
 * feat(integrations): fix bug in ultralytics import and version pinning by @soumik12345 in https://github.com/wandb/wandb/pull/6605
 * feat(launch): Support template variables when queueing launch runs by @KyleGoyette in https://github.com/wandb/wandb/pull/6602
 * feat(cli): add --skip-console option to offline sync cli command by @kptkin in https://github.com/wandb/wandb/pull/6557
