@@ -27,7 +27,27 @@ import wandb
 sys.path[0:0] = save_path
 
 RequestsMock = None
-InjectRequestsParse = None
+In        if request.method == "GET":
+            return json.dumps(get_ctx())
+        elif request.method == "POST":
+            ctx.update(body)
+            set_ctx(ctx)
+            app.logger.info("updated context %s", ctx)
+            return json.dumps(get_ctx())
+        elif request.method == "PUT":
+            ctx = snoop.context_enrich(ctx)
+            set_ctx(ctx)
+            app.logger.info("updated context %s", ctx)
+            return json.dumps(get_ctx())
+        elif request.method == "DELETE":
+            app.logger.info("resetting context")
+            set_ctx(default_ctx())
+            return json.dumps(get_ctx())
+        else:
+            ctx.update(body)
+            set_ctx(ctx)
+            app.logger.info("updated context %s", ctx)
+            return json.dumps(get_ctx())arse = None
 ArtifactEmulator = None
 
 
