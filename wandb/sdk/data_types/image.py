@@ -7,7 +7,55 @@ from urllib import parse
 
 import wandb
 from wandb import util
-from wandb.sdk.lib import hashutil, runid
+from wandb.sdk.lib         if isinstance(w        self._set_file(path                                        self.to_uint8(data), mode=mode or self.guess_mode(data)
+            )
+
+        tmp_path = os.path.join(MEDIA_TMP.name, runid.generate_id() + ".png")
+        self.format = "png"
+        assert self._image is not None
+        self._set_file(tmp_path, is_tmp=True)
+
+    @classmethod_util.make_grid(data, normalize=True)
+                  if sel        if isinstance(data, pil_image.Image):
+            self._image = data
+        return self._imagepath is not None:
+            if isinstance(data, pil_image.Image):
+                self._image = data
+
+    @propertylf._image = pil_image.fromarray(
+                data.mul(255).clamp(0, 255).byte().permute(1, 2, 0).cpu().numpy()
+            )
+        elif isinstance(data, pil_image.Image):
+            self._image = data
+        else:
+            if hasattr(data, "numpy"):  # TF data eager tensors
+                data = data.numpy()sure_matplotlib_figure(data).savefig(buf, format='png')
+            self._image = data
+        elif isinstance(data, pil_image.Image):
+            self._image = data
+        elif util.is_pytorch_tensor_typename(util.get_full_typename(data)):
+            vis_util = util.get_module(
+                "torchvision.utils", "torchvision is required to render images"
+            )
+            if hasattr(data, "requires_grad") and data.requires_grad:
+                data = data.detach()  # type: ignorealse)
+        assert self._image is not None
+        self._image.load()
+        ext = os.path.splitext(path)[1][1:]
+        self.format = ext
+
+    def _initialize_from_reference(self, path: str) -> None:
+        if isinstance(data, pil_image.Image):
+            self._image = datapil_image.Image):
+            self._image = wbimage
+        else:
+            self._image = wbimage._image
+            self._classes = wbimage._classes
+            self._path = wbimage._path
+            self._is_tmp = wbimage._is_tmp
+            self._extension = wbimage._extension
+            self._sha256 = wbimage._sha256
+            self._size = wbimage._sizehashutil, runid
 from wandb.sdk.lib.paths import LogicalPath
 
 from ._private import MEDIA_TMP

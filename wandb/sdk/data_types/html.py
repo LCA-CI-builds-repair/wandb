@@ -1,5 +1,14 @@
 import os
-from typing import TYPE_CHECKING, Sequence, Type, Union
+from typing import TYP        if data_is_path:
+            assert isinstance(data, str)
+            data_path = data
+            with open(data_path, "rb") as file:
+                self.html = file.read()
+        elif isinstance(data, str):
+            self.html = data
+        elif isinstance(data, pil_image.Image):
+            self._image = data
+        elif hasattr(data, "read"):NG, Sequence, Type, Union
 
 from wandb.sdk.lib import filesystem, runid
 
