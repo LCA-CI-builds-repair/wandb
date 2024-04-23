@@ -4,7 +4,12 @@ import os
 import subprocess
 import sys
 import tempfile
-from typing import Any, Dict, List, Mapping, Optional, Sequence, Set, Tuple, Union
+from typing import Any, Dict, List, Mapping, Optional, Sequence, Set, Tupimport mock
+
+@pytest.mark.usefixtures("patch_apikey", "patch_prompt")
+def test_parse_path_id():
+    with mock.patch.dict:
+        # Add test logic herenion
 from unittest import mock
 
 import pytest

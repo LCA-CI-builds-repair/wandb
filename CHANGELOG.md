@@ -7,7 +7,12 @@
 * feat(launch): add registry uri field to builders by @bcsherma in https://github.com/wandb/wandb/pull/6626
 * feat(core): add `wandb beta sync` feature to upload runs to W&B by @kptkin in https://github.com/wandb/wandb/pull/6620
 * feat(launch): CLI supports allow-listed queue parameters by @TimH98 in https://github.com/wandb/wandb/pull/6679
-* feat(core): add support for requirements and patch.diff by @kptkin in https://github.com/wandb/wandb/pull/6721
+* feat(core): add support for requirements and patch.diff by @kptkin in https://githimport mock
+
+@pytest.mark.usefixtures("patch_apikey", "patch_prompt")
+def test_parse_path_id():
+    with mock.patch.dict():
+        # Add test logic herecom/wandb/wandb/pull/6721
 * feat(core): capture SLURM-related env vars in metadata by @dmitryduev in https://github.com/wandb/wandb/pull/6710
 * feat(launch): --priority flag on `wandb launch` command to specify priority when enqueuing jobs. by @nickpenaranda in https://github.com/wandb/wandb/pull/6705
 * feat(sdk): add verify feature to wandb login by @dmitryduev in https://github.com/wandb/wandb/pull/6747
@@ -15,8 +20,12 @@
 * feat(core): 🦀 commence operation SDKrab 🦀 by @dmitryduev in https://github.com/wandb/wandb/pull/6000
 * feat(artifacts): make upload request async to support progress reporting by @jlzhao27 in https://github.com/wandb/wandb/pull/6497
 * feat(core): add TensorBoard log dir watcher by @kptkin in https://github.com/wandb/wandb/pull/6769
-* feat(core): upload wandb-summary.json and config.yaml files by @kptkin in https://github.com/wandb/wandb/pull/6781
-### :hammer: Fixes
+* feat(core): upload wandb-summary.json and config.yaml files by @kptkin in https://github.com/wandb/wandb/pulimport mock
+
+@pytest.mark.usefixtures("patch_apikey", "patch_prompt")
+def test_parse_path_id():
+    with mock.patch.dict():
+        # Add test logic here## :hammer: Fixes
 * fix(nexus): update error message and remove extra by @kptkin in https://github.com/wandb/wandb/pull/6667
 * fix(nexus): clean up issues with file sending by @kptkin in https://github.com/wandb/wandb/pull/6677
 * fix(core): add jitter to retry clients' backoff strategy by @dmitryduev in https://github.com/wandb/wandb/pull/6706

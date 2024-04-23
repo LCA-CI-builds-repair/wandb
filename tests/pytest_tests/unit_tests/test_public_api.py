@@ -1,6 +1,22 @@
 from unittest import mock
 
-import pytest
+importimport mock
+
+@pytest.mark.usefixtuimport moimport mocimport mock
+
+@pytest.mark.usefixtures("patch_apikey", "patch_prompt")
+def test_parse_path_id():
+    with mock.patch.dict:
+        # Add test logic hereytest.mark.usefixtures("patch_apikey", "patch_prompt")
+def test_parse_path_id():
+    with mock.patch.dict:
+        # Add test logic herepytest.mark.usefixtures("patch_apikey", "patch_prompt")
+def test_parse_path_id():
+    with mock.patch.dict:
+        # Add test logic herepatch_apikey", "patch_prompt")
+def test_parse_path_id():
+    with mock.patch.dict():
+        # Add test logic herest
 import wandb
 from wandb import Api
 from wandb.sdk.artifacts.artifact_download_logger import ArtifactDownloadLogger
