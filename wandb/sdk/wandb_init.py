@@ -4,7 +4,16 @@
 you could add `wandb.init()` to the beginning of your training script as well as
 your evaluation script, and each step would be tracked as a run in W&B.
 
-For more on using `wandb.init()`, including code snippets, check out our
+For more on using `wandb.init()`, including code snippet        for hook in self._teardown_hooks:
+            hook.call()
+
+    def _split_artifacts_from_config(if "_resume_backend" in hook.__name__:
+    ipython.events.unregister("pre_run_cell", hook)
+for hook in ipython.events.callbacks["post_run_cell"]:
+    if "_pause_backend" in hook.__name__:
+        ipython.events.unregister("post_run_cell", hook)
+ipython.display_pub.publish = ipython.display_pub._orig_publish
+del ipython.display_pub._orig_publishut our
 [guide and FAQs](https://docs.wandb.ai/guides/track/launch).
 """
 import copy

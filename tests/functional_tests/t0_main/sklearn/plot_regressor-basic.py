@@ -1,4 +1,17 @@
-#!/usr/bin/env python
+#!/uid: 0.sklearn.plot_regressor-basic
+tag:
+  shard: sklearn
+plugin:
+  - wandb
+depend:
+  requirements:
+    - scikit-learn
+assert:
+  - :wandb:runs_len: 1
+  - :wandb:runs[0][exitcode]: 0
+  - :yea:exit: 0
+  - :wandb:runs[0][summary][learning_curve][_type]: table-file
+  - :wandb:runs[0][summary][learning_curve][ncols]: 3hon
 """Demonstrate basic API of plot_regressor.
 
 ---

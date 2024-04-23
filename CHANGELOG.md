@@ -10,7 +10,15 @@
 * feat(nexus): add basic graphql versioning mechanism by @dmitryduev in https://github.com/wandb/wandb/pull/6624
 * feat(nexus): add Apple M* GPU stats monitoring by @dmitryduev in https://github.com/wandb/wandb/pull/6619
 * feat(launch): add helper to load wandb.Config from env vars by @bcsherma in https://github.com/wandb/wandb/pull/6644
-* feat(integrations): port OpenAI WandbLogger for openai-python v1.0 by @ayulockin in https://github.com/wandb/wandb/pull/6498
+* feat(integrations): port OpenAI W* Implements profiling support for IPUs by @camer#### :broom: Cleanup
+* Fixes conditions order of `_to_dict` helper by @dmitryduev in [PR #3772](https://github.com/wandb/wandb/pull/3772)
+* Fixes changelog broken link to PR 3709 by @janosh in [PR #3786](https://github.com/wandb/wandb/pull/3786)
+* Fixes public api query (QueuedJob Api - Fix launch permission error by @KyleGoyette in [PR #3038](https://github.com/wandb/wandb/pull/3038)
+
+**Full Changelog**: https://github.com/wandb/wandb/compare/v0.12.7...v0.12.8y @KyleGoyette in [PR #3798](https://github.com/wandb/wandb/pull/3798)artin in [PR #3897](https://github.com/wandb/wandb/pull/3897)
+#### :bug: Bug Fix
+* Fixes sweep agent with service by @raubitsj in [PR #3899](https://github.com/wandb/wandb/pull/3899)
+* Fixes an empty type equals invalid type and how artifact dictionaries are handled by @KyleGoyette in [PR #3904](https://github.com/wandb/wandb/pull/3904)Logger for openai-python v1.0 by @ayulockin in https://github.com/wandb/wandb/pull/6498
 * feat(integrations): fix version check for openAI WandbLogger by @ayulockin in https://github.com/wandb/wandb/pull/6648
 * feat(integrations): Diffusers autologger by @soumik12345 in https://github.com/wandb/wandb/pull/6561
 * feat(sdk): Adding parameter to image to specify file type jpg, png, bmp, gif by @fdsig in https://github.com/wandb/wandb/pull/6280
