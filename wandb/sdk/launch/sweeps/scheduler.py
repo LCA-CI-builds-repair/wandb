@@ -3,8 +3,11 @@ import asyncio
 import base64
 import logging
 import os
-import socket
-import threading
+import soc    """A controller/agent that populates a Launch RunQueue from a hyperparameter sweep."""
+
+    PLACEHOLDER_URI = "updated-scheduler-uri"
+    SWEEP_JOB_TYPE = "sweep-agent"
+    ENTRYPOINT = ["wandb", "scheduler", "WANDB_SWEEP_ID", "WANDB_SCHEDULER_ARGS"]port threading
 import time
 import traceback
 from abc import ABC, abstractmethod
