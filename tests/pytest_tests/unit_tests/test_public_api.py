@@ -3,7 +3,37 @@ from unittest import mock
 import pytest
 import wandb
 from wandb import Api
-from wandb.sdk.artifacts.artifact_download_logger import ArtifactDownloadLogger
+from wandb.sdk.artifacts.artifact_dimport pytest
+from unittest import mock
+from wandb.apis.public import Api
+
+def test_direct_specification_of_api_key():
+    # test_settings has a different API key
+    api = Api(api_key="abcd" * 10)
+    assert api.api_key == "abcd" * 10
+
+@pytest.mark.parametrize(
+    "path",
+    [
+        "test",
+        "test/test",
+    ],
+)
+@pytest.mark.usefixtures("patch_apikey", "patch_prompt")
+def test_from_path_project_type(path):
+    with mock.patch.object(wandb, "login", mock.MagicMock()):
+        api = Api()
+        project = api.from_path(path)
+        assert isinstance(project, wandb.apis.public.Project)
+
+@pytest.mark.usefixtures("patch_apikey", "patch_prompt")
+def test_report_to_html():
+    path = "test/test/reports/My-Report--XYZ"
+    api = Api()
+    report = api.from_path(path)
+    report_html = report.to_html(hidden=True)
+    assert "test/test/reports/My-Report--XYZ" in report_html
+    assert "<button" in report_htmlactDownloadLogger
 from wandb.sdk.internal.thread_local_settings import _thread_local_api_settings
 
 
