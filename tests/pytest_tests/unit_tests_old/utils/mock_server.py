@@ -27,7 +27,33 @@ import wandb
 sys.path[0:0] = save_path
 
 RequestsMock = None
-InjectRequestsParse = None
+In@app.route("/data", methods=["GET", "POST", "DELETE"])
+@snoop.relay
+def data():
+    ctx = get_ctx()
+    body = request.json
+    if request.method == "GET":
+        app.logger.info("getting context")
+        return json.dumps(ctx)
+    elif request.method == "DELETE":
+        app.logger.info("resetting context")
+        set_ctx(default_ctx())
+        return json.dumps(get_ctx())
+    else:
+        ctx.update(body)
+        set_ctx(ctx)
+        app.logger.info("updated context: %s", ctx)
+        return json.dumps(get_ctx())
+
+@app.route("/graphql", methods=["POST"])
+@snoop.relay
+def graphql():
+    ctx = get_ctx()
+    base_url = request.url_root.rstrip("/")
+    test_name = request.headers.get("X-WANDB-USERNAME")
+    if test_name:
+        app.logger.info("Test request from: %s", test_name)
+    app.logger.info("graphql post")e
 ArtifactEmulator = None
 
 
