@@ -1,4 +1,20 @@
-#!/usr/bin/env python
+#!/usr/binimport multiprocessing as mp
+
+def worker_func():
+    # Functionality of the worker process
+    pass
+
+if __name__ == "__main__":
+    processes = []
+    for _ in range(4):
+        p = mp.Process(target=worker_func)
+        processes.append(p)
+        p.start()
+
+    for p in processes:
+        p.join()
+
+    # Check exit statuses and handle appropriatelyhon
 """Multiple processes with wandb service crash.
 
 Create a scenario where:

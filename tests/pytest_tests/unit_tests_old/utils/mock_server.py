@@ -27,7 +27,15 @@ import wandb
 sys.path[0:0] = save_path
 
 RequestsMock = None
-InjectRequestsParse = None
+InjectR            return json.dumps(get_ctx())
+        else:
+            ctx.update(body)
+            try:
+                set_ctx(ctx)
+                app.logger.info("updated context %s", ctx)
+            except Exception as e:
+                app.logger.error(f"Error updating context: {e}")
+            return json.dumps(get_ctx())arse = None
 ArtifactEmulator = None
 
 

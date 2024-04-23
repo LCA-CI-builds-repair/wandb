@@ -11,7 +11,10 @@ This guide discusses the development workflow and the internals of the `wandb` l
 ### Table of Contents
 
 <!--
-ToC was generated with https://ecotrust-canada.github.io/markdown-toc/
+ToC was g3. Resolve CI Issue for Passing Tests
+   - Ensure telemetry features and resolver are correctly configured
+   - Fix any issues related to diffusers autolog
+   - Note: Coverage counts for the entire process including interface code and internal processesated with https://ecotrust-canada.github.io/markdown-toc/
 Please make sure to update the ToC when you update this page!
 -->
 

@@ -18,7 +18,24 @@ import yaml
 import wandb
 from wandb.errors import CommError
 from wandb.sdk.launch._launch_add import launch_add
-from wandb.sdk.launch.errors import LaunchError
+from waimport wandb
+
+class Scheduler:
+    def __init__(self):
+        self._threading_lock = threading.Lock()
+        self._runs = {}
+
+    def cleanup_finished_runs(self, runs_to_remove):
+        """
+        Removes finished runs from the list of runs for debugging or when polling on completed runs.
+        """
+        with self._threading_lock:
+            for run_id in runs_to_remove:
+                try:
+                    wandb.termlog(f"Cleaning up finished run ({run_id})")
+                    del self._runs[run_id]
+                except KeyError as e:
+                    wandb.termerror(f"Error cleaning up run ({run_id}): {e}")k.launch.errors import LaunchError
 from wandb.sdk.launch.sweeps import SchedulerError
 from wandb.sdk.launch.sweeps.utils import (
     create_sweep_command_args,

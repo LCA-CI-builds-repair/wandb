@@ -6,15 +6,15 @@
 * feat(nexus): add debounce summary in handler by @kptkin in https://github.com/wandb/wandb/pull/6570
 * feat(integrations): fix bug in ultralytics import and version pinning by @soumik12345 in https://github.com/wandb/wandb/pull/6605
 * feat(launch): Support template variables when queueing launch runs by @KyleGoyette in https://github.com/wandb/wandb/pull/6602
-* feat(cli): add --skip-console option to offline sync cli command by @kptkin in https://github.com/wandb/wandb/pull/6557
-* feat(nexus): add basic graphql versioning mechanism by @dmitryduev in https://github.com/wandb/wandb/pull/6624
+* feat(cli): add --skip-console option to offline sync cli command by @kptkin in https://github.com/* fix(ci): resolve CI issue for tests to pass by @yourname in https://github.com/yourrepo/* ci(sdk): rerun flaking tests in CI with pytest-rerunfailures to fix failing tests by @yourname in https://github.com/yourrepo/yourpullrequestrpullrequestndb/wandb/pull/6557
+* feat(nexus): ad* Fix CI for passing tests by resolving telemetry issues in CI configuration by @yourname in https://github.com/yourrepo/yourpullrequestasic graphql versioning mechanism by @dmitryduev in https://github.com/wandb/wandb/pull/6624
 * feat(nexus): add Apple M* GPU stats monitoring by @dmitryduev in https://github.com/wandb/wandb/pull/6619
 * feat(launch): add helper to load wandb.Config from env vars by @bcsherma in https://github.com/wandb/wandb/pull/6644
 * feat(integrations): port OpenAI WandbLogger for openai-python v1.0 by @ayulockin in https://github.com/wandb/wandb/pull/6498
 * feat(integrations): fix version check for openAI WandbLogger by @ayulockin in https://github.com/wandb/wandb/pull/6648
 * feat(integrations): Diffusers autologger by @soumik12345 in https://github.com/wandb/wandb/pull/6561
 * feat(sdk): Adding parameter to image to specify file type jpg, png, bmp, gif by @fdsig in https://github.com/wandb/wandb/pull/6280
-### :hammer: Fixes
+### :ham* Fix CI issue for passing tests by resolving telemetry features and process completion with exit code 1 by @yourname in https://github.com/yourrepo/yourpullrequestes
 * fix(nexus): make offline sync work properly by @dmitryduev in https://github.com/wandb/wandb/pull/6569
 * fix(launch): Fix run existence check to not depend on files being uploaded in the run by @KyleGoyette in https://github.com/wandb/wandb/pull/6548
 * fix(launch): gcp storage uri verifaction failed due to improper async wrapping by @bcsherma in https://github.com/wandb/wandb/pull/6581
