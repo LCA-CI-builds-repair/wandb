@@ -1,8 +1,87 @@
-import json
-import os
+iimport os
 import re
 import subprocess
 import sys
+from typing import List, Optional, Set
+
+    """Install deps in requirements.frozen.txt."""
+    extra_index = None
+    torch_reqs = []
+    if os.path.exists("requirements.frozen.txt"):
+        with open("requirements.frozen.txt") as f:
+            print("Installing frozen dependencies...")
+            reqs = []
+            for req in f:
+                if (
+                    len(ONLY_INCLUDE) == 0
+                    or req in ONLY_INCLUDE
+                    or req.split("=")[0].lower() in ONLY_INCLUDE
+                ):
+                    # can't pip install wandb==0.*.*.dev1 through pip. Lets just install wandb for now
+                    if req.startswith("wandb==") and "dev1" in req:
+                        req = "wandb"
+                    match = re.match(
+                        TORCH_DEP_REGEX,
+                        req,
+                    )
+                    if match:
+                        variant = match.group(2)
+                        if variant:
+                            extra_index = None  # Assign None initially for torch dependencies "ERROR: Failed to install: "
+FAILED_PACKAGES_POSTFIX = ". During automated build process."
+ONLY_INCLUDE = {x for x in os.getenv("WANDB_ONLY_INCLUDE", "").split(",") if x != ""}
+OPTS = []
+# If the builder doesn't support buildx no need to use the cache
+if os.getenv("WANDB_DISABLE_CACHE"):
+    OPTS.append("--no-cache-dir")
+# When installing all packages from requirements.frozen.txt no need to resolve dependencies
+if len(ONLY_INCLUDE) == 0:
+    OPTS.append("--no-deps")
+# When installing the intersection of requirements.frozen.txt and requirements.txt
+# force the frozen versions
+else:
+    OPTS.append("--force")
+
+TORCH_DEP_REGEX = r"torch(vision|audio)?==\d+\.\d+\.\d+(\+(?:cu[\d]{2,3})|(?:\+cpu))?"
+
+def get_current_package(line: str, clean_deps: List[str], current_pkg: str) -> Optional[str]:
+    # Implementation to extract the currently installing package from the error message
+    pass
+
+def install_deps(
+    deps: List[str],
+    failed: Optional[Set[str]] = None,
+    extra_index: Optional[str] = None,
+    opts: Optional[List[str]] = None,
+) -> Optional[Set[str]]:
+    """Install pip dependencies.
+
+    Arguments:
+        deps {List[str]} -- List of dependencies to install
+        failed (set, None): The libraries that failed to install
+
+    Returns:
+        failed (set, None): The dependencies that failed to install
+    """
+    try:
+        # Include only uri if @ is present
+        clean_deps = [d.split("@")[-1].strip() if "@" in d else d for d in deps]
+        index_args = ["--extra-index-url", extra_index] if extra_index else []
+        print("installing {}...".format(", ".join(clean_deps)))
+        opts = opts or []
+        args = ["pip", "install"] + opts + clean_deps + index_args
+        sys.stdout.flush()
+        subprocess.check_output(args, stderr=subprocess.STDOUT)
+        return failed
+    except subprocess.CalledProcessError as e:
+        if failed is None:
+            failed = set()
+        num_failed = len(failed)
+        current_pkg = None
+        for line in e.output.decode("utf8").splitlines():
+            # Since the name of the package might not be on the same line as
+            # the error msg, keep track of the currently installing package
+            current_pkg = get_current_package(line, clean_deps, current_pkg)s
 from typing import List, Optional, Set
 
 FAILED_PACKAGES_PREFIX = "ERROR: Failed to install: "

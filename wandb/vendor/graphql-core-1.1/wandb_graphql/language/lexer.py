@@ -9,8 +9,45 @@ __all__ = ['Token', 'Lexer', 'TokenKind',
 class Token(object):
     __slots__ = 'kind', 'start', 'end', 'value'
 
-    def __init__(self, kind, start, end, value=None):
-        self.kind = kind
+    def __init__(self, kind, st        is_float = False
+
+        position += 1
+        code = char_code_at(body, position)
+        position = read_digits(source, position, code)
+        code = char_code_at(body, position)
+
+    if code in (69, 101):  # E e
+        is_float = True
+        position += 1
+        code = char_code_at(body, position)
+        if code in (43, 45):  # + -
+            position += 1
+            code = char_code_at(body, position)
+
+        position = read_digits(source, position, code)
+
+    return Token(
+        TokenKind.FLOAT if is_float else TokenKind.INT,
+        start,
+        position,
+        body[start:position]
+    )
+
+
+def read_digits(source, start, first_code):
+    body = source.body
+    position = start
+    code = first_code
+
+    if code is not None and 48 <= code <= 57:  # 0 - 9
+        while True:
+            position += 1
+            code = char_code_at(body, position)
+
+            if not (code is not None and 48 <= code <= 57):
+                break
+
+        return positiond = kind
         self.start = start
         self.end = end
         self.value = value

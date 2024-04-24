@@ -12,7 +12,35 @@
 * feat(launch): add helper to load wandb.Config from env vars by @bcsherma in https://github.com/wandb/wandb/pull/6644
 * feat(integrations): port OpenAI WandbLogger for openai-python v1.0 by @ayulockin in https://github.com/wandb/wandb/pull/6498
 * feat(integrations): fix version check for openAI WandbLogger by @ayulockin in https://github.com/wandb/wandb/pull/6648
-* feat(integrations): Diffusers autologger by @soumik12345 in https://github.com/wandb/wandb/pull/6561
+* feat(integrations): Diffusers autologger by * Fix logging of images with special characters in the key by @speezepearson. ([Pull Request #3187](https://github.com/wandb/wandb/pull/3187))
+* Fix azure blob upload retry logic by @vanpelt. ([Pull Request #3218](https://github.com/wandb/wandb/pull/3218))
+* Fix program field for scripts run as a python module by @dmitryduev. ([Pull Request #3228](https://github.com/wandb/wandb/pull/3228))
+* Fix issue where `sync_tensorboard` could die on large histograms by @KyleGoyette. ([Pull Request #3019](https://github.com/wandb/wandb/pull/3019))
+* Fix wandb service performance issue during run shutdown by @raubit## 0.10.9 (November 4, 2020)
+
+#### :nail_care: Enhancement
+
+- Added artifact media logging (alpha)
+- Added scriptable alerts
+- Added url attribute for sweep public API
+- Updated docstrings for wandb SDK functions
+
+#### :bug: Bug Fix
+
+- Fixed cases where offline mode was making network connections
+- Fixed issues with Python sweeps and run stopping
+- Fixed logging issue where an API key could accidentally be displayed
+- Fixed wandb login issues with malformed hosts
+- Allowed wandb.restore() to be called without wandb.init()
+- Fixed resuming (reusing run_id) with empty summary
+- Fixed artifact download issue
+- Added missing wandb.unwatch() function
+- Avoided creating spurious wandb directories
+- Fixed collections import issue when using an old version of sixhttps://github.com/wandb/wandb/pull/3262))
+* Fix vendoring of gql and graphql by @raubitsj. ([Pull Request #3266](https://github.com/wandb/wandb/pull/3266))
+* Flush log data without finish with service by @kptkin. ([Pull Request #3137](https://github.com/wandb/wandb/pull/3137))
+* Fix wandb service hang when the service crashes by @raubitsj. ([Pull Request #3280](https://github.com/wandb/wandb/pull/3280))
+* Fix issue logging images with "/" on Windows by @KyleGoyette. ([Pull Request #3146](https://github.com/wandb/wandb/pull/3146))345 in https://github.com/wandb/wandb/pull/6561
 * feat(sdk): Adding parameter to image to specify file type jpg, png, bmp, gif by @fdsig in https://github.com/wandb/wandb/pull/6280
 ### :hammer: Fixes
 * fix(nexus): make offline sync work properly by @dmitryduev in https://github.com/wandb/wandb/pull/6569

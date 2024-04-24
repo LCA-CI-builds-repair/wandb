@@ -27,7 +27,27 @@ import wandb
 sys.path[0:0] = save_path
 
 RequestsMock = None
-InjectRequestsParse = None
+In        if requ    @snoop.relay
+    def graphql():
+        # TODO: Scope ctx to the test name if available
+        base_url = request.url_root.rstrip("/")
+        test_name = request.headers.get("X-WANDB-USERNAME")
+        if test_name:
+            app.logger.info("Test request from: %s", test_name)
+        app.logger.info("graphql post")d == "GET":
+            return json.dumps(get_ctx())
+        elif request.method == "POST":
+            ctx = snoop.context_enrich(ctx)
+            return json.dumps(ctx)
+        elif request.method == "DELETE":
+            app.logger.info("resetting context")
+            set_ctx(default_ctx())
+            return json.dumps(get_ctx())
+        else:
+            update_ctx(body)
+            # TODO: tests in CI failed on this
+            app.logger.info("updated context %s", ctx)
+            return json.dumps(get_ctx())arse = None
 ArtifactEmulator = None
 
 

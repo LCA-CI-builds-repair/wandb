@@ -1,4 +1,9 @@
-import logging
+iimport logging
+
+from wandb.sdk.integration_utils.auto_logging import AutologAPI
+from .pipeline_resolver import DiffusersPipelineResolver
+
+logger = logging.getLogger(__name__)logging
 
 from wandb.sdk.integration_utils.auto_logging import AutologAPI
 

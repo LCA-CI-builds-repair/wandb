@@ -1,11 +1,66 @@
 #!/usr/bin/env bash
 
 set -e
-PROG="code-check.sh"
+P    $BASE/scripts/update-dev-env.sh
+}
 
-usage()
-{
-    echo "Usage: $PROG [COMMANDS] [OPTIONS]"
+NOCOMMAND=true
+
+while (( "$#" )); do
+  case "$1" in
+    check)
+      CHECK=true
+      NOCOMMAND=false
+      shift
+      ;;
+    update)
+      update_dev_env
+      NOCOMMAND=false
+      shift
+      ;;
+    install)
+      update_dev_env
+      pre-commit install -t pre-push
+      NOCOMMAND=false
+      shift
+      ;;
+    -a|--all)
+      CHECK_ALL=true
+      shift
+      ;;
+    --hook)
+      CHECK_HOOK="$CHECK_HOOK $2"
+      shift 2
+      ;;
+    --skip)
+      export SKIP="$2"
+      shift 2
+      ;;
+    --stage)
+      HOOK_STAGE="$2"
+      shift 2
+      ;;
+    -h|--help)
+      usage
+      exit 2
+      ;;
+    -*|--*)
+      echo "Error: Unsupported flag $1" >&2
+      usage
+      exit 1
+      ;;
+    *)
+      echo "Error: Unknown command $1" >&2
+      usage
+      exit 1
+      ;;
+  esac
+done
+
+if $NOCOMMAND; then
+  usage
+  exit 1
+fiMANDS] [OPTIONS]"
     echo "  COMMANDS:"
     echo "    check   - run hooks"
     echo "    update  - update tools"

@@ -1,6 +1,14 @@
-from typing import Any, Dict, Sequence
-
-from wandb.sdk.integration_utils.auto_logging import Response
+from typing import Any, Dict, Se        Returns:
+            Packed data as a dictionary for logging to wandb, None if an exception occurred.
+        """
+        pipeline_name = args[0].__class__.__name__
+        resolver = None
+        if pipeline_name in SUPPORTED_MULTIMODAL_PIPELINES:
+            resolver = DiffusersMultiModalPipelineResolver(pipeline_name)
+        elif pipeline_name in SUPPORTED_SDXL_PIPELINES:
+            resolver = SDXLResolver(pipeline_name)
+        loggable_dict = resolver.resolve(args, kwargs, response, start_time, time_elapsed)
+        return loggable_dict.sdk.integration_utils.auto_logging import Response
 
 from .resolvers import (
     SUPPORTED_MULTIMODAL_PIPELINES,
