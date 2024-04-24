@@ -11,7 +11,48 @@ This guide discusses the development workflow and the internals of the `wandb` l
 ### Table of Contents
 
 <!--
-ToC was generated with https://ecotrust-canada.github.io/markdown-toc/
+ToC was g   Note: coverage only counts for the User Process and interface code
+   Example: 
+   - [wandb_integration_test.py](tests/pytest_tests/system_tests/test_wandb_integration.py)
+2. Inject into the Shared Queues to mock_server
+   Note: coverage only counts for the interface code and internal process code
+   Example: 
+   - [test_sender.py](tests/pytest_tests/system_tests/test_sender.py)
+3. From wandb.Run object to Shared Queues
+   Note: coverage counts for User Process
+   Example: 
+   - [wandb_run_test.py](tests/pytest_tests/unit_tests/test_wandb_run.py)
+
+Good examples of tests for each level of testing can be found at:
+
+- [test_system_metrics_*.py](tests/pytest_tests/unit_tests/test_system_metrics/test_system_metrics_*.py): User process tests
+- [test_metric_internal.py](tests/pytest_tests/system_tests/test_metric_internal.py): Internal process tests
+- [test_metric_full.py](tests/pytest_tests/system_tests/test_metric_full.py): Full stack tests
+
+### Global Pytest Fixtures
+
+Global fixtures are defined in `tests/**/conftest.py`, separated into [unit test fixtures](tests/pytest_tests/unit_tests/conftest.py), [system test fixtures](tests/pytest_tests/system_tests/conftest.py), as well as [shared fixtures](tests/pytest_tests/conftest.py).
+
+- `local_netrc` - used automatically for all tests and patches the netrc logic to avoid interacting with your system .netrc
+- `local_settings` - used automatically for all tests and patches the global settings path to an isolated directory.
+- `test_settings` - returns a `wandb.Settings` object that can be used to initialize runs against the `live_mock_server`. See `tests/wandb_integration_test.py`
+- `runner` — exposes a click.CliRunner object which can be used by calling `.isolated_filesystem()`. This also mocks out calls for login returning a dummy api key.
+- `mocked_run` - returns a mocked out run object that replaces the backend interface with a MagicMock so no actual api calls are made.
+- `wandb_init_run` - returns a fully functioning run with a mocked out interface (the result of calling `wandb.init`). No api's are actually called, but you can access what apis were called via `run._backend.{summary,history,files}`. See `test/utils/mock_backend.py` and `tests/frameworks/test_keras.py`
+- `mock_server` - mocks all calls to the `requests` module with sane defaults. You can customize `tests/utils/mock_server.py` to use context or add api calls.
+- `live_mock_server` - we start a live flask server when tests start. live_mock_server configures WANDB_BASE_URL point to this server. You can alter or get its context with the `get_ctx` and `set_ctx` methods. See `tests/wandb_integration_test.py`. NOTE: this currently doesn't support concurrent requests so if we run tests in parallel we need to solve for this.
+- `git_repo` — places the test context into an isolated git repository
+- `test_dir` - places the test into `tests/logs/NAME_OF_TEST` this is useful for looking at debug logs. This is used by `test_settings`
+- `notebook` — gives you a context manager for reading a notebook providing `execute_cell`. See `tests/utils/notebook_client.py` and `tests/test_notebooks.py`. This uses `live_mock_server` to enable actual api calls in a notebook context.
+- `mocked_ipython` - to get credit for codecov you may need to pretend you're in a jupyter notebook when you aren't, this fixture enables that.
+
+### Code Coverage
+
+We use codecov to ensure we're executing all branches of logic in our tests. Below are some JHR Protips™
+
+1. If you want to see the lines not covered you click on the “Diff” tab. then look for any “+” lines that have a red block for the line number
+2. If you want more context about the files, go to the “Files” tab, it will highlight diffs, but you have to do even more searching for the lines you might care about
+3. If you don't want to use codecov, you can use local coverage (I tend to do this for speeding things up a bit, run your tests then run tox -e cover ). This will give you the old school text output of missing lines (but not based on a diff from main)hub.io/markdown-toc/
 Please make sure to update the ToC when you update this page!
 -->
 

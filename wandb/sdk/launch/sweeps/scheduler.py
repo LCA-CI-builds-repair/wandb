@@ -7,8 +7,113 @@ import socket
 import threading
 import time
 import traceback
-from abc import ABC, abstractmethod
-from dataclasses import dataclass
+from abc import AB        self._wandb_run = self._init_wandb_run()
+
+        # Grab params from scheduler wandb run config
+        num_workers = num_workers or self._wandb_run.config.get("sche                        self._num_runs_launched += 1
+
+           def _try_load_exec        tasks = []
+             """Thread-safe way to iterate over the runs."""
+        with self._threading_lock:
+            yield from self._runs.items()
+
+    def _cleanup_runs(self, runs_to_remove: List[str]) -> None:
+        """Helper for removing runs from memory.
+
+        Can be overloaded to prevent deletion of runs, which is useful
+        for debugging or when polling on completed runs.
+        """
+        with self._threading_lock:
+            for run_id in runs_to_remove:
+                wandb.termlog(f"{LOG_PREFIX}Cleaning up finished run ({run_id})")
+                del self._runs[run_id]
+
+    def _stop_runs(self) -> None:
+        to_delete = []
+        for run_id, _ in self._yield_runs():
+            to_delete += [run_id]
+
+        for run_id in to_delete:
+            wandb.termlog(f"{LOG_PREFIX}Stopping run ({run_id})")
+            if not self._stop_run(run_id):
+                pass  # Add appropriate handling here if needednt_loop_thread_exec(self._api.register_agent)
+        for worker_id in range(self._num_workers):
+            _logger.debug(f"{LOG_PREFIX}Starting AgentHeartbeat worker ({worker_id})")
+            try:
+                worker = register_agent(
+                    f"{socket.gethostname()}-{worker_id}",  # host
+                    sweep_id=self._sweep_id,
+                    project_name=self._project,
+                    entity=self._entity,
+                )
+                tasks.append(worker)
+            except Exception as e:
+                _logger.debug(f"Failed to register agent: {e}")
+                self.fail_sweep(f"Failed to register agent: {e}")
+
+        finished_tasks = await asyncio.gather(*tasks)
+        for idx, agent_config in enumerate(finished_tasks):
+            self._workers[idx] = _Worker(
+                agent_config=agent_config,
+                agent_id=agent_config["id"],
+            )        """Check the existence of a valid executable for a run.
+
+        Logs and returns False when the job is unreachable.
+        """
+        if self._kwargs.get("job"):
+            try:
+                _job_artifact = self._public_api.job(self._kwargs["job"])
+                wandb.termlog(
+                    f"{LOG_PREFIX}Successfully loaded job ({_job_artifact.name}) in scheduler"
+                )
+            except Exception:
+                wandb.termerror(f"{LOG_PREFIX}{traceback.format_exc()}")
+                return False
+            return True
+        elif self._kwargs.get("image_uri"):
+            # Future enhancement: Check Docker existence or use registry in launch config
+            return True
+        else:
+            return Falseelf._polling_sleep)
+        except KeyboardInterrupt:
+            wandb.termwarn(f"{LOG_PREFIX}Scheduler received KeyboardInterrupt. Exiting")
+            self.state = SchedulerState.STOPPED
+            return
+        except Exception as e:
+            wandb.termlog(f"{LOG_PREFIX}Scheduler failed with exception {e}")
+            self.state = SchedulerState.FAILED
+            raise e
+        else:
+            # scheduler succeeds if at runcap
+            if self.state == SchedulerState.FLUSH_RUNS and self.at_runcap:
+                self.state = SchedulerState.COMPLETED           "num_workers"
+        )
+        self._num_workers = int(num_workers) if str(num_workers).isdigit() else 8
+        self._settings_config: Dict[str, Any] = self._wandb_run.config.get(
+            "settings", {}
+        )
+
+    @abstractmethod
+    def _get_next_sweep_run(self, worker_id: int) -> Optional[SweepRun]:
+        """Called when worker available."""
+        pass
+
+    @abstractmethod
+    def _poll(self) -> None:
+        """Called every polling loop."""
+        pass
+
+    @abstractmethod
+    def _exit(self) -> None:
+        pass
+
+    @abstractmethod
+    def _load_state(self) -> None:
+        pass
+
+    @abstractmethod
+    def _save_state(self) -> None:
+        passes import dataclass
 from enum import Enum
 from typing import TYPE_CHECKING, Any, Dict, Iterator, List, Optional, Tuple, Union
 

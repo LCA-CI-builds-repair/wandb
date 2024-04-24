@@ -1,9 +1,42 @@
 from unittest import mock
 
-import pytest
-import wandb
-from wandb import Api
-from wandb.sdk.artifacts.artifact_download_logger import ArtifactDownloadLogger
+importdef test_api_base_url_sanitization():
+    """Test that the base URL is sanitized correctly."""
+    with mock.patch.object(wandb, "login", mock.MagicMock()):
+        api = Api({"base_url": "https://wandb.corp.net///"})
+        assert api.settings["base_url"] == "https://wandb.corp.net"
+
+
+@pytest.mark.parametrize(
+    "path",
+    [
+        "user/proj/run",  # simple
+        "/user/proj/run",  # leading slash
+        "user/proj:run",  # docker
+        "user/proj/runs/run",  # path_url
+    ],
+)
+@pytest.mark.usefixtures("patch_apikey", "patch_prompt")
+def test_api_parse_path(path):
+    """Test the parsing of path components."""
+    with mock.patch.object(wandb, "login", mock.MagicMock()):
+        user, project, run = Api()._parse_path(path)
+        assert user == "user"
+        assert project == "proj"
+        assert run == "run"
+
+
+@pytest.mark.usefixtures("patch_apikey", "patch_prompt")
+def test_api_parse_project_path():
+    """Test the parsing of project path."""
+    with mock.patch.object(wandb, "login", mock.MagicMock()):
+        entity, project = Api()._parse_project_path("user/proj")
+        assert entity == "user"
+        assert project == "proj"
+
+
+# Add docstrings and meaningful test names for the remaining test functions
+# Repeat the pattern of adding descriptive test names and docstrings for better clarityactDownloadLogger
 from wandb.sdk.internal.thread_local_settings import _thread_local_api_settings
 
 

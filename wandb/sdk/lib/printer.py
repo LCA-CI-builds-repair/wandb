@@ -3,8 +3,32 @@
 import itertools
 import platform
 import sys
-from abc import abstractmethod
-from typing import Callable, List, Optional, Tuple, Union
+from     def _display_fn_mapping(level: Optional[Union[str, int]]) -> Callable[[str], None]:
+        level = _Printer._sanitize_level(level)
+
+        if level >= CRITICAL:
+            return wandb.termerror
+        elif ERROR <= level < CRITICAL:
+            return wandb.termerror
+        elif WARNING <= level < ERROR:
+            return wandb.termwarn
+        elif INFO <= level < WARNING:
+            return wandb.termlog
+        elif DEBUG <= level < INFO:
+            return wandb.termdebug
+        else:
+            return wandb.termlog
+
+    def progress_update(self, text: str, percent_done: Optional[float] = None) -> None:
+        wandb.termlog(f"{next(self._progress)} {text}", newline=False)
+
+    def progress_close(self, text: Optional[str] = None) -> None:
+        text = text or " " * 79
+        wandb.termlog(text)
+
+    def code(self, text: str) -> str:
+        ret: str = click.style(text, bold=True)
+        return retfrom typing import Callable, List, Optional, Tuple, Union
 
 import click
 
