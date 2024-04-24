@@ -2,7 +2,67 @@
 
 ## What's Changed
 ### :magic_wand: Enhancements
-* perf(artifacts): remove recursive download by @szymon-piechowicz-wandb in https://github.com/wandb/wandb/pull/6544
+* # 0.16.0 (Oct 15, 2023)
+
+### :hammer: Fixes
+* fix(launch): add load option to docker buildx by @KyleGoyette in https://github.com/wandb/wandb/pull/6508
+* fix(artifacts): fix perf regressions in artifact downloads and fix file download location by @ibindlish in https://github.com/wandb/wandb/pull/6535
+* fix(sdk): add warning when `log_code` can't locate any files by @umakrishnaswamy in https://github.com/wandb/wandb/pull/6532
+* fix(sdk): adjust ipython hooks for v8.17 by @dmitryduev in https://github.com/wandb/wandb/pull/6563
+* fix(artifacts): fix typo in s3 handler by @ibindlish in https://github.com/wandb/wandb/pull/6565
+
+### :books: # Add Missing Entry for the Release:
+
+* fix(docs): Add missing documentation for the recent SDK changes by @wandb-editor in https://github.com/wandb/wandb/pull/XXXX
+* docs(media): fix `Graph` docstring by @harupy in https://github.com/wandb/wandb/pull/6458
+* docs(public-api): Fix suggested command for uploading artifacts by @geke-mir in https://github.com/wandb/wandb/pull/6513
+
+## New Contributors
+* @j316chuck made their first contribution in https://github.com/wandb/wandb/pull/6410
+* @harupy made their first contribution in https://github.com/wandb/wandb/pull/6458
+* @Hojland made their first contribution in https://github.com/wandb/wandb/pull/6443
+* @mova made their first contribution in https://github.com/wandb/wandb/pull/6465
+* @geke-mir made their first contribution in https://github.com/wandb/wandb/pull/6513
+* @luisbergua made their first contribution in https://github.com/wandb/wandb/pull/6422
+* @vatsalaggarwal made their first contribution in https://github.com/wandb/wandb/pull/6503
+
+**Full Changelog**: https://github.com/wandb/wandb/compare/v0.15.12...v0.16.0
+
+# 0.15.12 (Oct 3, 2023)
+
+### :hammer: Fixes
+* fix(launch): get logs from failed k8s pods by @bcsherma in https://github.com/wandb/wandb/pull/6339
+* fix(artifacts): Allow adding s3 bucket as reference artifact by @ibindlish in https://github.com/wandb/wandb/pull/6346
+* fix(launch): Fix race condition in agent thread clean up by @KyleGoyette in https://github.com/wandb/wandb/pull/6352
+* fix(artifacts): don't assume run and its i/o artifacts are in the same project by @szymon-piechowicz-wandb in https://github.com/wandb/wandb/pull/6363
+* fix(artifacts): fix wandb.Api().run(run_name).## 0.8.18 (Jan 10, 2020)
+
+#### :nail_care: Enhancement
+
+-   Improved performance in fetching and displaying large datasets
+-   Added support for customizing wandb.init behavior with environment variables
+
+#### :bug: Bug Fix
+
+-   Resolved issue with NaN values causing errors in metric visualization by @szymon-piechowicz-wandb in https://github.com/wandb/wandb/pull/6362
+* fix(sweeps): ValueError with None value in sweep by @gtarpenning in https://github.com/wandb/wandb/pull/6364
+* fix(artifacts): fix typo in s3 handler by @ibindlish in https://github.com/wandb/wandb/pull/6368
+* fix(artifacts): fix the argument order for new argument target_fraction by @moredatarequired in https://github.com/wandb/wandb/pull/6377
+* fix(nexus): fix potential race in config debouncer by @dmitryduev in https://github.com/wandb/wandb/pull/6385
+* fix(sdk): fix graphql type mapping by @szymon-piechowicz-wandb in https://github.com/wandb/wandb/pull/6396
+* fix(sdk): fix concurrency limit in uploader by @szymon-piechowicz-wandb in https://github.com/wandb/wandb/pull/6399
+
+### :books: Docs
+* docs(sdk): fix reference docs GH action by @dmitryduev in https://github.com/wandb/wandb/pull/6350
+* docs(sdk): Update generate-docodile-documentation.yml by @ngrayluna in https://github.com/wandb/wandb/pull/6351
+
+**Full Changelog**: https://github.com/wandb/wandb/compare/v0.15.11...v0.15.12
+
+# 0.15.11 (Sep 21, 2023)
+
+### :magic_wand: Enhancements
+* feat(nexus): add support for code saving in script mode by @kptkin in https://github.com/wandb/wandb/pull/6243
+* feat(nexus): add support for `policy=end` in `wandb.save` by @kptkin in https://github.com/wandb/wandb/pull/6267mon-piechowicz-wandb in https://github.com/wandb/wandb/pull/6544
 * feat(nexus): add debounce summary in handler by @kptkin in https://github.com/wandb/wandb/pull/6570
 * feat(integrations): fix bug in ultralytics import and version pinning by @soumik12345 in https://github.com/wandb/wandb/pull/6605
 * feat(launch): Support template variables when queueing launch runs by @KyleGoyette in https://github.com/wandb/wandb/pull/6602

@@ -21,8 +21,25 @@ def _check_keras_version():
     from keras import __version__ as keras_version
     from pkg_resources import parse_version
 
-    if parse_version(keras_version) < parse_version("2.4.0"):
-        wandb.termwarn(
+    if parse_version(keras_version) < parse_        if self.log_evaluation and self._validation_data_logger:
+            try:
+                if not self.model:
+                    wandb.termwarn("WandbCallback unable to read model from trainer")
+                else:
+                    predictions = self.model.predict(self._validation_data_logger.make_predictions())
+                    self._validation_data_logger.log_predictions(predictions=predictions, commit=commit)
+                    self._model_trained_since_last_eval = False
+            except Exception as e:
+                wandb.termwarn("Error during prediction logging for epoch: " + str(e))
+
+    def on_epoch_end(self, epoch, logs=None):
+        if logs is None:
+            logs = {}
+        if self.log_weights:
+            wandb.log(self._log_weights(), commit=False)
+
+        if self.log_gradients:
+            wandb.log(self._log_gradients(), commit=False)   wandb.termwarn(
             f"Keras version {keras_version} is not fully supported. Required keras >= 2.4.0"
         )
 

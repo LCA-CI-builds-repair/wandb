@@ -1,7 +1,18 @@
 """Implementation of the SageMakerRunner class."""
 import asyncio
-import logging
-from typing import Any, Dict, List, Optional, cast
+im            )
+            return "\n".join(
+                [f'{event["timestamp"]}:{event["message"]}' for event in res["events"]]
+            )
+        except self.log_client.exceptions.ResourceNotFoundException:
+            wandb.termwarn(
+                f"Logs not found for training job: {self.training_job_name}"
+            )
+            return None
+        except Exception as e:
+            wandb.termwarn(
+                f"Failed to handle logs for training job: {self.training_job_name} with error {str(e)}"
+            )from typing import Any, Dict, List, Optional, cast
 
 if False:
     import boto3  # type: ignore
