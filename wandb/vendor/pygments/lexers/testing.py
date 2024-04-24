@@ -5,7 +5,50 @@
 
     Lexers for testing languages.
 
-    :copyright: Copyright 2006-2017 by the Pygments team, see AUTHORS.
+    :copyright    """
+    For Test Anything Protocol (TAP) output.
+
+    .. versionadded:: 2.1
+    """
+    from pygments.lexer import RegexLexer, bygroups
+    from pygments.token import Name, Keyword, Generic, Text, Number, Comment
+
+    class TAPLexer(RegexLexer):
+        name = 'TAP'
+        aliases = ['tap']
+        filenames = ['*.tap']
+
+        tokens = {
+            'root': [
+                # A TAP version may be specified.
+                (r'^TAP version \d+\n', Name.Namespace),
+
+                # Specify a plan with a plan line.
+                (r'^1\.\.\d+', Keyword.Declaration, 'plan'),
+
+                # A test failure
+                (r'^(not ok)([^\S\n]*)(\d+)',
+                 bygroups(Generic.Error, Text, Number.Integer), 'test'),
+
+                # A test success
+                (r'^(ok)([^\S\n]*)(\d+)',
+                 bygroups(Keyword.Reserved, Text, Number.Integer), 'test'),
+
+                # Diagnostics start with a hash.
+                (r'^#.*\n', Comment),
+
+                # TAP's version of an abort statement.
+                (r'^Bail out!.*\n', Generic.Error),
+            ],
+            'plan': [
+                # Subsequent comments are not part of the plan.
+                (r'#.*\n', Comment, '#pop'),
+            ],
+            'test': [
+                # Any output following a test line is part of the test.
+                (r'.*\n', Text, '#pop'),
+            ],
+        }ygments team, see AUTHORS.
     :license: BSD, see LICENSE for details.
 """
 

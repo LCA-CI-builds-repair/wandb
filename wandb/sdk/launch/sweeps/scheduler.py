@@ -3,8 +3,12 @@ import asyncio
 import base64
 import logging
 import os
-import socket
-import threading
+import socclass SweepsScheduler:
+    """A controller/agent that populates a Launch RunQueue from a hyperparameter sweep."""
+
+    def __init__(self):
+        self.PLACEHOLDER_URI = "placeholder-uri-scheduler"
+        self.SWEEP_JOB_TYPE = "sweep-controller"import threading
 import time
 import traceback
 from abc import ABC, abstractmethod

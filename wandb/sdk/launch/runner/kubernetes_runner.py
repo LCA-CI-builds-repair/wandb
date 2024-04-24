@@ -5,10 +5,26 @@ import json
 import logging
 from typing import Any, Dict, Iterator, List, Optional, Tuple, Union
 
-import yaml
-
-import wandb
-from wandb.apis.internal import Api
+import yaml    async def get_logs(self) -> Optional[str]:
+        """Get logs for custom object."""
+        # TODO: test more carefully once we release multi-node support
+        logs = {}
+        try:
+            pods = await self.core_api.list_namespaced_pod(
+                label_selector=f"wandb/run-id={self.name}", namespace=self.namespace
+            )
+            pod_names = [pi.metadata.name for pi in pods.items]
+            for pod_name in pod_names:
+                logs[pod_name] = await self.core_api.read_namespaced_pod_log(
+                    name=pod_name, namespace=self.namespace
+                )
+        except ApiException as e:
+            wandb.termwarn(f"Failed to get logs for {self.name}: {str(e)}")
+            return None
+        if not logs:
+            return None
+        logs_as_array = [f"Pod {pod_name}:\n{log}" for pod_name, log in logs.items()]
+        return "\n".join(logs_as_array) wandb.apis.internal import Api
 from wandb.sdk.launch.agent.agent import LaunchAgent
 from wandb.sdk.launch.environment.abstract import AbstractEnvironment
 from wandb.sdk.launch.registry.abstract import AbstractRegistry

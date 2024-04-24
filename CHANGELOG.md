@@ -2,7 +2,77 @@
 
 ## What's Changed
 ### :magic_wand: Enhancements
-* perf(artifacts): remove recursive download by @szymon-piechowicz-wandb in https://github.com/wandb/wandb/pull/6544
+* perf(artifacts): remove recursi* **Fix (artifacts):** Don't assume run and its input/output artifacts are in the same project. 
+   - By @szymon-piechowicz-wandb in [PR #6363](https://github.com/wandb/wandb/pull/6363)
+
+* **Fix (artifacts):** Fix `wandb.Api().run(run_name).log_artifact(artifact)`.
+   - By @szymon-piechowicz-wandb in [PR #6362](https://github.com/wandb/wandb/pull/6362)
+
+* **Fix (sweeps):** Resolve ValueError with None value in sweep.
+   - By @gtarpenning in [PR #6364](https://github.com/wandb/wandb/pull/6364)
+
+* **Fix (artifacts):** Fix typo in s3 handler.
+   - By @ibindlish * **Chore (launch):** Deprecate defaulting to default queue in launch-agent command.
+  - By @gtarpenning in [PR #4801](https://github.com/wandb/wandb/pull/4801)
+
+* **Test (launch):** Add unit test for Kubernetes runner with annotations.
+  - By @TimH98 in [PR #4800](https://github.com/wandb/wandb/pull/4800)
+
+* **Test (integrations):** Fix `train_gpu_ddp` test.
+  - By @dmitryduev in [PR #4831](https://github.com/wandb/wandb/pull/4831)
+
+* **Chore (sdk):** Fix docker testimage to pull amd64 version.
+  - By @raubitsj in [PR #4838](https://github.com/wandb/wandb/pull/4838)
+
+* **Chore (sdk):** Fix codeowners after test restructure.
+  - By @raubitsj in [PR #4843](https://github.com/wandb/wandb/pull/4843)
+
+* **Test (sdk):** Fix MD5 test failures on Windows.
+  - By @moredatarequired in [PR #4840](https://github.com/wandb/wandb/pull/4840)
+
+* **Chore (sdk):** Split out relay server so it can be shared with yea-wandb.
+  - By @raubitsj in [PR #4837](https://github.com/wandb/wandb/pull/4837)
+
+* **Chore (sdk):** Fix a flake8 complaint in a test.
+  - By @speezepearson in [PR #4806](https://github.com/wandb/wandb/pull/4806)
+
+* **Test (integrations):** Fix several import tests.
+  - By @dmitryduev in [PR #4849](https://github.com/wandb/wandb/pull/4849)
+
+* **Test (sdk):** Don't use symlinks for SSL test assets due to Windows.
+  - By @speezepearson in [PR #4847](https://github.com/wandb/wandb/pull/4847)
+
+* **Test (sdk):** Add unit tests for filesync.Stats.
+  - By @speezepearson in [PR #4855](https://github.com/wandb/wandb/pull/4855)
+
+* **Chore (sdk):** Add async retry logic.
+  - By @speezepearson in [PR #4738](https://github.com/wandb/wandb/pull/4738)
+
+* **Test (artifacts):** Strengthen tests for `ArtifactSaver`, `StepUpload`.
+  - By @speezepearson in [PR #4808](https://github.com/wandb/wandb/pull/4808)
+
+* **Chore (launch):** Agent logs full stack trace when catching exception.
+  - By @TimH98 in [PR #4861](https://github.com/wandb/wandb/pull/4861)
+
+* #### :bug: Bug Fixes
+
+- Fastai callback now uses the default monitor instead of assuming val_loss.
+- Notebook introspections handle error cases and do not print stack trace on failure.
+- Do not print description warning when setting name.
+- Fixed dataframe logging error with the Keras callback.
+- Fixed line offsets in logs when resuming runs.
+- `wandb.config` now casts non-builtins before writing to YAML.
+- Vendored backports.tempfile to address missing package on install.k):** Swallow warning printed by neuron-ls.
+  - By @dmitryduev in [PR #4835](https://github.com/wandb/wandb/pull/4835)ttps://github.com/wandb/wandb/pull/6368)
+
+* **Fix (artifacts):** Fix the argument order for new argument `target_fraction`.
+   - By @moredatarequired in [PR #6377](https://github.com/wandb/wandb/pull/6377)
+
+* **Fix (nexus):** Resolve potential race in config debouncer.
+   - By @dmitryduev in [PR #6385](https://github.com/wandb/wandb/pull/6385)
+
+* **Fix (sdk):** Fix graphql type mapping.
+   - By @szymon-piechowicz-wandb in [PR #6396](https://github.com/wandb/wandb/pull/6396)load by @szymon-piechowicz-wandb in https://github.com/wandb/wandb/pull/6544
 * feat(nexus): add debounce summary in handler by @kptkin in https://github.com/wandb/wandb/pull/6570
 * feat(integrations): fix bug in ultralytics import and version pinning by @soumik12345 in https://github.com/wandb/wandb/pull/6605
 * feat(launch): Support template variables when queueing launch runs by @KyleGoyette in https://github.com/wandb/wandb/pull/6602

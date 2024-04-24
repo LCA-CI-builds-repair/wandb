@@ -1,6 +1,28 @@
 """Implements a post-import hook mechanism.
 
-Styled as per PEP-369. Note that it doesn't cope with modules being reloaded.
+Stdef register_post_import_hook(
+    hook: str, hook_id: str, name: str
+) -> None:
+    # Create a deferred import hook if hook is a string name rather than
+    # a callable function.
+    
+    if isinstance(hook, str):
+        hook = _create_import_hook_from_string(hook)
+
+    global _post_import_hooks_init
+
+    with _post_import_hooks_lock:
+        if not _post_import_hooks_init:
+            _post_import_hooks_init = True
+            sys.meta_path.insert(0, ImportHookFinder())  # type: ignore
+
+        # Check if the module is already imported. If not, register the hook
+        # to be called after import.
+
+        module = sys.modules.get(name, None)
+
+        if module is None:
+            _post_import_hooks.setdefault(name, {}).update({hook_id: hook}) that it doesn't cope with modules being reloaded.
 
 Note: This file is based on
 https://github.com/GrahamDumpleton/wrapt/blob/1.12.1/src/wrapt/importer.py

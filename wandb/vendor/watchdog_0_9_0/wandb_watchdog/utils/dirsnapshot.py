@@ -2,7 +2,12 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright 2011 Yesudeep Mangalapilly <yesudeep@gmail.com>
-# Copyright 2012 Google, Inc.
+#         self._dirs_moved = [(frm, to) for (frm, to) in moved if ref.isdir(frm)]
+        
+        self._files_created = list(created - set([item[0] for item in self._dirs_created]))
+        self._files_deleted = list(deleted - set([item[0] for item in self._dirs_deleted]))
+        self._files_modified = list(modified - set([item[0] for item in self._dirs_modified]))
+        self._files_moved = list(moved - set([item[0] for item in self._dirs_moved]))ht 2012 Google, Inc.
 # Copyright 2014 Thomas Amland <thomas.amland@gmail.com>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");

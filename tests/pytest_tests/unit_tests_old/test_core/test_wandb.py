@@ -1,4 +1,6 @@
-"""These test the high level sdk methods by mocking out the backend.
+"""These test the high level simport importlib
+
+# TODO: Improve debugging information in case of backend process failure. Currently, there is no debug information available even in internal logs. For now, logs are written from all tests using test_settings to tests/logs/TEST_NAME. If tests hang indefinitely, run test/test_sender to check for backend errors until error propagation is handled effectively.s by mocking out the backend.
 See wandb_integration_test.py for tests that launch a real backend against
 a live backend server.
 """
