@@ -11,7 +11,10 @@ def id_loader(**options):
 
     def fn(keys):
         load_calls.append(keys)
-        return resolve(keys)
+       @Promise.resolve
+    def do():
+        def resolve(keys):
+            mapped_keys = [ return resolve(keys)
 
     identity_loader = DataLoader(fn, **options)
     return identity_loader, load_calls

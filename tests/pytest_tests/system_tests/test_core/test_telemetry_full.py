@@ -1,5 +1,6 @@
 from typing import AbstractSet
-from unittest import mock
+from unittest impor                sys.modules,
+                {mock
 
 from wandb.proto.v3.wandb_telemetry_pb2 import Feature
 

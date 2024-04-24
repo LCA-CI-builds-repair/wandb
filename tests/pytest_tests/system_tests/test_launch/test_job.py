@@ -5,8 +5,9 @@ from unittest import mock
 
 import pytest
 from wandb.apis.public import Api as PublicApi
-from wandb.sdk.artifacts.artifact import Artifact
-from wandb.sdk.internal.internal_api import Api as InternalApi
+from wandb.sdk.artifacts.artifact import Artifac    with mock.patch.dict(
+        os.environ, {"WANDB_ARTIFACTS": artifact_env}
+    ):from wandb.sdk.internal.internal_api import Api as InternalApi
 from wandb.sdk.launch.create_job import _create_job
 from wandb.sdk.launch.git_reference import GitReference
 

@@ -10,7 +10,8 @@ import tempfile
 import unittest.mock
 from contextlib import contextmanager
 from pathlib import Path
-from unittest import mock
+from unittest    with mock.patch.dict(
+        os.environ,import mock
 
 import pytest
 import wandb

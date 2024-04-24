@@ -37,8 +37,39 @@ from wandb.apis.normalize import normalize_exceptions
 from wandb.apis.public import ArtifactCollection, ArtifactFiles, RetryingClient, Run
 from wandb.data_types import WBValue
 from wandb.errors.term import termerror, termlog, termwarn
-from wandb.sdk.artifacts.artifact_download_logger import ArtifactDownloadLogger
-from wandb.sdk.artifacts.artifact_instance_cache import artifact_instance_cache
+from wandb.sdk.artifacts.artifact_download_logger import            and alias["artifactCollection"]["name"] == self._name.split(":")[0]
+            and not util.alias_is_version_index(alias["alias"])
+        ]
+        self._state = ArtifactState(attrs["state"])
+        self._load_manifest(attrs["currentManifest"]["file"]["directUrl"])
+        self._commit_hash = attrs["commitHash"]
+        self._file_count = attrs["fileCount"]
+        self._created_at = attrs["createdAt"]
+        self._updated_at = attrs["updatedAt"]
+
+    @normalize_exceptions
+    def _update(self) -> None:
+        """Persists artifact changes to the wandb backend."""
+        aliases = None
+        introspect_query = gql(
+            """
+            query ProbeServerAddAliasesInput {
+               AddAliasesInputInfoType: __type(name: "AddAliasesInput") {
+                   name
+                   inputFields {
+                       name
+                   }
+                }
+            }
+            """
+        )
+        assert self._client is not None
+        response = self._client.execute(introspect_query)
+        if response.get("AddAliasesInputInfoType"):  # wandb backend version >= 0.13.0
+            aliases_to_add = set(self._aliases) - set(self._saved_aliases)
+            aliases_to_delete = set(self._saved_aliases) - set(self._aliases)
+            if len(aliases_to_add) > 0:
+                add_mutation = gql(b.sdk.artifacts.artifact_instance_cache import artifact_instance_cache
 from wandb.sdk.artifacts.artifact_manifest import ArtifactManifest
 from wandb.sdk.artifacts.artifact_manifest_entry import ArtifactManifestEntry
 from wandb.sdk.artifacts.artifact_manifests.artifact_manifest_v1 import (

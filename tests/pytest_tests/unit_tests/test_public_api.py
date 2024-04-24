@@ -1,6 +1,16 @@
 from unittest import mock
 
-import pytest
+importimport mock
+import wandb
+
+def test_base_url_sanitization():
+    with mimport mock
+import os
+
+def test_parse_path_id():
+    with mock.patch.dict(
+        os.environ, {"WANDB_ENTITY": "mock_entity", "WANDB_PROJECT": "proj"}
+    ):patch.object(wandb, "login", mock.MagicMock()):ytest
 import wandb
 from wandb import Api
 from wandb.sdk.artifacts.artifact_download_logger import ArtifactDownloadLogger

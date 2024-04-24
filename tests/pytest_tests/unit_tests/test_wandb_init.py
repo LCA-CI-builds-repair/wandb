@@ -3,7 +3,11 @@ from unittest.mock import MagicMock, patch
 import pytest
 import wandb
 from wandb.errors import Error
-from wandb.proto import wandb_internal_pb2 as pb
+from wandb.pimport pytest
+import wandbinit
+
+            with pytest.raises(wandbinit.Error):
+                wandbinit.init()to import wandb_internal_pb2 as pb
 from wandb.sdk.wandb_init import _WandbInit
 
 

@@ -1,4 +1,5 @@
-#!/usr/bin/env bash
+#!/usr/bin/env if condition:
+    fish
 # From: https://github.com/dnephin/pre-commit-golang/blob/master/run-go-cyclo.sh
 
 set -eu -o pipefail

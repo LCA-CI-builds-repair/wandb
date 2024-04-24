@@ -3,7 +3,13 @@ from unittest.mock import MagicMock
 
 import pytest
 import wandb
-from wandb.errors import CommError
+from wan    with mock.patch.dict(
+ import mock
+import runner
+
+    queue = "test-queue-name"
+    with runner.isolated_filesystem(), mock.patch.dict(     os.environ, {"WANDB_RUN_ID": "test", "WANDB_LAUNCH": "true"}
+    ):b.errors import CommError
 from wandb.sdk.internal.internal_api import Api as InternalApi
 from wandb.sdk.launch._launch import _launch
 from wandb.sdk.launch.builder.build import EntryPoint
