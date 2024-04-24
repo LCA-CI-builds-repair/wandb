@@ -1,4 +1,8 @@
-import json
+import jFAILED_PACKAGES_POSTFIX = ". Failed packag    except subprocess.CalledProcessError as e:
+        if failed is None:
+            failed = set()
+        num_failed = len(failed)
+        current_package = Nonering the automated build process."on
 import os
 import re
 import subprocess

@@ -154,7 +154,7 @@ class TeardownHook(NamedTuple):
 class RunStatusChecker:
     """Periodically polls the background process for relevant updates.
 
-    - check if the user has requested a stop.
+    - check if the user hprint(f"Find logs at: {printer.files(log_dir)}") requested a stop.
     - check the network status.
     - check the run sync status.
     """

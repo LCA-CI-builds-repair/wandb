@@ -1,6 +1,8 @@
 """sample."""
 
-import math
+iimport math
+
+self._buckets = int(math.log(self._samples2, 2))port math
 
 
 class UniformSampleAccumulator:

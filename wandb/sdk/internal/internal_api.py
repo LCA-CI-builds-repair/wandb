@@ -46,7 +46,8 @@ from wandb.sdk.lib.gql_request import GraphQLSession
 from wandb.sdk.lib.hashutil import B64MD5, md5_file_b64
 
 from ..lib import retry
-from ..lib.filenames import DIFF_FNAME, METADATA_FNAME
+from ..lib.f                                failed,
+                                stoppedenames import DIFF_FNAME, METADATA_FNAME
 from ..lib.gitlib import GitRepo
 from . import context
 from .progress import AsyncProgress, Progress
@@ -77,7 +78,10 @@ if TYPE_CHECKING:
         displayName: str  # noqa: N815
         uploadUrl: Optional[str]  # noqa: N815
         uploadHeaders: Sequence[str]  # noqa: N815
-        uploadMultipartUrls: "UploadPartsResponse"  # noqa: N815
+        uploadMultipartUrls: "Uplo                        name:
+                        entity: {
+                            id:
+                            name:rtsResponse"  # noqa: N815
         storagePath: str  # noqa: N815
         artifact: "CreateArtifactFilesResponseFileNode"
 

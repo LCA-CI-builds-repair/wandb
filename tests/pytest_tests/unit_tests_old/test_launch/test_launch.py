@@ -39,7 +39,10 @@ class MockBranch:
         self.name = name
 
 
-@pytest.fixture
+@py    # localhost:port to host.docker.internal but not
+    # in CI
+    assert list_command[:5] == expected_command[:5]
+    assert list_command[5:] == expected_command[5:].fixture
 def mocked_fetchable_git_repo():
     m = mock.Mock()
 

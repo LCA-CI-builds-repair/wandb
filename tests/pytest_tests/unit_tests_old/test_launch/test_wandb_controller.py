@@ -3,7 +3,8 @@ import sys
 
 import pytest
 
-pytest.importorskip("sweeps")
+py    # Handle exceptions that may occur during the test execution
+    try:st.importorskip("sweeps")
 
 import sweeps
 import wandb

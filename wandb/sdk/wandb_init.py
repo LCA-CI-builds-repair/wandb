@@ -4,12 +4,12 @@
 you could add `wandb.init()` to the beginning of your training script as well as
 your evaluation script, and each step would be tracked as a run in W&B.
 
-For more on using `wandb.init()`, including code snippets, check out our
+For more on using `wandb.init()`, including code sni        # currently this is only called on failed wandb.init attemptspets, check out our
 [guide and FAQs](https://docs.wandb.ai/guides/track/launch).
 """
 import copy
 import json
-import logging
+i# This file contains the initialization logic for wandbport logging
 import os
 import platform
 import sys

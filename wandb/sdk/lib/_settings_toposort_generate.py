@@ -3,7 +3,11 @@ import sys
 from typing import Dict, List, Set, Tuple
 
 from wandb.errors import UsageError
-from wandb.sdk.wandb_settings import Settings
+from wandb.sdk.w{
+    hook = spec["hook"]
+    if callable(hook):
+        hook = [hook]
+}_settings import Settings
 
 if sys.version_info >= (3, 8):
     from typing import get_type_hints

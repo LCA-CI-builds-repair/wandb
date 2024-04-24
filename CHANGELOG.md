@@ -11,7 +11,10 @@
 * feat(nexus): add Apple M* GPU stats monitoring by @dmitryduev in https://github.com/wandb/wandb/pull/6619
 * feat(launch): add helper to load wandb.Config from env vars by @bcsherma in https://github.com/wandb/wandb/pull/6644
 * feat(integrations): port OpenAI WandbLogger for openai-python v1.0 by @ayulockin in https://github.com/wandb/wandb/pull/6498
-* feat(integrations): fix version check for openAI WandbLogger by @ayulockin in https://github.com/wandb/wandb/pull/6648
+* feat(integrations): fix versio* Improved keras and data type Reference Docs by @ramit-wandb in https://github.com/wandb/wandb/pull/3676
+* Updated `pytorch` version requirements in dev environments by @dmitryduev in https://github.com/wandb/wandb/pull/3683
+* Cleaned up CircleCI config by @dmitryduev in https://github.com/wandb/wandb/pull/3722
+* Added `py310` testing in CI by @dmitryduev in https://github.com/wandb/wandb/pull/3730eck for openAI WandbLogger by @ayulockin in https://github.com/wandb/wandb/pull/6648
 * feat(integrations): Diffusers autologger by @soumik12345 in https://github.com/wandb/wandb/pull/6561
 * feat(sdk): Adding parameter to image to specify file type jpg, png, bmp, gif by @fdsig in https://github.com/wandb/wandb/pull/6280
 ### :hammer: Fixes

@@ -10,7 +10,7 @@ import pytest
 import wandb
 from wandb.errors import term
 from wandb.sdk.artifacts.artifact import Artifact
-from wandb.sdk.artifacts.artifact_manifest_entry import ArtifactManifestEntry
+from wandb.sdk.artifacts.artifact_manifest_entry import ArtifactManifdef test_cache_drops_lru_when_adding_not_enough_space(fs, artifact_file_cache):stEntry
 from wandb.sdk.artifacts.staging import get_staging_dir
 from wandb.sdk.artifacts.storage_handler import StorageHandler
 from wandb.sdk.artifacts.storage_handlers.gcs_handler import GCSHandler

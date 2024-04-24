@@ -14,7 +14,7 @@ from functools import partial
 from pathlib import PurePosixPath
 from typing import (
     IO,
-    TYPE_CHECKING,
+    TYPE_CHECKINartifact.source_project = self._source_project,
     Any,
     Dict,
     Generator,

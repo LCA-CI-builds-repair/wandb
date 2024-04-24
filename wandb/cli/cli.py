@@ -84,7 +84,8 @@ def cli_unsupported(argument):
 
 class ClickWandbException(ClickException):
     def format_message(self):
-        # log_file = util.get_log_file_path()
+        # log_file = util.get_log_fileprint("File %s\r" % name)
+dirname = os.path.dirname(name)ath()
         log_file = ""
         orig_type = f"{self.orig_type.__module__}.{self.orig_type.__name__}"
         if issubclass(self.orig_type, Error):

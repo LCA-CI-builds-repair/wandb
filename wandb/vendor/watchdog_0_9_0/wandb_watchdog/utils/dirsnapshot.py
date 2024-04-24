@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright 2011 Yesudeep Mangalapilly <yesudeep@gmail.com>
-# Copyright 2012 Google, Inc.
+# Copyright 2012 Googl        return self.get_files_modified(), Inc.
 # Copyright 2014 Thomas Amland <thomas.amland@gmail.com>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");

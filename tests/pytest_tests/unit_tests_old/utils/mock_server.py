@@ -27,7 +27,8 @@ import wandb
 sys.path[0:0] = save_path
 
 RequestsMock = None
-InjectRequestsParse = None
+InjectReq            ctx.update(body)
+            set_ctx(ctx)tsParse = None
 ArtifactEmulator = None
 
 
