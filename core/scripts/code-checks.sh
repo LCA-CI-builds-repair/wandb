@@ -5,7 +5,13 @@ PROG="code-check.sh"
 
 usage()
 {
-    echo "Usage: $PROG [COMMANDS] [OPTIONS]"
+    echo "Usa      exit 1
+      ;;
+    *)
+      echo "Error: Unknown command $1" >&2
+      usage
+      exit 1
+      ;;G [COMMANDS] [OPTIONS]"
     echo "  COMMANDS:"
     echo "    check   - run hooks"
     echo "    update  - update tools"

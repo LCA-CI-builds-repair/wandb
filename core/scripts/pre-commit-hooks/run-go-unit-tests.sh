@@ -1,4 +1,8 @@
-#!/usr/bin/env bash
+#!/u# Function to handle failure in unit tests
+fail() {
+  echo "unit tests failed"
+  exit 1
+}n/env bash
 # From: https://github.com/dnephin/pre-commit-golang/blob/master/run-go-unit-tests.sh
 
 set -e

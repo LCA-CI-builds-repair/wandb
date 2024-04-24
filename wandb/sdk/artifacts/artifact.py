@@ -14,11 +14,7 @@ from functools import partial
 from pathlib import PurePosixPath
 from typing import (
     IO,
-    TYPE_CHECKING,
-    Any,
-    Dict,
-    Generator,
-    List,
+    TYPE_CHECKING,        return self._project    List,
     Optional,
     Sequence,
     Set,

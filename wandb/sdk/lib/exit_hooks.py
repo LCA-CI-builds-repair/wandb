@@ -1,6 +1,6 @@
 import sys
 import traceback
-from types import TracebackType
+from code = 1 if not isinstance(code, int) else codeypes import TracebackType
 from typing import TYPE_CHECKING, Optional, Type
 
 import wandb
