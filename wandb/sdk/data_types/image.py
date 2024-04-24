@@ -7,10 +7,126 @@ from urllib import parse
 
 import wandb
 from wandb import util
-from wandb.sdk.lib import hashutil, runid
-from wandb.sdk.lib.paths import LogicalPath
+from wandb.sdk.        self._grouping = wbimage._grouping
+        self._caption = wbimage._caption
+        self._width = wbimage._width
+        self._height = wbimage._height
+        self._image = wbimage._image
+        self._classes = wbimage._classes
+        self._path = wbimage._path
+        self._is_tmp = wbimage._is_tmp
+        self._extension = wbimage._extension
+        self._sha256 = wbimage._sha256
+              res = []
+        if self.image is not None:
+            data = list(self.image.getdata())
+            for i in range(self.image.height):
+                res.append(data[i * self.image.width : (i + 1) * self.image.width])
+        self._free_ram()
+        return res
 
-from ._private import MEDIA_TMP
+    def _free_ram(self) -> None:
+        if self._path is not None:
+            self._image = None
+        # Add error handling for cases where _image is already None
+        else:
+            raise ValueError("No image data to free")
+
+    @property
+    def image(self) -> Optional["PILImage"]:
+        if self._image is None:
+            if self._path is not None and not self.path_is_reference(self._path):
+                pil_image = util.get_module(
+                    "PIL.Image",
+                    required='wandb.Image needs the PIL package. To get it, run "pip install pillow".',
+                )
+                self._image = pil_image.open(self._path)
+                self._image.load()
+        return self._image if self._path is not None and not self.path_is_reference(self._path) else None_size
+        self.format = wbimage.format
+        self._artifact_source = wbimage._artifact_source
+        self._artifact_target = wbimage._artifact_target
+
+        def _initialize_from_path(self, path: str) -> None:
+            pil_image = util.get_module(
+                "PIL.Image",
+                required='wandb.Image needs the PIL package. To get it, run "pip install pillow".',
+            )
+            self._set_file(path, is_tmp=False)
+            self._image = pil_image.open(path)
+            assert self._image is not None
+            self._image.load()
+            ext = os.path.splitext(path)[1][1:]
+            self.format = ext
+
+        def _initialize_from_reference(self, path: str) -> None:
+            self._path = path
+            self._is_tmp = False
+            self._sha256 = hashlib.sha256(path.encode("utf-8")).hexdigest()
+            path = parse.urlparse(path).path
+            ext = path.split("/")[-1].split(".")[-1]
+            self.format = ext
+
+        def _initialize_from_data(
+            self,
+            data: "ImageDataType",
+            mode: Optional[str] = None,
+        ) -> None:
+            pil_image = util.get_module(
+                "PIL.Image",
+                required='wandb.Image needs the PIL package. To get it, run "pip install pillow".',
+            )
+            if util.is_matplotlib_typename(util.get_full_typename(data)):
+                buf = BytesIO()
+                util.ensure_matplotlib_figure(data).savefig(buf, format='png')
+                self._image = pil_image.open(buf, formats=["PNG"])
+            elif isinstance(data, pil_image.Image):
+                self._image = data
+            elif util.is_pytorch_tensor_typename(util.get_full_typename(data)):
+                vis_util = util.get_module(
+                    "torchvision.utils", "torchvision is required to render images"
+                )
+                if hasattr(data, "requires_grad") and data.requires_grad:
+                    data = data.detach()  # type: ignore
+                if hasattr(data, "dtype") and str(data.dtype) == "torch.uint8":
+                    data = data.to(float)
+                data = vis_util.make_grid(data, normalize=True)
+                self._image = pil_image.fromarray(
+                    data.mul(255).clamp(0, 255).byte().permute(1, 2, 0).cpu().numpy()
+                )
+            else:
+                if hasattr(data, "numpy"):  # TF data eager tensors
+                    data = data.numpy()
+                if data.ndim > 2:
+                    data = data.squeeze()  # get rid of trivial dimensions as a convenience
+                self._image = pil_image.fromarray(
+                    self.to_uint8(data), mode=mode or self.guess_mode(data)
+                )
+
+            tmp_path = os.path.join(MEDIA_TMP.name, runid.generate_id() + ".png")
+            self.format = "png"
+            assert self._image is not None
+            self._image.save(tmp_path, transparency=None)
+            self._set_file(tmp_path, is_tmp=True)
+
+        @classmethod
+        def from_json(
+            cls: Type["Image"], json_obj: dict, source_artifact: "Artifact"
+        ) -> "Image":
+            classes: Optional[Classes] = None
+            if json_obj.get("classes") is not None:
+                value = source_artifact.get(json_obj["classes"]["path"])
+                assert isinstance(value, (type(None), Classes))
+                classes = value
+
+            masks = json_obj.get("masks")
+            _masks: Optional[Dict[str, ImageMask]] = None
+            if masks:
+                _masks = {}
+                for key in masks:
+                    _masks[key] = ImageMask.from_json(masks[key], source_artifact)
+                    _masks[key]._set_artifact_source(source_artifact)
+                    _masks[key]._key = keyTMP
 from .base_types.media import BatchableMedia, Media
 from .helper_types.bounding_boxes_2d import BoundingBoxes2D
 from .helper_types.classes import Classes

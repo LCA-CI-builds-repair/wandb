@@ -14,8 +14,24 @@ from typing import TYPE_CHECKING, Any, Dict, Iterator, List, Optional, Tuple, Un
 import click
 import yaml
 
-import wandb
-from wandb.errors import CommError
+impo                        self._num_runs_launched += 1
+
+                time.sleep(self._polling_sleep)
+        except KeyboardInterrupt:
+            wandb.termwarn(f"{LOG_PREFIX}Scheduler received KeyboardInterrupt. Exiting")
+            self.state = SchedulerState.STOPPED
+            self.exit()
+            return
+        except Exception as e:
+            wandb.termlog(f"{LOG_PREFIX}Scheduler failed with exception {e}")
+            self.state = SchedulerState.FAILED
+            self.exit()
+            wandb.termerror(f"{LOG_PREFIX}Scheduler failed with exception {e}")
+        finally:
+            # Ensure cleanup and exit
+            if self.state == SchedulerState.FLUSH_RUNS and self.at_runcap:
+                self.state = SchedulerState.COMPLETED
+            self.exit()b.errors import CommError
 from wandb.sdk.launch._launch_add import launch_add
 from wandb.sdk.launch.errors import LaunchError
 from wandb.sdk.launch.sweeps import SchedulerError

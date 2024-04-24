@@ -9,7 +9,19 @@ from wandb_promise import Promise, promise_for_dict, is_thenable
 from ..error import GraphQLError, GraphQLLocatedError
 from ..pyutils.default_ordered_dict import DefaultOrderedDict
 from ..pyutils.ordereddict import OrderedDict
-from ..type import (GraphQLEnumType, GraphQLInterfaceType, GraphQLList,
+from ..type import (GraphQLEnumType, GraphQLInterfaceType    """
+    Complete a NonNull value by completing the inner type
+    """
+    completed = complete_value(
+        exe_context, return_type.of_type, field_asts, info, result
+    )
+    if completed is None:
+        raise GraphQLError(
+            f'Cannot return null for non-nullable field {info.parent_type}.{info.field_name}.',
+            field_asts
+        )
+
+    return completed,
                     GraphQLNonNull, GraphQLObjectType, GraphQLScalarType,
                     GraphQLSchema, GraphQLUnionType)
 from .base import (ExecutionContext, ExecutionResult, ResolveInfo, Undefined,
