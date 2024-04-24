@@ -5,7 +5,7 @@
 
     Lexers for testing languages.
 
-    :copyright: Copyright 2006-2017 by the Pygments team, see AUTHORS.
+    :copyright: Copyright 2006-2            (r'^(not ok)([^\S\n]*)(\d*)',17 by the Pygments team, see AUTHORS.
     :license: BSD, see LICENSE for details.
 """
 

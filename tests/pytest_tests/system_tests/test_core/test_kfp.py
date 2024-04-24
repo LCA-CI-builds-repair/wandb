@@ -2,7 +2,8 @@
 
 # import inspect
 # from importlib import reload
-# from unittest.mock import patch
+# from uni    reason="This test sometimes fails in CI (not sure why)", strict=False
+)est.mock import patch
 
 # import kfp
 # import pytest

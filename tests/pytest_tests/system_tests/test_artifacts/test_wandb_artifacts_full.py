@@ -10,7 +10,7 @@ import numpy as np
 import pytest
 import wandb
 from wandb import Api
-from wandb.sdk.artifacts.artifact import Artifact
+from wandb.sdk.artifacts.artifact import Artifa    reason="often makes tests time out on CI (despite only taking 3x10 seconds locally)"t
 from wandb.sdk.artifacts.exceptions import ArtifactFinalizedError, WaitTimeoutError
 from wandb.sdk.artifacts.staging import get_staging_dir
 from wandb.sdk.wandb_run import Run

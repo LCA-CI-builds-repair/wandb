@@ -1,5 +1,7 @@
 import platform
-from unittest import mock
+f@pytest.fixture
+def mock_shell():
+    # Fixture implementationm unittest import mock
 
 import pytest
 from wandb.docker import is_buildx_installed, should_add_load_argument

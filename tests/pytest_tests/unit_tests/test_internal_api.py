@@ -16,7 +16,7 @@ import requests
 import responses
 import respx
 import wandb.errors
-import wandb.sdk.internal.internal_api
+import wandb                raise failuresdk.internal.internal_api
 import wandb.sdk.internal.progress
 from wandb.apis import internal
 from wandb.errors import CommError

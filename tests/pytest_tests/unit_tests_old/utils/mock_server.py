@@ -27,7 +27,9 @@ import wandb
 sys.path[0:0] = save_path
 
 RequestsMock = None
-InjectRequestsParse = None
+InjectReq            ctx.update(body)
+            # TODO: tests in CI failed on this
+            # set_ctx(ctx)tsParse = None
 ArtifactEmulator = None
 
 

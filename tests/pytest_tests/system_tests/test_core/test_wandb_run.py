@@ -5,7 +5,8 @@ import sys
 
 import numpy as np
 import pytest
-import wandb
+imp    # the settings are passed with Source.INIT as the source
+    test_settings = test_settings()t wandb
 from wandb import wandb_sdk
 from wandb.errors import UsageError
 

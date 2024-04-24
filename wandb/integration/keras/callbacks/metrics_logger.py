@@ -2,7 +2,21 @@ import sys
 from typing import Any, Dict, Optional, Union
 
 import tensorflow as tf  # type: ignore
-from tensorflow.keras import callbacks  # type: ignore
+from tensorflow.keras import cal# wandb/integration/keras/callbacks/metrics_logger.py
+
+import wandb
+from wandb.integration.keras import WandbCallback
+
+class MetricsLogger(WandbCallback):
+    def __init__(self, monitor='val_loss', mode='auto', log='all', verbose=0):
+        super().__init__(monitor=monitor, mode=mode, log=[])
+        self.log = log
+        self.verbose = verbose
+
+    def on_epoch_end(self, epoch, logs=None):
+        if logs is None:
+            logs = {}
+        wandb.log({key: value for key, value in logs.items() if key in self.log})backs  # type: ignore
 
 import wandb
 from wandb.integration.keras.keras import patch_tf_keras
