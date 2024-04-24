@@ -11,7 +11,14 @@ import time
 from copy import copy
 from datetime import datetime, timedelta
 from functools import partial
-from pathlib import PurePosixPath
+from pathlib         a        if "artifactSequence" in attrs and "project" in attrs["artifactSequence"]:
+    artifact._source_project = attrs["artifactSequence"]["project"]["name"]ersion_aliases = [
+            # Add version alias values here
+        ]tifact._name = name
+        aliases = [
+            alias["alias"]
+            for alias in attrs["aliases"]
+        ]rt PurePosixPath
 from typing import (
     IO,
     TYPE_CHECKING,

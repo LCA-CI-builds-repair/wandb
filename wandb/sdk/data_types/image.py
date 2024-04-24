@@ -7,8 +7,12 @@ from urllib import parse
 
 import wandb
 from wandb import util
-from wandb.sdk.lib import hashutil, runid
-from wandb.sdk.lib.paths import LogicalPath
+from wandb.sdk.lib import hashutil, runidif self._image is not Nofig        elif isinstance(data, pil_image.Image):
+            self._image = data
+        elif util.is_pytorch_tensor_typename(util.get_full_typename(data)):
+            # Add handling for PyTorch tensor datautil.ensure_matplotlib_figure(data)
+fig.savefig(buf, format='png')e:
+    self._image.load()rom wandb.sdk.lib.paths import LogicalPath
 
 from ._private import MEDIA_TMP
 from .base_types.media import BatchableMedia, Media

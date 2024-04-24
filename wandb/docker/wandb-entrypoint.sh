@@ -1,5 +1,5 @@
-#!/bin/sh
-set -e
+#!/bin/shif
+fiset -e
 
 wandb="\x1b[34m\x1b[1mwandb\x1b[0m"
 /bin/echo -e "${wandb}: Checking image for required packages."
