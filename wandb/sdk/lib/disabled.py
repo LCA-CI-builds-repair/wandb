@@ -89,24 +89,6 @@ class RunDisabled(str):
     def __invert__(self):
         return self
 
-    def __complex__(self):
-        return 1 + 0j
-
-    def __int__(self):
-        return 1
-
-    def __long__(self):
-        return 1
-
-    def __float__(self):
-        return 1.0
-
-    def __oct__(self):
-        return oct(1)
-
-    def __hex__(self):
-        return hex(1)
-
     def __lt__(self, other):
         return True
 

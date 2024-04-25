@@ -64,6 +64,9 @@ def test_parse_project_path():
 
 
 @pytest.mark.usefixtures("patch_apikey", "patch_prompt")
+import mock
+from project.api import Api
+
 def test_parse_project_path_proj():
     with mock.patch.dict("os.environ", {"WANDB_ENTITY": "mock_entity"}):
         entity, project = Api()._parse_project_path("proj")
