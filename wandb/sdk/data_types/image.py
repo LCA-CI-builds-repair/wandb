@@ -252,7 +252,12 @@ class Image(BatchableMedia):
             required='wandb.Image needs the PIL package. To get it, run "pip install pillow".',
         )
         self._set_file(path, is_tmp=False)
-        self._image = pil_image.open(path)
+        if isinstance(path, pil_image.Image):
+            self._image = path
+        else:
+            buf = open(path, 'rb')
+            self._image = pil_image.open(buf, formats=["PNG"])
+            buf.close()
         assert self._image is not None
         self._image.load()
         ext = os.path.splitext(path)[1][1:]
@@ -277,11 +282,6 @@ class Image(BatchableMedia):
         )
         if util.is_matplotlib_typename(util.get_full_typename(data)):
             buf = BytesIO()
-            util.ensure_matplotlib_figure(data).savefig(buf, format='png')
-            self._image = pil_image.open(buf, formats=["PNG"])
-        elif isinstance(data, pil_image.Image):
-            self._image = data
-        elif util.is_pytorch_tensor_typename(util.get_full_typename(data)):
             vis_util = util.get_module(
                 "torchvision.utils", "torchvision is required to render images"
             )
@@ -290,19 +290,23 @@ class Image(BatchableMedia):
             if hasattr(data, "dtype") and str(data.dtype) == "torch.uint8":
                 data = data.to(float)
             data = vis_util.make_grid(data, normalize=True)
-            self._image = pil_image.fromarray(
-                data.mul(255).clamp(0, 255).byte().permute(1, 2, 0).cpu().numpy()
-            )
-        else:
-            if hasattr(data, "numpy"):  # TF data eager tensors
+            data = data.mul(255).clamp(0, 255).byte().permute(1, 2, 0).cpu().numpy()
+            self._image = pil_image.fromarray(data)
+            if hasattr(data, "dtype") and str(data.dtype) == "torch.uint8":
+                data = data.to(float)
+            data = vis_util.make_grid(data, normalize=True)
                 data = data.numpy()
             if data.ndim > 2:
                 data = data.squeeze()  # get rid of trivial dimensions as a convenience
-            self._image = pil_image.fromarray(
-                self.to_uint8(data), mode=mode or self.guess_mode(data)
-            )
+            self._image = pil_image.open(buf, formats=["PNG"])
+            self._set_image_data(data)
+            self._set_file(buf, is_tmp=True)
 
         tmp_path = os.path.join(MEDIA_TMP.name, runid.generate_id() + ".png")
+        self.format = "png"
+        assert self._image is not None
+        self._image.save(tmp_path, transparency=None)
+        self._set_file(tmp_path, is_tmp=True)
         self.format = "png"
         assert self._image is not None
         self._image.save(tmp_path, transparency=None)
@@ -647,13 +651,12 @@ class Image(BatchableMedia):
             self._image = None
 
     @property
-    def image(self) -> Optional["PILImage"]:
-        if self._image is None:
-            if self._path is not None and not self.path_is_reference(self._path):
-                pil_image = util.get_module(
-                    "PIL.Image",
-                    required='wandb.Image needs the PIL package. To get it, run "pip install pillow".',
-                )
-                self._image = pil_image.open(self._path)
+                "PIL.Image",
+                required='wandb.Image needs the PIL package. To get it, run "pip install pillow".',
+            )
+            if isinstance(self._image, pil_image.Image):
+                return self._image
+            else:
+                self._image = pil_image.open(self._path, formats=["PNG"])
                 self._image.load()
-        return self._image
+            return self._image
