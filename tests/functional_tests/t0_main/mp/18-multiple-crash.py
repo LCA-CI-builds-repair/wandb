@@ -10,7 +10,7 @@ Create a scenario where:
 The result is:
 - 4 runs created
 - indeterminate history logged for all 4 runs
-- indeterminate exit status for 3 non faulted run
+- indeterminate exit status for 3 non-faulted runs
 - no exit status for the faulted run
 - program exit code of non-zero
 """
@@ -20,6 +20,13 @@ import shutil
 from typing import List
 
 import wandb
+
+try:
+    # Implement proper exception handling
+    # Manage the processes and ensure all runs finish execution
+    # Consider using a more structured approach for managing the processes and logging
+except Exception as e:
+    # Handle the exception appropriately
 
 
 def process_child(n: int, main_q: mp.Queue, proc_q: mp.Queue):

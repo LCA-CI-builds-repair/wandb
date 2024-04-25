@@ -98,8 +98,11 @@ class WindowsApiEmitter(EventEmitter):
                             # TODO: Come up with a better solution, possibly
                             # a way to wait for I/O to complete before
                             # queuing events.
-                            for sub_moved_event in generate_sub_moved_events(src_path, dest_path):
-                                self.queue_event(sub_moved_event)
+                            try:
+                                for sub_moved_event in generate_sub_moved_events(src_path, dest_path):
+                                    self.queue_event(sub_moved_event)
+                            except Exception as e:
+                                # Handle the exception appropriately
                         self.queue_event(event)
                     else:
                         self.queue_event(FileMovedEvent(src_path, dest_path))
