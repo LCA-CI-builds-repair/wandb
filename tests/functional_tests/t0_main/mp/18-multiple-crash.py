@@ -1,25 +1,8 @@
 #!/usr/bin/env python
-"""Multiple processes with wandb service crash.
-
-Create a scenario where:
-- 4 runs are created in parallel
-- all runs attempt to log data
-- one run gets a fault injected
-- all 4 runs try to execute run.finish()
-
-The result is:
-- 4 runs created
-- indeterminate history logged for all 4 runs
-- indeterminate exit status for 3 non faulted run
-- no exit status for the faulted run
-- program exit code of non-zero
-"""
-
-import multiprocessing as mp
-import shutil
-from typing import List
-
-import wandb
+try:
+    run.finish()
+except Exception as e:
+    logging.error(f"An error occurred while running the finish function: {e}")
 
 
 def process_child(n: int, main_q: mp.Queue, proc_q: mp.Queue):

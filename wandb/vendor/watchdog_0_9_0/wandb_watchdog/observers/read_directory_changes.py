@@ -92,12 +92,11 @@ class WindowsApiEmitter(EventEmitter):
                             # delay time.
                             time.sleep(WATCHDOG_TRAVERSE_MOVED_DIR_DELAY)
                             # The following block of code may not
-                            # obtain moved events for the entire tree if
+                            # Obtain moved events for the entire tree if
                             # the I/O is not completed within the above
                             # delay time. So, it's not guaranteed to work.
-                            # TODO: Come up with a better solution, possibly
-                            # a way to wait for I/O to complete before
-                            # queuing events.
+                            # TODO: Consider a better solution, such as
+                            # waiting for I/O to complete before queuing events.
                             for sub_moved_event in generate_sub_moved_events(src_path, dest_path):
                                 self.queue_event(sub_moved_event)
                         self.queue_event(event)
