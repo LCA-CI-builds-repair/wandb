@@ -113,6 +113,8 @@ def _get_modification_order(
                 dependency_graph.add_edge(setting, d)
 
     # extract dependencies from props' runtime hooks
+    import inspect  # Add import statement for the inspect module
+
     default_props = settings._default_props()
     for prop, spec in default_props.items():
         if "hook" not in spec:
