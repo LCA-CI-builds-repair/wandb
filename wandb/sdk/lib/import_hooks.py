@@ -42,8 +42,6 @@ def _create_import_hook_from_string(name: str) -> Callable:
         return callback(module)  # type: ignore
 
     return import_hook
-
-
 def register_post_import_hook(
     hook: Union[str, Callable], hook_id: str, name: str
 ) -> None:
@@ -60,6 +58,7 @@ def register_post_import_hook(
         global _post_import_hooks_init
 
         if not _post_import_hooks_init:
+            # Add the necessary code here after the condition check
             _post_import_hooks_init = True
             sys.meta_path.insert(0, ImportHookFinder())  # type: ignore
 
@@ -107,6 +106,7 @@ def unregister_all_post_import_hooks() -> None:
 
 
 def notify_module_loaded(module: Any) -> None:
+def notify_module_loaded(module: Any) -> None:
     name = getattr(module, "__name__", None)
 
     with _post_import_hooks_lock:
@@ -118,8 +118,6 @@ def notify_module_loaded(module: Any) -> None:
     for hook in hooks.values():
         if hook:
             hook(module)
-
-
 # A custom module import finder. This intercepts attempts to import
 # modules and watches out for attempts to import target modules of
 # interest. When a module of interest is imported, then any post import

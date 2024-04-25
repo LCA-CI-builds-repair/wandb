@@ -1964,8 +1964,8 @@ class Run:
         for hook in self._teardown_hooks:
             if hook.stage == TeardownStage.EARLY:
                 hook.call()
-
-        self._atexit_cleanup(exit_code=exit_code)
+                
+                self._atexit_cleanup(exit_code=exit_code)
         if self._wl and len(self._wl._global_run_stack) > 0:
             self._wl._global_run_stack.pop()
         # detach logger / others meant to be run after we've shutdown the backend
