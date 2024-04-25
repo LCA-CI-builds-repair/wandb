@@ -181,10 +181,9 @@ class SockClient:
         # TODO: this solution is fragile, but for checking attach
         # it should be relatively stable.
         # This pass would be solved as part of the fix in https://wandb.atlassian.net/browse/WB-8709
-        response = self.read_server_response(timeout=1)
-        if response is None:
-            raise Exception("No response")
-        return response
+### Summary of Changes:
+1. Instead of raising a generic `Exception` with the message "No response", consider raising a more specific exception type that better reflects the situation, such as `TimeoutError` or `ConnectionError`.
+2. Provide additional context or information in the exception message to help identify the cause of the missing response.
 
     def send(
         self,

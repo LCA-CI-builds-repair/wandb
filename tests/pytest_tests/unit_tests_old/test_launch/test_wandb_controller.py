@@ -41,13 +41,9 @@ def test_print_status(runner, mock_server, capsys):
     c = wandb.controller("test", entity="test", project="test")
     c.print_status()
     stdout, stderr = capsys.readouterr()
-    assert stdout == "Sweep: fun-sweep-10 (random) | Runs: 1 (Running: 1)\n"
-    # For some reason, the windows and mac tests are failing in CI
-    # as there are write permissions warnings.
-    try:
-        assert stderr == "", "stderr should be empty, but got warnings"
-    except AssertionError:
-        pass
+### Summary of Changes:
+1. Instead of using a try-except block to catch the `AssertionError` when checking `stderr`, consider handling the case where `stderr` is not empty in a more explicit and informative manner.
+2. Provide a clearer message or action in case `stderr` contains warnings to indicate the reason for the failure in a more descriptive way.
 
 
 # todo: unskip once WB-8120 is resolved

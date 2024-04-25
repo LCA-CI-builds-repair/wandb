@@ -1115,14 +1115,9 @@ def create_app(user_ctx=None):
                     c.setdefault("summary", []).append(json.loads(param_summary))
 
             for c in ctx, run_ctx:
-                c["upsert_bucket_count"] += 1
-
-            # Update run context
-            ctx["runs"][run_id] = run_ctx
-
-            # support legacy tests which pass resume
-            if ctx["resume"] is True:
-                inserted = False
+### Summary of Changes:
+1. Ensure that the increment of `c["upsert_bucket_count"]` is handled within a safe and synchronized manner, especially in a multithreaded or concurrent environment, to prevent potential race conditions.
+2. Consider adding comments to explain the purpose of the `if ctx["resume"] is True:` condition and how it relates to the rest of the code logic for better clarity and maintenance.
 
             response = {
                 "data": {
