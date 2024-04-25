@@ -21,6 +21,15 @@ from typing import List
 
 import wandb
 
+import pytest
+from unittest import mock
+
+@pytest.mark.usefixtures("patch_apikey", "patch_prompt")
+def test_parse_path_id():
+    with mock.patch.dict():
+        # Add test logic here
+        
+
 
 def process_child(n: int, main_q: mp.Queue, proc_q: mp.Queue):
     print(f"init:{n}")
