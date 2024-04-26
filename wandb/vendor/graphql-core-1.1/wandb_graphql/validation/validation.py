@@ -140,19 +140,4 @@ class ValidationContext(object):
         return fragments.get(name)
 
     def get_type(self):
-        return self._type_info.get_type()
-
-    def get_parent_type(self):
-        return self._type_info.get_parent_type()
-
-    def get_input_type(self):
-        return self._type_info.get_input_type()
-
-    def get_field_def(self):
-        return self._type_info.get_field_def()
-
-    def get_directive(self):
-        return self._type_info.get_directive()
-
-    def get_argument(self):
-        return self._type_info.get_argument()
+        # Add documentation and clear explanations for the methods

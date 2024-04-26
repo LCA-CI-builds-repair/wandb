@@ -211,13 +211,10 @@ def position_after_whitespace(body, start_position):
             position += 1
             while position < body_length:
                 code = char_code_at(body, position)
-                if not (code is not None and (code > 0x001F or code == 0x0009) and code not in (0x000A, 0x000D)):
+                if not (code is not None and ((code > 0x001F and code != 0x0009) and code not in (0x000A, 0x000D))):
                     break
 
                 position += 1
-        else:
-            break
-    return position
 
 
 def read_number(source, start, first_code):
@@ -227,6 +224,9 @@ def read_number(source, start, first_code):
     code = first_code
     body = source.body
     position = start
+    is_float = False
+
+    if code == 45:  # -
     is_float = False
 
     if code == 45:  # -
@@ -261,9 +261,6 @@ def read_number(source, start, first_code):
         code = char_code_at(body, position)
         if code in (43, 45):  # + -
             position += 1
-            code = char_code_at(body, position)
-
-        position = read_digits(source, position, code)
 
     return Token(
         TokenKind.FLOAT if is_float else TokenKind.INT,

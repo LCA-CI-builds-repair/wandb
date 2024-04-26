@@ -60,8 +60,8 @@ async def test_verify_storage(mocker):
         with pytest.raises(LaunchError):
             await environment.verify_storage_uri("s3://bucket/key")
 
-    with pytest.raises(LaunchError):
-        await environment.verify_storage_uri("s3a://bucket/key")
+        with pytest.raises(LaunchError):
+            await environment.verify_storage_uri("s3a://bucket/key")
 
 
 @pytest.mark.asyncio
