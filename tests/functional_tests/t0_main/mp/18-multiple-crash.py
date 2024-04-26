@@ -20,6 +20,31 @@ import shutil
 from typing import List
 
 import wandb
+import logging
+import sys
+
+def worker(log_data: List[str], fault_injected: bool):
+    wandb.init()
+    for data in log_data:
+        wandb.log(data)
+    if fault_injected:
+        raise Exception("Fault injected in this run")
+    wandb.run.finish()
+
+if __name__ == "__main__":
+    log_data = ["Log data 1", "Log data 2", "Log data 3", "Log data 4"]
+    fault_injected = False
+
+    processes = []
+    for i in range(4):
+        p = mp.Process(target=worker, args=(log_data, fault_injected))
+        processes.append(p)
+        p.start()
+
+    for p in processes:
+        p.join()
+
+    wandb.join()
 
 
 def process_child(n: int, main_q: mp.Queue, proc_q: mp.Queue):

@@ -2476,8 +2476,6 @@ def pull(run, project, entity):
             click.echo("File %s is up to date" % name)
         else:
             length, response = api.download_file(urls[name]["url"])
-            # TODO: I had to add this because some versions in CI broke click.progressbar
-            sys.stdout.write("File %s\r" % name)
             dirname = os.path.dirname(name)
             if dirname != "":
                 filesystem.mkdir_exists_ok(dirname)

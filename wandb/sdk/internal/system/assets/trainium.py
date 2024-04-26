@@ -266,16 +266,16 @@ class NeuronCoreStats:
                     if isinstance(kk, int):
                         # top-level keys are neuron core ids,
                         # so we swap the order to comply with the
-                        # frontend expectations
-                        helper(f"{kk}.{key}", vv)
-                    else:
-                        helper(f"{key}.{kk}", vv)
-                return
-            elif isinstance(value, list):
-                for i, val in enumerate(value):
-                    helper(f"{i}.{key}", val)
+        # frontend expectations
+        helper(f"{kk}.{key}", vv)
+    else:
+        helper(f"{key}.{kk}", vv)
+    return
+elif isinstance(value, list):
+    for i, val in enumerate(value):
+        helper(f"{i}.{key}", val)
 
-        for kkk, vvv in dataclasses.asdict(sample).items():
+for kkk, vvv in dataclasses.asdict(sample).items():
             helper(kkk, vvv)
 
         return flattened

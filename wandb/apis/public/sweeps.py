@@ -127,12 +127,12 @@ class Sweep(Attrs):
             order = self.order
         else:
             order = public.QueryGenerator.format_order_key(order)
-        if order is None:
-            wandb.termwarn(
-                "No order specified and couldn't find metric in sweep config, returning most recent run"
-            )
-        else:
-            wandb.termlog("Sorting runs by %s" % order)
+            if order is None:
+                wandb.termwarn(
+                    "No order specified or metric not found in sweep config, returning most recent run"
+                )
+                return None
+        wandb.termlog("Sorting runs by %s" % order)
         filters = {"$and": [{"sweep": self.id}]}
         try:
             return public.Runs(

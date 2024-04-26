@@ -83,8 +83,7 @@ class QueryGenerator:
             else:
                 order = "-" + order
             orders.append(order)
-        # return ",".join(orders)
-        return orders
+        return ",".join(orders)
 
     def order_to_keys(self, order):
         keys = []

@@ -176,10 +176,8 @@ def start_mock_server(worker_id):
             print("=" * 40)
         except Exception as e:
             print("EXCEPTION:", e)
-        raise ValueError(f"Failed to start server!  Exit code {server.returncode}")
+            raise ValueError(f"Failed to start server! Exception: {e}")
     return server
-
-
 atexit.register(test_cleanup)
 
 

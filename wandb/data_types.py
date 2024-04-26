@@ -1440,6 +1440,14 @@ class Graph(Media):
             "edges": [edge.to_json() for edge in self.edges],
         }
 
+    def to_json(self):
+        # Implement the function to return the JSON representation of the data type
+        return {
+            "format": self.format,
+            "nodes": [node.to_json() for node in self.nodes],
+            "edges": [edge.to_json() for edge in self.edges],
+        }
+
     def bind_to_run(self, *args, **kwargs):
         data = self._to_graph_json()
         tmp_path = os.path.join(MEDIA_TMP.name, runid.generate_id() + ".graph.json")

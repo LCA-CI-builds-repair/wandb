@@ -158,14 +158,14 @@ class RstLexer(RegexLexer):
         # highlight the lines with the lexer.
         ins = []
         codelines = code.splitlines(True)
-        code = ''
+        code_str = ''
         for line in codelines:
             if len(line) > indention_size:
-                ins.append((len(code), [(0, Text, line[:indention_size])]))
-                code += line[indention_size:]
+                ins.append((len(code_str), [(0, Text, line[:indention_size])]))
+                code_str += line[indention_size:]
             else:
-                code += line
-        for item in do_insertions(ins, lexer.get_tokens_unprocessed(code)):
+                code_str += line
+        for item in do_insertions(ins, lexer.get_tokens_unprocessed(code_str)):
             yield item
 
     # from docutils.parsers.rst.states

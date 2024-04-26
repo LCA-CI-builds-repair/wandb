@@ -121,7 +121,7 @@ class KubernetesSubmittedRun(AbstractRun):
                 return str(logs)
             else:
                 wandb.termwarn(f"No logs for kubernetes pod(s): {pod_names}")
-            return None
+                return None
         except Exception as e:
             wandb.termerror(f"{LOG_PREFIX}Failed to get pod logs: {e}")
             return None
@@ -208,17 +208,18 @@ class CrdSubmittedRun(AbstractRun):
                 label_selector=f"wandb/run-id={self.name}", namespace=self.namespace
             )
             pod_names = [pi.metadata.name for pi in pods.items]
+            logs = {}
             for pod_name in pod_names:
-                logs[pod_name] = await self.core_api.read_namespaced_pod_log(
-                    name=pod_name, namespace=self.namespace
-                )
-        except ApiException as e:
-            wandb.termwarn(f"Failed to get logs for {self.name}: {str(e)}")
-            return None
-        if not logs:
-            return None
-        logs_as_array = [f"Pod {pod_name}:\n{log}" for pod_name, log in logs.items()]
-        return "\n".join(logs_as_array)
+                try:
+                    logs[pod_name] = await self.core_api.read_namespaced_pod_log(
+                        name=pod_name, namespace=self.namespace
+                    )
+                except ApiException as e:
+                    wandb.termwarn(f"Failed to get logs for {pod_name}: {str(e)}")
+            if not logs:
+                return None
+            logs_as_array = [f"Pod {pod_name}:\n{log}" for pod_name, log in logs.items()]
+            return "\n".join(logs_as_array)
 
     async def get_status(self) -> Status:
         """Get status of custom object."""

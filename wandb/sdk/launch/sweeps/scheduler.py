@@ -462,6 +462,8 @@ class Scheduler(ABC):
                 del self._runs[run_id]
 
     def _stop_runs(self) -> None:
+        # Implement the logic to stop the runs here
+        pass
         to_delete = []
         for run_id, _ in self._yield_runs():
             to_delete += [run_id]

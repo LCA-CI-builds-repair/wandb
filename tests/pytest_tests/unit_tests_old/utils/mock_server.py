@@ -573,9 +573,8 @@ def create_app(user_ctx=None):
             app.logger.info("resetting context")
             set_ctx(default_ctx())
             return json.dumps(get_ctx())
-        else:
+        elif request.method == "POST":
             ctx.update(body)
-            # TODO: tests in CI failed on this
             set_ctx(ctx)
             app.logger.info("updated context %s", ctx)
             return json.dumps(get_ctx())
