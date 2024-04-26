@@ -20,6 +20,16 @@ import shutil
 from typing import List
 
 import wandb
+from PIL import Image
+import io
+
+class ImageProcessor:
+    def __init__(self, data):
+        if isinstance(data, bytes):
+            buf = io.BytesIO(data)
+            self._image = Image.open(buf)
+        elif isinstance(data, Image.Image):
+            self._image = data
 
 
 def process_child(n: int, main_q: mp.Queue, proc_q: mp.Queue):

@@ -218,8 +218,6 @@ def _make_example(data: Any) -> Optional[Union[Dict, Sequence, Any]]:
         example = None
 
     return example
-
-
 def _get_example_shape(example: Union[Sequence, Any]):
     """Get the shape of an object if applicable."""
     shape = []

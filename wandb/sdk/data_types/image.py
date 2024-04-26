@@ -278,7 +278,7 @@ class Image(BatchableMedia):
         if util.is_matplotlib_typename(util.get_full_typename(data)):
             buf = BytesIO()
             util.ensure_matplotlib_figure(data).savefig(buf, format='png')
-            self._image = pil_image.open(buf, formats=["PNG"])
+            self._image = pil_image.open(buf)
         elif isinstance(data, pil_image.Image):
             self._image = data
         elif util.is_pytorch_tensor_typename(util.get_full_typename(data)):
