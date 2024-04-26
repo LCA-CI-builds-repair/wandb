@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 set -e
-PROG="code-check.sh"
+PROG="code-checks.sh"
 
 usage()
 {
@@ -11,10 +11,10 @@ usage()
     echo "    update  - update tools"
     echo "    install - install hooks"
     echo "  OPTIONS:"
-    echo "    --all     s        - check all files (not just changed files)"
-    echo "    --hook HOOK_ID     - specify hook to run"
-    echo "    --skip HOOK_IDS    - specify hooks to skip (comma separated)"
-    echo "    --stage HOOK_STAGE - specify hook stage"
+    echo "    --all               - check all files (not just changed files)"
+    echo "    --hook HOOK_ID      - specify hook to run"
+    echo "    --skip HOOK_IDS     - specify hooks to skip (comma separated)"
+    echo "    --stage HOOK_STAGE  - specify hook stage"
 }
 
 BASE=$(dirname $(dirname $(readlink -f $0)))
@@ -82,10 +82,6 @@ while (( "$#" )); do
 done
 
 if $NOCOMMAND; then
-  usage
-  exit 1
-fi
-
 if $CHECK; then
   extra=""
   if $CHECK_ALL; then

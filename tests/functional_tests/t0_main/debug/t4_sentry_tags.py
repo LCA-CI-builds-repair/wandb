@@ -3,25 +3,25 @@
 
 ---
 id: 0.debug.04-sentry-tags
-plugin:
-  - wandb
+plugin: wandb
 tag:
   platforms:
     - linux
     - mac
 var:
   - num_sentry_events:
-      :fn:len: :wandb:sentry_events
+      fn: len
+      arg: wandb:sentry_events
 assert:
-  - :wandb:runs_len: 1
-  - :num_sentry_events: 1
-  - :wandb:sentry_events[0][level]: error
-  - :wandb:sentry_events[0][exception][values][0][type]: FileNotFoundError
-  - :wandb:sentry_events[0][tags][entity]: mock_server_entity
-  - :wandb:sentry_events[0][tags][deployment]: local
-  - :wandb:sentry_events[0][tags][_disable_service]: False
-  - :wandb:sentry_events[0][tags][process_context]: internal
-  - :wandb:sentry_events[0][tags][python_runtime]: python
+  - wandb:runs_len: 1
+  - num_sentry_events: 1
+  - wandb:sentry_events[0][level]: error
+  - wandb:sentry_events[0][exception][values][0][type]: FileNotFoundError
+  - wandb:sentry_events[0][tags][entity]: mock_server_entity
+  - wandb:sentry_events[0][tags][deployment]: local
+  - wandb:sentry_events[0][tags][_disable_service]: False
+  - wandb:sentry_events[0][tags][process_context]: internal
+  - wandb:sentry_events[0][tags][python_runtime]: python
   - :yea:exit: 255
 """
 import shutil

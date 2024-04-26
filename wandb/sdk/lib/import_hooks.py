@@ -42,7 +42,8 @@ def _create_import_hook_from_string(name: str) -> Callable:
         return callback(module)  # type: ignore
 
     return import_hook
-
+import threading
+from typing import Union, Callable
 
 def register_post_import_hook(
     hook: Union[str, Callable], hook_id: str, name: str
@@ -61,6 +62,7 @@ def register_post_import_hook(
 
         if not _post_import_hooks_init:
             _post_import_hooks_init = True
+            _post_import_hooks_init = True
             sys.meta_path.insert(0, ImportHookFinder())  # type: ignore
 
         # Check if the module is already imported. If not, register the hook
@@ -69,8 +71,9 @@ def register_post_import_hook(
         module = sys.modules.get(name, None)
 
         if module is None:
-            _post_import_hooks.setdefault(name, {}).update({hook_id: hook})
+from typing import Optional
 
+def post_import_hook_handler(module):
     # If the module is already imported, we fire the hook right away. Note that
     # the hook is called outside of the lock to avoid deadlocks if code run as a
     # consequence of calling the module import hook in turn triggers a separate
@@ -80,6 +83,9 @@ def register_post_import_hook(
         hook(module)
 
 
+def unregister_post_import_hook(name: str, hook_id: Optional[str]) -> None:
+    # Remove the import hook if it has been registered.
+    pass  # Implement the logic to unregister the post import hook
 def unregister_post_import_hook(name: str, hook_id: Optional[str]) -> None:
     # Remove the import hook if it has been registered.
     with _post_import_hooks_lock:
@@ -107,12 +113,11 @@ def unregister_all_post_import_hooks() -> None:
 
 
 def notify_module_loaded(module: Any) -> None:
-    name = getattr(module, "__name__", None)
+from typing import Dict, Optional
 
-    with _post_import_hooks_lock:
-        hooks = _post_import_hooks.pop(name, {})
+hooks: Dict[str, Optional[Callable]] = {}
 
-    # Note that the hook is called outside of the lock to avoid deadlocks if
+def post_import_hook_handler(module):
     # code run as a consequence of calling the module import hook in turn
     # triggers a separate thread which tries to register an import hook.
     for hook in hooks.values():
@@ -120,6 +125,10 @@ def notify_module_loaded(module: Any) -> None:
             hook(module)
 
 
+# A custom module import finder. This intercepts attempts to import
+# modules and watches out for attempts to import target modules of
+# interest. When a module of interest is imported, then any post import
+# hooks which are registered will be invoked.
 # A custom module import finder. This intercepts attempts to import
 # modules and watches out for attempts to import target modules of
 # interest. When a module of interest is imported, then any post import

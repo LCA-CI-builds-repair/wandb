@@ -6,20 +6,20 @@ id: 0.sklearn.plot_regressor-basic
 tag:
   shard: sklearn
 plugin:
-    - wandb
+  - wandb
 depend:
-    requirements:
-        - scikit-learn
+  requirements:
+    - scikit-learn
 assert:
-    - :wandb:runs_len: 1
-    - :wandb:runs[0][exitcode]: 0
-    - :yea:exit: 0
-    - :wandb:runs[0][summary][learning_curve][_type]: table-file
-    - :wandb:runs[0][summary][learning_curve][ncols]: 3
-    - :wandb:runs[0][summary][learning_curve][nrows]: 10
-    - :wandb:runs[0][summary][outlier_candidates][_type]: table-file
-    - :wandb:runs[0][summary][outlier_candidates][ncols]: 4
-    - :wandb:runs[0][summary][residuals][_type]: table-file
+  - wandb:runs_len: 1
+  - wandb:runs[0][exitcode]: 0
+  - yea:exit: 0
+  - wandb:runs[0][summary][learning_curve][_type]: table-file
+  - wandb:runs[0][summary][learning_curve][ncols]: 3
+  - wandb:runs[0][summary][learning_curve][nrows]: 10
+  - wandb:runs[0][summary][outlier_candidates][_type]: table-file
+  - wandb:runs[0][summary][outlier_candidates][ncols]: 4
+  - wandb:runs[0][summary][residuals][_type]: table-file
     - :wandb:runs[0][summary][residuals][ncols]: 5
     - :wandb:runs[0][summary][summary_metrics][_type]: table-file
     - :wandb:runs[0][summary][summary_metrics][ncols]: 3

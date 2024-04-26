@@ -105,18 +105,20 @@ class TorchHistory:
                 self.log_tensor_stats(data.cpu(), "parameters/" + prefix + name)
 
         log_track_params = log_track_init(log_freq)
-        try:
-            hook = module.register_forward_hook(
-                lambda mod, inp, outp: parameter_log_hook(
-                    mod, inp, outp, log_track_params
-                )
-            )
-            self._hook_handles["parameters/" + prefix] = hook
-            module._wandb_hook_names.append("parameters/" + prefix)
-        except RuntimeError as e:
-            wandb.termwarn(
-                f"Trying to register forward_hook failed ({e}) - skipping parameter tracking."
-            )
+import wandb  # Add necessary import statements
+
+try:
+    hook = module.register_forward_hook(
+        lambda mod, inp, outp: parameter_log_hook(
+            mod, inp, outp, log_track_params
+        )
+    )
+    self._hook_handles["parameters/" + prefix] = hook
+    module._wandb_hook_names.append("parameters/" + prefix)
+except RuntimeError as e:
+    wandb.termwarn(
+        f"Trying to register forward_hook failed ({e}) - skipping parameter tracking."
+    )
 
     def add_log_gradients_hook(
         self,

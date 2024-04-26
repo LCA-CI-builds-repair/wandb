@@ -113,25 +113,27 @@ def _get_modification_order(
                 dependency_graph.add_edge(setting, d)
 
     # extract dependencies from props' runtime hooks
-    default_props = settings._default_props()
-    for prop, spec in default_props.items():
-        if "hook" not in spec:
-            continue
+import inspect
 
-        dependency_graph.add_node(prop)
+default_props = settings._default_props()
+for prop, spec in default_props.items():
+    if "hook" not in spec:
+        continue
 
-        hook = spec["hook"]
-        if callable(hook):
-            hook = [hook]
+    dependency_graph.add_node(prop)
 
-        for h in hook:
-            unbound_closure_vars = inspect.getclosurevars(h).unbound
-            dependencies = (v for v in unbound_closure_vars if v in props)
-            for d in dependencies:
-                dependency_graph.add_node(d)
-                dependency_graph.add_edge(prop, d)
+    hook = spec["hook"]
+    if callable(hook):
+        hook = [hook]
 
-    modification_order = dependency_graph.topological_sort_dfs()
+    for h in hook:
+        unbound_closure_vars = inspect.getclosurevars(h).nonlocals
+        dependencies = [v for v in unbound_closure_vars if v in props]
+        for d in dependencies:
+            dependency_graph.add_node(d)
+            dependency_graph.add_edge(prop, d)
+
+modification_order = dependency_graph.topological_sort_dfs()
     return props, tuple(modification_order)
 
 

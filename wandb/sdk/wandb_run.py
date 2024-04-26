@@ -1962,8 +1962,12 @@ class Run:
         logger.info(f"finishing run {self._get_path()}")
         # detach jupyter hooks / others that needs to happen before backend shutdown
         for hook in self._teardown_hooks:
-            if hook.stage == TeardownStage.EARLY:
-                hook.call()
+from enum import Enum  # Add necessary import statements if TeardownStage is an enum
+
+# Define or import the TeardownStage enum if necessary
+
+        if hook.stage == TeardownStage.EARLY:  # Correctly use the TeardownStage enum value
+            hook.call()
 
         self._atexit_cleanup(exit_code=exit_code)
         if self._wl and len(self._wl._global_run_stack) > 0:
