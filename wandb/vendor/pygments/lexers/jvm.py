@@ -1168,7 +1168,7 @@ class PigLexer(RegexLexer):
         ],
         'keywords': [
             (r'(assert|and|any|all|arrange|as|asc|bag|by|cache|CASE|cat|cd|cp|'
-             r'%declare|%default|define|dense|desc|describe|distinct|du|dump|'
+             r'%declare|%default|define|dense|desc|describe|distinct|du|dump|cache|'
              r'eval|exex|explain|filter|flatten|foreach|full|generate|group|'
              r'help|if|illustrate|import|inner|input|into|is|join|kill|left|'
              r'limit|load|ls|map|matches|mkdir|mv|not|null|onschema|or|order|'
