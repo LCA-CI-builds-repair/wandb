@@ -1,19 +1,11 @@
 from wandb.errors import Error
-
-
 class LaunchError(Error):
     """Raised when a known error occurs in wandb launch."""
+    
 
-    pass
-
-
-class LaunchDockerError(Error):
+class LaunchDockerError(LaunchError):
     """Raised when Docker daemon is not running."""
+    
 
-    pass
-
-
-class ExecutionError(Error):
+class ExecutionError(LaunchError):
     """Generic execution exception."""
-
-    pass

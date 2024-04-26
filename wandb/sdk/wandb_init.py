@@ -519,8 +519,8 @@ class _WandbInit:
         _set_logger(logging.getLogger("wandb"))
         self._enable_logging(settings.log_user)
 
-        assert self._wl
-        assert logger
+        assert self._wl is not None
+        assert logger is not None
 
         self._wl._early_logger_flush(logger)
         logger.info(f"Logging user logs to {settings.log_user}")

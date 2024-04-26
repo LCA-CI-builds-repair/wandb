@@ -283,9 +283,9 @@ def test_settings(test_dir, mocker, live_mock_server):
 @pytest.fixture
 def mocked_run(runner, test_settings):
     """A managed run object for tests with a mock backend"""
-    run = wandb.wandb_sdk.wandb_run.Run(settings=test_settings)
-    run._set_backend(MagicMock())
-    yield run
+    with wandb.init(settings=test_settings) as run:
+        run.set_backend(Mock())
+        yield run
 
 
 @pytest.fixture

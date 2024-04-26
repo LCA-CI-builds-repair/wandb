@@ -2724,7 +2724,7 @@ class Api:
         callback: Optional["ProgressFn"] = None,
         extra_headers: Optional[Dict[str, str]] = None,
     ) -> Optional[requests.Response]:
-        """Upload a file to W&B with failure resumption.
+        """Upload a file to W&B with failure resumption."""
 
         Arguments:
             url: The url to download

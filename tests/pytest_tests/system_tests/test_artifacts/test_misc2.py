@@ -208,14 +208,11 @@ def _create_artifact_and_set_metadata(metadata):
 
 
 # All these metadata-validation tests should behave identically
-# regardless of whether we set the metadata by passing it into the constructor
-# or by setting the attribute after creation; so, parametrize how we build the
-# artifact, and run tests both ways.
 @pytest.mark.parametrize(
     "create_artifact",
     [
         lambda metadata: wandb.Artifact("foo", "dataset", metadata=metadata),
-        _create_artifact_and_set_metadata,
+        lambda metadata: _create_artifact_and_set_metadata(metadata),
     ],
 )
 class TestArtifactChecksMetadata:

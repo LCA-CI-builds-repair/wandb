@@ -2773,11 +2773,9 @@ def verify(host):
     wandb.login(host=host)
     if reinit:
         api = _get_cling_api(reset=True)
-    if not wandb_verify.check_host(host):
-        sys.exit(1)
-    if not wandb_verify.check_logged_in(api, host):
-        sys.exit(1)
-    url_success, url = wandb_verify.check_graphql_put(api, host)
+        if not wandb_verify.check_host(host) or not wandb_verify.check_logged_in(api, host):
+            sys.exit(1)
+        url_success, url = wandb_verify.check_graphql_put(api, host)
     large_post_success = wandb_verify.check_large_post()
     wandb_verify.check_secure_requests(
         api.settings("base_url"),

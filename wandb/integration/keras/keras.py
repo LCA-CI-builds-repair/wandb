@@ -668,6 +668,7 @@ class WandbCallback(tf.keras.callbacks.Callback):
 
     def on_test_batch_end(self, batch, logs=None):
         pass
+        pass
 
     def on_train_begin(self, logs=None):
         if self.log_evaluation:

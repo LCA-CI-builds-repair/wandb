@@ -1422,15 +1422,6 @@ class TestHelpers:
         k = wr.LineKey("metric")
         vars(k)
 
-    def test_linekey_from_panel_agg(self):
-        pass
-
-    def test_linekey_from_runset_agg(self):
-        pass
-
     def test_pccolumn(self):
         c = wr.PCColumn("c::metric")
         vars(c)
-
-    def test_pccolumn_from_json(self):
-        pass
