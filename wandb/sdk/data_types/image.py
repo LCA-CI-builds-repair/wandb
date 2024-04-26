@@ -73,9 +73,9 @@ class Image(BatchableMedia):
         caption: (string) Label for display of image.
 
     Note : When logging a `torch.Tensor` as a `wandb.Image`, images are normalized. If you do not want to normalize your images, please convert your tensors to a PIL Image.
-
     Examples:
         ### Create a wandb.Image from a numpy array
+        image = wandb.Image(data=array_data)
         <!--yeadoc-test:log-image-numpy-->
         ```python
         import numpy as np
@@ -278,7 +278,7 @@ class Image(BatchableMedia):
         if util.is_matplotlib_typename(util.get_full_typename(data)):
             buf = BytesIO()
             util.ensure_matplotlib_figure(data).savefig(buf, format='png')
-            self._image = pil_image.open(buf, formats=["PNG"])
+            self._image = pil_image.open(buf)
         elif isinstance(data, pil_image.Image):
             self._image = data
         elif util.is_pytorch_tensor_typename(util.get_full_typename(data)):
@@ -300,6 +300,7 @@ class Image(BatchableMedia):
                 data = data.squeeze()  # get rid of trivial dimensions as a convenience
             self._image = pil_image.fromarray(
                 self.to_uint8(data), mode=mode or self.guess_mode(data)
+            )
             )
 
         tmp_path = os.path.join(MEDIA_TMP.name, runid.generate_id() + ".png")

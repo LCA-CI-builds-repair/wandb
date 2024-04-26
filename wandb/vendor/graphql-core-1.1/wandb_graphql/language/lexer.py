@@ -245,35 +245,35 @@ def read_number(source, start, first_code):
                 position,
                 u'Invalid number, unexpected digit after 0: {}.'.format(print_char_code(code))
             )
-    else:
-        position = read_digits(source, position, code)
-        code = char_code_at(body, position)
-
-    if code == 46:  # .
-        is_float = True
-
-        position += 1
-        code = char_code_at(body, position)
-        position = read_digits(source, position, code)
-        code = char_code_at(body, position)
-
-    if code in (69, 101):  # E e
-        is_float = True
-        position += 1
-        code = char_code_at(body, position)
-        if code in (43, 45):  # + -
-            position += 1
+        else:
+            position = read_digits(source, position, code)
             code = char_code_at(body, position)
 
-        position = read_digits(source, position, code)
+        if code == 46:  # .
+            is_float = True
 
-    return Token(
-        TokenKind.FLOAT if is_float else TokenKind.INT,
-        start,
-        position,
-        body[start:position]
-    )
+            position += 1
+            code = char_code_at(body, position)
+            position = read_digits(source, position, code)
+            code = char_code_at(body, position)
 
+        if code in (69, 101):  # E e
+            is_float = True
+            position += 1
+            code = char_code_at(body, position)
+            if code in (43, 45):  # + -
+                position += 1
+                code = char_code_at(body, position)
+
+            position = read_digits(source, position, code)
+
+        return Token(
+            TokenKind.FLOAT if is_float else TokenKind.INT,
+            start,
+            position,
+            body[start:position]
+        )
+    }
 
 def read_digits(source, start, first_code):
     body = source.body

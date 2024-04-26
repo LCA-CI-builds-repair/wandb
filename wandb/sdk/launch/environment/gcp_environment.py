@@ -14,12 +14,12 @@ from .abstract import AbstractEnvironment
 google = get_module(
     "google",
     required="Google Cloud Platform support requires the google package. Please"
-    " install it with `pip install wandb[launch]`.",
+    " install it with `pip install google`.",
 )
-google.cloud.compute_v1 = get_module(
+google_cloud_compute_v1 = get_module(
     "google.cloud.compute_v1",
-    required="Google Cloud Platform support requires the google-cloud-compute package. "
-    "Please install it with `pip install wandb[launch]`.",
+    required="Google Cloud Platform support requires the google.cloud.compute package. "
+    "Please install it with `pip install google-cloud-compute`.",
 )
 google.auth.credentials = get_module(
     "google.auth.credentials",

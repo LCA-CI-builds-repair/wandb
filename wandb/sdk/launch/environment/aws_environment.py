@@ -273,8 +273,8 @@ class AwsEnvironment(AbstractEnvironment):
             raise LaunchError(f"Destination {uri} is not a valid s3 URI.")
         bucket = match.group(1)
         try:
-            session = await self.get_session()
-            client = await event_loop_thread_exec(session.client)("s3")
+            session = await self.get_session_async()
+            client = await event_loop_thread_exec(session.client, "s3")
             client.head_bucket(Bucket=bucket)
         except botocore.exceptions.ClientError as e:
             raise LaunchError(
