@@ -63,58 +63,14 @@ class RunDisabled(str):
         return self
 
     def __ilshift__(self, other):
-        return self
-
-    def __irshift__(self, other):
-        return self
-
-    def __iand__(self, other):
-        return self
-
-    def __ixor__(self, other):
-        return self
-
-    def __ior__(self, other):
-        return self
-
-    def __neg__(self):
-        return self
-
-    def __pos__(self):
-        return self
-
-    def __abs__(self):
-        return self
-
-    def __invert__(self):
-        return self
-
-    def __complex__(self):
-        return 1 + 0j
-
-    def __int__(self):
-        return 1
-
-    def __long__(self):
-        return 1
-
-    def __float__(self):
-        return 1.0
-
-    def __oct__(self):
-        return oct(1)
-
-    def __hex__(self):
-        return hex(1)
-
     def __lt__(self, other):
-        return True
+        return self < other
 
     def __le__(self, other):
-        return True
+        return self <= other
 
     def __eq__(self, other):
-        return True
+        return self == other
 
     def __ne__(self, other):
         return True

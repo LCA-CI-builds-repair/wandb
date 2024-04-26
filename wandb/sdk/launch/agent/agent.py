@@ -222,7 +222,7 @@ class LaunchAgent:
         )
         self._id = create_response["launchAgentId"]
         if self._api.entity_is_team(self._entity):
-            wandb.termwarn(
+            wandb.termwarn("Warning message here")
                 f"{LOG_PREFIX}Agent is running on team entity ({self._entity}). Members of this team will be able to run code on this device."
             )
 
