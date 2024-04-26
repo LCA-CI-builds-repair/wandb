@@ -567,6 +567,7 @@ def create_app(user_ctx=None):
             body = None
 
         if request.method == "GET":
+        if request.method == "GET":
             ctx = snoop.context_enrich(ctx)
             return json.dumps(ctx)
         elif request.method == "DELETE":
@@ -575,7 +576,6 @@ def create_app(user_ctx=None):
             return json.dumps(get_ctx())
         else:
             ctx.update(body)
-            # TODO: tests in CI failed on this
             set_ctx(ctx)
             app.logger.info("updated context %s", ctx)
             return json.dumps(get_ctx())
