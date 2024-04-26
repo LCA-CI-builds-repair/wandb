@@ -338,6 +338,7 @@ class KanikoBuilder(AbstractBuilder):
                     raise Exception(
                         f"Expected 1 pod for job {build_job_name}, found {len(pods_from_job.items)}"
                     )
+            try:
                 pod_name = pods_from_job.items[0].metadata.name
                 logs = await core_v1.read_namespaced_pod_log(pod_name, NAMESPACE)
                 warn_failed_packages_from_build_logs(

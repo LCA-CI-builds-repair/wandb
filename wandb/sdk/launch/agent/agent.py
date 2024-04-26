@@ -592,6 +592,7 @@ class LaunchAgent:
         assert rqi_id
         exception: Optional[Union[LaunchDockerError, Exception]] = None
         try:
+        try:
             with self._jobs_lock:
                 self._jobs[rqi_id] = job_tracker
             await self._task_run_job(

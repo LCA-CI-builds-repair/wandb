@@ -252,8 +252,9 @@ def read_number(source, start, first_code):
 
         position += 1
         code = char_code_at(body, position)
-        position = read_digits(source, position, code)
-        code = char_code_at(body, position)
+        if code is not None:
+            position = read_digits(source, position, code)
+            code = char_code_at(body, position)
 
     if code in (69, 101):  # E e
         is_float = True
@@ -262,8 +263,8 @@ def read_number(source, start, first_code):
         if code in (43, 45):  # + -
             position += 1
             code = char_code_at(body, position)
-
-        position = read_digits(source, position, code)
+            if code is not None:
+                position = read_digits(source, position, code)
 
     return Token(
         TokenKind.FLOAT if is_float else TokenKind.INT,

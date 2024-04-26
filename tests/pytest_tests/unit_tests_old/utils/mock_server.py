@@ -573,11 +573,13 @@ def create_app(user_ctx=None):
             app.logger.info("resetting context")
             set_ctx(default_ctx())
             return json.dumps(get_ctx())
-        else:
+        elif request.method == "PUT":
             ctx.update(body)
-            # TODO: tests in CI failed on this
             set_ctx(ctx)
             app.logger.info("updated context %s", ctx)
+        else:
+            app.logger.error("Unsupported method: %s", request.method)
+            return "Unsupported method", 400
             return json.dumps(get_ctx())
 
     @app.route("/graphql", methods=["POST"])
