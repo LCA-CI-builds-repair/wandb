@@ -145,6 +145,10 @@ class ImageMask(Media):
             self._val = val
             self._key = key
 
+            import os
+            from wandb.internal import runid, MEDIA_TMP, util
+            import numpy as np
+
             ext = "." + self.type_name() + ".png"
             tmp_path = os.path.join(MEDIA_TMP.name, runid.generate_id() + ext)
 
@@ -152,7 +156,10 @@ class ImageMask(Media):
                 "PIL.Image",
                 required='wandb.Image needs the PIL package. To get it, run "pip install pillow".',
             )
-            image = pil_image.fromarray(val["mask_data"].astype(np.int8), mode="L")
+            try:
+                image = pil_image.fromarray(val["mask_data"].astype(np.int8), mode="L")
+            except Exception as e:
+                raise ValueError(f"Error creating PIL image from mask data: {e}")
 
             image.save(tmp_path, transparency=None)
             self._set_file(tmp_path, is_tmp=True, extension=ext)

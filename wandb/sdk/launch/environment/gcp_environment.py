@@ -61,6 +61,7 @@ class GcpEnvironment(AbstractEnvironment):
     def __init__(
         self,
         region: str,
+        verify: bool = False,
     ) -> None:
         """Initialize the GCP environment.
 
@@ -74,7 +75,6 @@ class GcpEnvironment(AbstractEnvironment):
         """
         super().__init__()
         _logger.info(f"Initializing GcpEnvironment in region {region}")
-        self.region: str = region
         self._project = ""
 
     @classmethod

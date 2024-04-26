@@ -98,16 +98,6 @@ class Image(BatchableMedia):
         import wandb
 
         wandb.init()
-        examples = []
-        for i in range(3):
-            pixels = np.random.randint(low=0, high=256, size=(100, 100, 3), dtype=np.uint8)
-            pil_image = PILImage.fromarray(pixels, mode="RGB")
-            image = wandb.Image(pil_image, caption=f"random field {i}")
-            examples.append(image)
-        wandb.log({"examples": examples})
-        ```
-    """
-
     MAX_ITEMS = 108
 
     # PIL limit
@@ -115,7 +105,7 @@ class Image(BatchableMedia):
 
     _log_type = "image-file"
 
-    format: Optional[str]
+    format: Optional[str] = None
     _grouping: Optional[int]
     _caption: Optional[str]
     _width: Optional[int]
@@ -247,16 +237,16 @@ class Image(BatchableMedia):
         # self._masks = wbimage._masks
 
     def _initialize_from_path(self, path: str) -> None:
-        pil_image = util.get_module(
-            "PIL.Image",
-            required='wandb.Image needs the PIL package. To get it, run "pip install pillow".',
-        )
-        self._set_file(path, is_tmp=False)
-        self._image = pil_image.open(path)
-        assert self._image is not None
-        self._image.load()
-        ext = os.path.splitext(path)[1][1:]
-        self.format = ext
+        self._size = wbimage._size
+        self.format = wbimage.format
+        self._artifact_source = wbimage._artifact_source
+        self._artifact_target = wbimage._artifact_target
+
+        # We do not want to implicitly copy boxes or masks, just the image-related data.
+        self._boxes = wbimage._boxes
+        self._masks = wbimage._masks
+
+    def _initialize_from_path(self, path: str) -> None:
 
     def _initialize_from_reference(self, path: str) -> None:
         self._path = path
@@ -267,17 +257,15 @@ class Image(BatchableMedia):
         self.format = ext
 
     def _initialize_from_data(
-        self,
-        data: "ImageDataType",
-        mode: Optional[str] = None,
-    ) -> None:
-        pil_image = util.get_module(
-            "PIL.Image",
-            required='wandb.Image needs the PIL package. To get it, run "pip install pillow".',
-        )
-        if util.is_matplotlib_typename(util.get_full_typename(data)):
-            buf = BytesIO()
-            util.ensure_matplotlib_figure(data).savefig(buf, format='png')
+    def _initialize_from_reference(self, path: str) -> None:
+        self._path = path
+        self._is_tmp = False
+        self._sha256 = hashlib.sha256(path.encode("utf-8")).hexdigest()
+        path = parse.urlparse(path).path
+        ext = path.split("/")[-1].split(".")[-1]
+        self.format = ext
+
+    def _initialize_from_data(
             self._image = pil_image.open(buf, formats=["PNG"])
         elif isinstance(data, pil_image.Image):
             self._image = data
@@ -647,13 +635,13 @@ class Image(BatchableMedia):
             self._image = None
 
     @property
-    def image(self) -> Optional["PILImage"]:
-        if self._image is None:
-            if self._path is not None and not self.path_is_reference(self._path):
-                pil_image = util.get_module(
-                    "PIL.Image",
-                    required='wandb.Image needs the PIL package. To get it, run "pip install pillow".',
-                )
-                self._image = pil_image.open(self._path)
-                self._image.load()
-        return self._image
+        if self._image is not None:
+            data = list(self._image.getdata())
+            for i in range(self._image.height):
+                res.append(data[i * self._image.width : (i + 1) * self._image.width]
+        self._free_ram()
+        return res
+
+    def _free_ram(self) -> None:
+        if self._path is not None:
+            self._image = None

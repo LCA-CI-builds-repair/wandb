@@ -267,6 +267,9 @@ class AwsEnvironment(AbstractEnvironment):
         Returns:
             None
         """
+        import botocore
+        from wandb.sdk.internal import S3_URI_RE, LaunchError, event_loop_thread_exec
+
         _logger.debug(f"Verifying storage {uri}")
         match = S3_URI_RE.match(uri)
         if not match:
@@ -277,6 +280,8 @@ class AwsEnvironment(AbstractEnvironment):
             client = await event_loop_thread_exec(session.client)("s3")
             client.head_bucket(Bucket=bucket)
         except botocore.exceptions.ClientError as e:
+            if e.response["Error"]["Code"] == "404":
+                raise LaunchError(f"Bucket {bucket} does not exist.")
             raise LaunchError(
                 f"Could not verify AWS storage. Please verify that your AWS credentials are configured correctly. {e}"
             ) from e
