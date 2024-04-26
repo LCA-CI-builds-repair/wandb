@@ -42,7 +42,7 @@ def _create_import_hook_from_string(name: str) -> Callable:
         return callback(module)  # type: ignore
 
     return import_hook
-
+from typing import Union, Callable
 
 def register_post_import_hook(
     hook: Union[str, Callable], hook_id: str, name: str
@@ -78,8 +78,6 @@ def register_post_import_hook(
 
     if module is not None:
         hook(module)
-
-
 def unregister_post_import_hook(name: str, hook_id: Optional[str]) -> None:
     # Remove the import hook if it has been registered.
     with _post_import_hooks_lock:
@@ -107,6 +105,9 @@ def unregister_all_post_import_hooks() -> None:
 
 
 def notify_module_loaded(module: Any) -> None:
+from typing import Any
+
+def notify_module_loaded(module: Any) -> None:
     name = getattr(module, "__name__", None)
 
     with _post_import_hooks_lock:
@@ -118,8 +119,6 @@ def notify_module_loaded(module: Any) -> None:
     for hook in hooks.values():
         if hook:
             hook(module)
-
-
 # A custom module import finder. This intercepts attempts to import
 # modules and watches out for attempts to import target modules of
 # interest. When a module of interest is imported, then any post import

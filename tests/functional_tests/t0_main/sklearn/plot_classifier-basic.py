@@ -2,24 +2,24 @@
 """Demonstrate basic API of plot_classifier.
 
 ---
-id: 0.sklearn.plot_classifer-basic
+id: 0.sklearn.plot_classifier-basic
 tag:
   shard: sklearn
 plugin:
-    - wandb
+  - wandb
 depend:
-    requirements:
-        - scikit-learn
+  requirements:
+    - scikit-learn
 assert:
-    - :wandb:runs_len: 1
-    - :wandb:runs[0][exitcode]: 0
-    - :yea:exit: 0
-    - :wandb:runs[0][summary][calibration_curve][_type]: table-file
-    - :wandb:runs[0][summary][calibration_curve][ncols]: 5
-    - :wandb:runs[0][summary][class_proportions][_type]: table-file
-    - :wandb:runs[0][summary][class_proportions][ncols]: 3
-    - :wandb:runs[0][summary][class_proportions][nrows]: 4
-    - :wandb:runs[0][summary][confusion_matrix][_type]: table-file
+  - wandb:runs_len: 1
+  - wandb:runs[0][exitcode]: 0
+  - yea:exit: 0
+  - wandb:runs[0][summary][calibration_curve][_type]: table-file
+  - wandb:runs[0][summary][calibration_curve][ncols]: 5
+  - wandb:runs[0][summary][class_proportions][_type]: table-file
+  - wandb:runs[0][summary][class_proportions][ncols]: 3
+  - wandb:runs[0][summary][class_proportions][nrows]: 4
+  - wandb:runs[0][summary][confusion_matrix][_type]: table-file
     - :wandb:runs[0][summary][confusion_matrix][ncols]: 3
     - :wandb:runs[0][summary][confusion_matrix][nrows]: 4
     - :wandb:runs[0][summary][feature_importances][_type]: table-file

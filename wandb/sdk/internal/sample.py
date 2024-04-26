@@ -13,17 +13,19 @@ class UniformSampleAccumulator:
         # max size of each buffer
         self._max = self._samples2 // 2
         self._shift = 0
-        self._mask = (1 << self._shift) - 1
-        self._buckets = int(math.log(self._samples2, 2))
-        self._buckets_bits = int(math.log(self._buckets, 2))
-        self._buckets_mask = (1 << self._buckets_bits + 1) - 1
-        self._buckets_index = 0
-        self._bucket = []
-        self._index = [0] * self._buckets
-        self._count = 0
-        self._log2 = [0]
+import math
 
-        # pre-allocate buckets
+self._mask = (1 << self._shift) - 1
+self._buckets = int(math.log(self._samples2, 2))
+self._buckets_bits = int(math.log(self._buckets, 2))
+self._buckets_mask = (1 << self._buckets_bits + 1) - 1
+self._buckets_index = 0
+self._bucket = []
+self._index = [0] * self._buckets
+self._count = 0
+self._log2 = [0]
+
+# pre-allocate buckets
         for _ in range(self._buckets):
             self._bucket.append([0] * self._max)
         # compute integer log2

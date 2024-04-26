@@ -342,18 +342,17 @@ class _WandbInit:
             self._split_artifacts_from_config(launch_config, self.launch_config)
 
         self.settings = settings
+# self.settings.freeze()
 
-        # self.settings.freeze()
+def teardown(self) -> None:
+    # TODO: currently this is only called on failed wandb.init attempts
+    # normally this happens on the run object
+    assert logger
+    logger.info("tearing down wandb.init")
+    for hook in self._teardown_hooks:
+        hook.call()
 
-    def teardown(self) -> None:
-        # TODO: currently this is only called on failed wandb.init attempts
-        # normally this happens on the run object
-        assert logger
-        logger.info("tearing down wandb.init")
-        for hook in self._teardown_hooks:
-            hook.call()
-
-    def _split_artifacts_from_config(
+def _split_artifacts_from_config(
         self, config_source: dict, config_target: dict
     ) -> None:
         for k, v in config_source.items():
@@ -452,15 +451,15 @@ class _WandbInit:
             res = self.run.log_code(root=None)
             logger.info("saved code and history: %s", res)  # type: ignore
         logger.info("cleaning up jupyter logic")  # type: ignore
-        # because of how we bind our methods we manually find them to unregister
-        for hook in ipython.events.callbacks["pre_run_cell"]:
-            if "_resume_backend" in hook.__name__:
-                ipython.events.unregister("pre_run_cell", hook)
-        for hook in ipython.events.callbacks["post_run_cell"]:
-            if "_pause_backend" in hook.__name__:
-                ipython.events.unregister("post_run_cell", hook)
-        ipython.display_pub.publish = ipython.display_pub._orig_publish
-        del ipython.display_pub._orig_publish
+logger.info("cleaning up jupyter logic")  # type: ignore
+# because of how we bind our methods we manually find them to unregister
+for hook in ipython.events.callbacks["pre_run_cell"]:
+    if "_resume_backend" in hook.__name__:
+        ipython.events.unregister("pre_run_cell", hook)
+for hook in ipython.events.callbacks["post_run_cell"]:
+    if "_pause_backend" in hook.__name__:
+        ipython.events.unregister("post_run_cell", hook)
+ipython.display_pub.publish = ipython.display_pub._orig_publish
 
     def _jupyter_setup(self, settings: Settings) -> None:
         """Add hooks, and session history saving."""
