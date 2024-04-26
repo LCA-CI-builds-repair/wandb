@@ -61,16 +61,15 @@ def test_parse_project_path():
         entity, project = Api()._parse_project_path("user/proj")
         assert entity == "user"
         assert project == "proj"
-
-
+        with mock.patch.dict(
+@pytest.mark.usefixtures("patch_apikey", "patch_prompt")
 @pytest.mark.usefixtures("patch_apikey", "patch_prompt")
 def test_parse_project_path_proj():
     with mock.patch.dict("os.environ", {"WANDB_ENTITY": "mock_entity"}):
         entity, project = Api()._parse_project_path("proj")
         assert entity == "mock_entity"
         assert project == "proj"
-
-
+        with mock.patch.dict(
 @pytest.mark.usefixtures("patch_apikey", "patch_prompt")
 def test_parse_path_docker_proj():
     with mock.patch.dict("os.environ", {"WANDB_ENTITY": "mock_entity"}):
@@ -116,6 +115,7 @@ def test_direct_specification_of_api_key():
 
 
 @pytest.mark.parametrize(
+@pytest.mark.parametrize(
     "path",
     [
         "test",
@@ -127,8 +127,7 @@ def test_from_path_project_type(path):
     with mock.patch.object(wandb, "login", mock.MagicMock()):
         project = Api().from_path(path)
         assert isinstance(project, wandb.apis.public.Project)
-
-
+        with mock.patch.dict(
 @pytest.mark.usefixtures("patch_apikey", "patch_prompt")
 def test_report_to_html():
     path = "test/test/reports/My-Report--XYZ"

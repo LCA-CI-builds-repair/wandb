@@ -178,8 +178,7 @@ def start_mock_server(worker_id):
             print("EXCEPTION:", e)
         raise ValueError(f"Failed to start server!  Exit code {server.returncode}")
     return server
-
-
+    with mock.patch.dict(
 atexit.register(test_cleanup)
 
 
@@ -281,13 +280,14 @@ def test_settings(test_dir, mocker, live_mock_server):
 
 
 @pytest.fixture
+@pytest.fixture
 def mocked_run(runner, test_settings):
     """A managed run object for tests with a mock backend"""
     run = wandb.wandb_sdk.wandb_run.Run(settings=test_settings)
     run._set_backend(MagicMock())
     yield run
-
-
+    with mock.patch.dict(
+@pytest.fixture
 @pytest.fixture
 def mocked_run_disable_job_creation(runner, test_settings):
     """A managed run object for tests with a mock backend"""
@@ -295,8 +295,7 @@ def mocked_run_disable_job_creation(runner, test_settings):
     run = wandb.wandb_sdk.wandb_run.Run(settings=test_settings)
     run._set_backend(MagicMock())
     yield run
-
-
+    with mock.patch.dict(
 @pytest.fixture
 def runner(monkeypatch, mocker):
     # monkeypatch.setattr('wandb.cli.api', InternalApi(

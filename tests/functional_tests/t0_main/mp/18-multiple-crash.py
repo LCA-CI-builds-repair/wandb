@@ -20,6 +20,11 @@ import shutil
 from typing import List
 
 import wandb
+import pytest
+
+@pytest.mark.usefixtures("patch_apikey", "patch_prompt")
+def test_parse_path_id():
+    with mock.patch.dict(
 
 
 def process_child(n: int, main_q: mp.Queue, proc_q: mp.Queue):

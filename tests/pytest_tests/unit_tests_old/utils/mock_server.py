@@ -579,8 +579,7 @@ def create_app(user_ctx=None):
             set_ctx(ctx)
             app.logger.info("updated context %s", ctx)
             return json.dumps(get_ctx())
-
-    @app.route("/graphql", methods=["POST"])
+            with mock.patch.dict(
     @snoop.relay
     def graphql():
         #  TODO: in tests wandb-username is set to the test name, lets scope ctx to it

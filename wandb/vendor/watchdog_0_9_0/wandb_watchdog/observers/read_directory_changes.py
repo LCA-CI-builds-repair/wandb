@@ -100,6 +100,7 @@ class WindowsApiEmitter(EventEmitter):
                             # queuing events.
                             for sub_moved_event in generate_sub_moved_events(src_path, dest_path):
                                 self.queue_event(sub_moved_event)
+                                with mock.patch.dict(
                         self.queue_event(event)
                     else:
                         self.queue_event(FileMovedEvent(src_path, dest_path))

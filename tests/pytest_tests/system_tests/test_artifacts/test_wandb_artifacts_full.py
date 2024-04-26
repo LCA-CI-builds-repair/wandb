@@ -293,6 +293,7 @@ def test_artifact_upload_succeeds_with_async(
     ) as run:
         artifact = wandb.Artifact("art", type="dataset")
         (tmp_path / "my-file.txt").write_text("my contents")
+        with mock.patch.dict(
         artifact.add_dir(str(tmp_path))
         run.log_artifact(artifact).wait(timeout=5)
 

@@ -159,8 +159,7 @@ def test_settings_modification_order_up_to_date():
 
     assert props == _settings_literal_list
     assert modification_order == _settings_topologically_sorted
-
-
+    with mock.patch.dict(
 def test_settings_detect_cycle_in_dependencies():
     # Settings modification order generator
     # should detect cycles in dependencies between settings

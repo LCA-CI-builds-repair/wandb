@@ -462,6 +462,7 @@ class Scheduler(ABC):
                 del self._runs[run_id]
 
     def _stop_runs(self) -> None:
+        with mock.patch.dict(
         to_delete = []
         for run_id, _ in self._yield_runs():
             to_delete += [run_id]

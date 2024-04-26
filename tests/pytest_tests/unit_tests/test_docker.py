@@ -20,8 +20,7 @@ def mock_shell():
 def test_buildx_not_installed(runner):
     with runner.isolated_filesystem():
         assert is_buildx_installed() is False
-
-
+        with mock.patch.dict(
 @pytest.mark.parametrize(
     "platform,adds_load_arg",
     [(None, True), ("linux/amd64", True), ("linux/amd64,linux/arm64", False)],

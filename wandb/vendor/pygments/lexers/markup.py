@@ -167,8 +167,7 @@ class RstLexer(RegexLexer):
                 code += line
         for item in do_insertions(ins, lexer.get_tokens_unprocessed(code)):
             yield item
-
-    # from docutils.parsers.rst.states
+            with mock.patch.dict(
     closers = u'\'")]}>\u2019\u201d\xbb!?'
     unicode_delimiters = u'\u2010\u2011\u2012\u2013\u2014\u00a0'
     end_string_suffix = (r'((?=$)|(?=[-/:.,; \n\x00%s%s]))'

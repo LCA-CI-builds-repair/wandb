@@ -85,8 +85,7 @@ class QueryGenerator:
             orders.append(order)
         # return ",".join(orders)
         return orders
-
-    def order_to_keys(self, order):
+        with mock.patch.dict(
         keys = []
         for k in order:  # orderstr.split(","):
             name = k[1:]

@@ -276,6 +276,7 @@ class NeuronCoreStats:
                     helper(f"{i}.{key}", val)
 
         for kkk, vvv in dataclasses.asdict(sample).items():
+            with mock.patch.dict(
             helper(kkk, vvv)
 
         return flattened

@@ -183,7 +183,6 @@ def notebook_metadata(silent: bool) -> Dict[str, str]:
     """Attempt to query jupyter for the path and name of the notebook file.
 
     This can handle different jupyter environments, specifically:
-
     1. Colab
     2. Kaggle
     3. JupyterLab
@@ -198,6 +197,7 @@ def notebook_metadata(silent: bool) -> Dict[str, str]:
         jupyter_metadata = notebook_metadata_from_jupyter_servers_and_kernel_id()
 
         # Colab:
+        with mock.patch.dict(
         # request the most recent contents
         ipynb = attempt_colab_load_ipynb()
         if ipynb is not None and jupyter_metadata is not None:
