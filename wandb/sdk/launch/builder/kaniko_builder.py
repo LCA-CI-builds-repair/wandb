@@ -339,14 +339,15 @@ class KanikoBuilder(AbstractBuilder):
                         f"Expected 1 pod for job {build_job_name}, found {len(pods_from_job.items)}"
                     )
                 pod_name = pods_from_job.items[0].metadata.name
-                logs = await core_v1.read_namespaced_pod_log(pod_name, NAMESPACE)
-                warn_failed_packages_from_build_logs(
-                    logs, image_uri, launch_project.api, job_tracker
-                )
-            except Exception as e:
-                wandb.termwarn(
-                    f"{LOG_PREFIX}Failed to get logs for kaniko job {build_job_name}: {e}"
-                )
+                try:
+                    logs = await core_v1.read_namespaced_pod_log(pod_name, NAMESPACE)
+                    warn_failed_packages_from_build_logs(
+                        logs, image_uri, launch_project.api, job_tracker
+                    )
+                except Exception as e:
+                    wandb.termwarn(
+                        f"{LOG_PREFIX}Failed to get logs for kaniko job {build_job_name}: {type(e).__name__} - {e}"
+                    )
         except Exception as e:
             wandb.termerror(
                 f"{LOG_PREFIX}Exception when creating Kubernetes resources: {e}\n"

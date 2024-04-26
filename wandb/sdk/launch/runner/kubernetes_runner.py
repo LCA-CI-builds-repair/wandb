@@ -114,6 +114,7 @@ class KubernetesSubmittedRun(AbstractRun):
             if not pod_names:
                 wandb.termwarn(f"Found no pods for kubernetes job: {self.name}")
                 return None
+        try:
             logs = await self.core_api.read_namespaced_pod_log(
                 name=pod_names[0], namespace=self.namespace
             )
@@ -123,7 +124,7 @@ class KubernetesSubmittedRun(AbstractRun):
                 wandb.termwarn(f"No logs for kubernetes pod(s): {pod_names}")
             return None
         except Exception as e:
-            wandb.termerror(f"{LOG_PREFIX}Failed to get pod logs: {e}")
+            wandb.termerror(f"{LOG_PREFIX}Failed to get pod logs. Error: {type(e).__name__} - {e}")
             return None
 
     async def wait(self) -> bool:
@@ -200,14 +201,14 @@ class CrdSubmittedRun(AbstractRun):
         return self.name
 
     async def get_logs(self) -> Optional[str]:
-        """Get logs for custom object."""
-        # TODO: test more carefully once we release multi-node support
         logs: Dict[str, Optional[str]] = {}
         try:
             pods = await self.core_api.list_namespaced_pod(
                 label_selector=f"wandb/run-id={self.name}", namespace=self.namespace
             )
             pod_names = [pi.metadata.name for pi in pods.items]
+            for pod_name in pod_names:
+                logs[pod_name] = None  # Initialize logs for each pod
             for pod_name in pod_names:
                 logs[pod_name] = await self.core_api.read_namespaced_pod_log(
                     name=pod_name, namespace=self.namespace

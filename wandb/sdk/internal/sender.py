@@ -1407,7 +1407,6 @@ class SendManager:
     def send_files(self, record: "Record") -> None:
         files = record.files
         for k in files.files:
-            # TODO(jhr): fix paths with directories
             self._save_file(
                 interface.GlobStr(k.path), interface.file_enum_to_policy(k.policy)
             )

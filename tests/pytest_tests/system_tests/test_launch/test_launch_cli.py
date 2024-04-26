@@ -540,14 +540,10 @@ def test_launch_supplied_logfile(
             assert "Internal agent logs printing to agent.logs" in result.output
 
             print("Output from cli command:")
-            print(result.output)
-
             # open agent logs and inspect the contents
             with open("agent.logs") as f:
                 logs = f.read()
-                print("agent.logs:")
-                print(logs)
-                assert "Internal agent logs printing to agent.logs" in logs
+            assert "Internal agent logs printing to agent.logs" in logs
 
             assert result.exit_code == 0  # Do at the end so we get maximum printing
 
