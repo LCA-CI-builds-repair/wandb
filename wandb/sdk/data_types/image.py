@@ -281,7 +281,7 @@ class Image(BatchableMedia):
             self._image = pil_image.open(buf, formats=["PNG"])
         elif isinstance(data, pil_image.Image):
             self._image = data
-        elif util.is_pytorch_tensor_typename(util.get_full_typename(data)):
+        elif isinstance(data, torch.Tensor):
             vis_util = util.get_module(
                 "torchvision.utils", "torchvision is required to render images"
             )
