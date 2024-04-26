@@ -579,11 +579,12 @@ class WandbCallback(tf.keras.callbacks.Callback):
     def on_epoch_end(self, epoch, logs=None):
         if logs is None:
             logs = {}
-        if self.log_weights:
-            wandb.log(self._log_weights(), commit=False)
+        if wandb is not None:
+            if self.log_weights:
+                wandb.log(self._log_weights(), commit=False)
 
-        if self.log_gradients:
-            wandb.log(self._log_gradients(), commit=False)
+            if self.log_gradients:
+                wandb.log(self._log_gradients(), commit=False)
 
         if self.input_type in (
             "image",

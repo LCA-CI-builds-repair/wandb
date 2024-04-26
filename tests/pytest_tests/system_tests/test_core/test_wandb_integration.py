@@ -18,11 +18,7 @@ import wandb.env as env
 
 reload_fn = importlib.reload
 
-# TODO: better debugging, if the backend process fails to start we currently
-#  don't get any debug information even in the internal logs.  For now I'm writing
-#  logs from all tests that use test_settings to tests/logs/TEST_NAME.  If you're
-#  having tests just hang forever, I suggest running test/test_sender to see backend
-#  errors until we ensure we propagate the errors up.
+# TODO: Improve debugging for backend process startup failure. Provide specific steps or tools to diagnose and troubleshoot errors effectively.
 
 
 def test_resume_auto_success(wandb_init):

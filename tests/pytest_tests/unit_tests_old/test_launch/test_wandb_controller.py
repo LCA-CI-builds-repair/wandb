@@ -44,10 +44,7 @@ def test_print_status(runner, mock_server, capsys):
     assert stdout == "Sweep: fun-sweep-10 (random) | Runs: 1 (Running: 1)\n"
     # For some reason, the windows and mac tests are failing in CI
     # as there are write permissions warnings.
-    try:
-        assert stderr == "", "stderr should be empty, but got warnings"
-    except AssertionError:
-        pass
+    assert stderr == "", "stderr should be empty, but got warnings"
 
 
 # todo: unskip once WB-8120 is resolved

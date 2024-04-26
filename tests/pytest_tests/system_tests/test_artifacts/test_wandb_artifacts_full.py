@@ -288,6 +288,9 @@ def test_artifact_upload_succeeds_with_async(
     _async_upload_concurrency_limit: Optional[int],
     tmp_path: Path,
 ):
+    # Test to verify that artifact upload succeeds with asynchronous settings
+    # Parameterizing with different concurrency limit values for testing
+
     with wandb_init(
         settings=dict(_async_upload_concurrency_limit=_async_upload_concurrency_limit)
     ) as run:

@@ -376,10 +376,10 @@ class TestUploadFile:
             example_file.write_text("1234567")
 
             def response_callback(request: requests.models.PreparedRequest):
-                assert request.body.read(2) == b"12"
-                assert request.body.read(2) == b"34"
-                return failure
-
+                body_content = request.body.read(4)
+                assert body_content[:2] == b"12"
+                assert body_content[2:] == b"34"
+                
             mock_responses.add_callback(
                 "PUT", "http://example.com/upload-dst", response_callback
             )

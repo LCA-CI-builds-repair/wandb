@@ -2724,7 +2724,18 @@ class Api:
         callback: Optional["ProgressFn"] = None,
         extra_headers: Optional[Dict[str, str]] = None,
     ) -> Optional[requests.Response]:
-        """Upload a file to W&B with failure resumption.
+        """
+        Upload a file to W&B with failure resumption.
+
+        Parameters:
+        - url (str): The URL to upload the file to.
+        - file (IO[bytes]): The file object to be uploaded.
+        - callback (Optional["ProgressFn"]): A callback function for progress updates.
+        - extra_headers (Optional[Dict[str, str]]): Additional headers to include in the request.
+
+        Returns:
+        - Optional[requests.Response]: The response object from the upload request.
+        """
 
         Arguments:
             url: The url to download

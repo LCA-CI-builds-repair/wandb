@@ -519,12 +519,15 @@ class _WandbInit:
         _set_logger(logging.getLogger("wandb"))
         self._enable_logging(settings.log_user)
 
-        assert self._wl
-        assert logger
+        assert self._wl, "Workspace library (_wl) is not initialized"
+        assert logger, "Logger is not initialized"
 
-        self._wl._early_logger_flush(logger)
-        logger.info(f"Logging user logs to {settings.log_user}")
-        logger.info(f"Logging internal logs to {settings.log_internal}")
+        try:
+            self._wl._early_logger_flush(logger)
+            logger.info(f"Logging user logs to {settings.log_user}")
+            logger.info(f"Logging internal logs to {settings.log_internal}")
+        except Exception as e:
+            logger.error(f"Error occurred during logging initialization: {str(e)}")
 
     def _make_run_disabled(self) -> RunDisabled:
         drun = RunDisabled()
