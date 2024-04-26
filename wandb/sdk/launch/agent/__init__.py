@@ -1,5 +1,4 @@
 from .agent import LaunchAgent
-
-LaunchAgent = LaunchAgent
+LaunchAgent = SomeValueOrClass
 
 __all__ = ["LaunchAgent"]

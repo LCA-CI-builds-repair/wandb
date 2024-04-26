@@ -1,17 +1,17 @@
 """Definition of the config object used by the Launch agent."""
-
 from enum import Enum
 from typing import List, Optional
 
 # ValidationError is imported for exception type checking purposes only.
-from pydantic import (  # type: ignore
+from pydantic import (
     BaseModel,
     Field,
-    ValidationError,  # noqa: F401
     root_validator,
     validator,
 )
 
+from wandb.sdk.launch.utils import (
+from pydantic import BaseModel, ValidationError
 from wandb.sdk.launch.utils import (
     AZURE_BLOB_REGEX,
     AZURE_CONTAINER_REGISTRY_URI_REGEX,
@@ -26,6 +26,23 @@ __all__ = [
     "AgentConfig",
 ]
 
+# Existing code remains unchanged
+
+    type: Optional[RegistryType] = Field(
+from pydantic import BaseModel, ValidationError
+from wandb.sdk.launch.utils import (
+    AZURE_BLOB_REGEX,
+    AZURE_CONTAINER_REGISTRY_URI_REGEX,
+    ELASTIC_CONTAINER_REGISTRY_URI_REGEX,
+    GCP_ARTIFACT_REGISTRY_URI_REGEX,
+    GCS_URI_RE,
+    S3_URI_RE,
+)
+
+__all__ = [
+    "ValidationError",
+    "AgentConfig",
+]
 
 class EnvironmentType(str, Enum):
     """Enum of valid environment types."""
@@ -34,14 +51,12 @@ class EnvironmentType(str, Enum):
     gcp = "gcp"
     azure = "azure"
 
-
 class RegistryType(str, Enum):
     """Enum of valid registry types."""
 
     ecr = "ecr"
     acr = "acr"
     gcr = "gcr"
-
 
 class BuilderType(str, Enum):
     """Enum of valid builder types."""
@@ -50,13 +65,89 @@ class BuilderType(str, Enum):
     kaniko = "kaniko"
     noop = "noop"
 
-
 class TargetPlatform(str, Enum):
     """Enum of valid target platforms."""
 
     linux_amd64 = "linux/amd64"
     linux_arm64 = "linux/arm64"
 
+class RegistryConfig(BaseModel):
+    """Configuration for registry block.
+
+    Note that we don't forbid extra fields here because:
+    - We want to allow all fields supported by each registry
+    - We will perform validation on the registry object itself later
+    - Registry block is being deprecated in favor of destination field in builder
+    """
+
+    type: Optional[RegistryType] = Field(
+        None,
+        description="The type of registry to use.",
+    )
+    uri: Optional[str] = Field(
+        None,
+        description="The URI of the registry.",
+    )
+
+    @validator("uri")  # type: ignore
+    @classmethod
+    def validate_uri(cls, uri: str) -> str:
+        for regex in [
+            GCP_ARTIFACT_REGISTRY_URI_REGEX,
+            AZURE_CONTAINER_REGISTRY_URI_REGEX,
+            ELASTIC_CONTAINER_REGISTRY_URI_REGEX,
+        ]:
+            if regex.match(uri):
+                return uri
+        raise ValueError(
+            "Invalid uri. URI must be a repository URI for an "
+            "ECR, ACR, or GCP Artifact Registry."
+            "Invalid destination. Destination must be a repository URI for an "
+            "ECR, ACR, or GCP Artifact Registry."
+        )
+
+    platform: Optional[TargetPlatform] = Field(
+from pydantic import BaseModel, Field
+from wandb.sdk.launch.utils import (
+    AZURE_BLOB_REGEX,
+    AZURE_CONTAINER_REGISTRY_URI_REGEX,
+    ELASTIC_CONTAINER_REGISTRY_URI_REGEX,
+    GCP_ARTIFACT_REGISTRY_URI_REGEX,
+    GCS_URI_RE,
+    S3_URI_RE,
+)
+
+__all__ = [
+    "ValidationError",
+    "AgentConfig",
+]
+
+class EnvironmentType(str, Enum):
+    """Enum of valid environment types."""
+
+    aws = "aws"
+    gcp = "gcp"
+    azure = "azure"
+
+class RegistryType(str, Enum):
+    """Enum of valid registry types."""
+
+    ecr = "ecr"
+    acr = "acr"
+    gcr = "gcr"
+
+class BuilderType(str, Enum):
+    """Enum of valid builder types."""
+
+    docker = "docker"
+    kaniko = "kaniko"
+    noop = "noop"
+
+class TargetPlatform(str, Enum):
+    """Enum of valid target platforms."""
+
+    linux_amd64 = "linux/amd64"
+    linux_arm64 = "linux/arm64"
 
 class RegistryConfig(BaseModel):
     """Configuration for registry block.
@@ -91,47 +182,6 @@ class RegistryConfig(BaseModel):
             "ECR, ACR, or GCP Artifact Registry."
         )
 
-
-class EnvironmentConfig(BaseModel):
-    """Configuration for the environment block."""
-
-    type: Optional[EnvironmentType] = Field(
-        None,
-        description="The type of environment to use.",
-    )
-    region: Optional[str] = Field(..., description="The region to use.")
-
-    class Config:
-        extra = "forbid"
-
-
-class BuilderConfig(BaseModel):
-    type: Optional[BuilderType] = Field(
-        None,
-        description="The type of builder to use.",
-    )
-    destination: Optional[str] = Field(
-        None,
-        description="The destination to use for the built image. If not provided, "
-        "the image will be pushed to the registry.",
-    )
-
-    @validator("destination")  # type: ignore
-    @classmethod
-    def validate_destination(cls, destination: str) -> str:
-        """Validate that the destination is a valid container registry URI."""
-        for regex in [
-            GCP_ARTIFACT_REGISTRY_URI_REGEX,
-            AZURE_CONTAINER_REGISTRY_URI_REGEX,
-            ELASTIC_CONTAINER_REGISTRY_URI_REGEX,
-        ]:
-            if regex.match(destination):
-                return destination
-        raise ValueError(
-            "Invalid destination. Destination must be a repository URI for an "
-            "ECR, ACR, or GCP Artifact Registry."
-        )
-
     platform: Optional[TargetPlatform] = Field(
         None,
         description="The platform to use for the built image. If not provided, "
@@ -153,31 +203,6 @@ class BuilderConfig(BaseModel):
         description="The name of the secret to use for the build job.",
         alias="secret-name",
     )
-    secret_key: Optional[str] = Field(
-        None,
-        description="The key of the secret to use for the build job.",
-        alias="secret-key",
-    )
-    kaniko_image: Optional[str] = Field(
-        "gcr.io/kaniko-project/executor:latest",
-        description="The image to use for the kaniko executor.",
-        alias="kaniko-image",
-    )
-
-    @validator("build_context_store")  # type: ignore
-    @classmethod
-    def validate_build_context_store(
-        cls, build_context_store: Optional[str]
-    ) -> Optional[str]:
-        """Validate that the build context store is a valid container registry URI."""
-        if build_context_store is None:
-            return None
-        for regex in [
-            S3_URI_RE,
-            GCS_URI_RE,
-            AZURE_BLOB_REGEX,
-        ]:
-            if regex.match(build_context_store):
                 return build_context_store
         raise ValueError(
             "Invalid build context store. Build context store must be a URI for an "

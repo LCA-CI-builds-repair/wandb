@@ -211,13 +211,11 @@ def position_after_whitespace(body, start_position):
             position += 1
             while position < body_length:
                 code = char_code_at(body, position)
-                if not (code is not None and (code > 0x001F or code == 0x0009) and code not in (0x000A, 0x000D)):
+                if code is not None and (code > 0x001F or code == 0x0009) and code not in (0x000A, 0x000D):
                     break
 
                 position += 1
-        else:
-            break
-    return position
+            return position
 
 
 def read_number(source, start, first_code):
@@ -230,10 +228,7 @@ def read_number(source, start, first_code):
     is_float = False
 
     if code == 45:  # -
-        position += 1
-        code = char_code_at(body, position)
-
-    if code == 48:  # 0
+    if code == 45:  # -
         position += 1
         code = char_code_at(body, position)
 
@@ -416,20 +411,20 @@ def read_name(source, position):
     """Reads an alphanumeric + underscore name from the source.
 
     [_A-Za-z][_0-9A-Za-z]*"""
-    body = source.body
-    body_length = len(body)
-    end = position + 1
+    def read_name(source, position):
+        """Reads an alphanumeric + underscore name from the source.
 
-    while end != body_length:
-        code = char_code_at(body, end)
-        if not (code is not None and (
-            code == 95 or  # _
-            48 <= code <= 57 or  # 0-9
-            65 <= code <= 90 or  # A-Z
-            97 <= code <= 122  # a-z
-        )):
-            break
+        [_A-Za-z][_0-9A-Za-z]*"""
+        body = source.body
+        body_length = len(body)
+        end = position + 1
 
-        end += 1
-
-    return Token(TokenKind.NAME, position, end, body[position:end])
+        while end != body_length:
+            code = char_code_at(body, end)
+            if not (code is not None and (
+                code == 95 or  # _
+                48 <= code <= 57 or  # 0-9
+                65 <= code <= 90 or  # A-Z
+                97 <= code <= 122  # a-z
+            )):
+                # Add continuation of the code logic here if needed

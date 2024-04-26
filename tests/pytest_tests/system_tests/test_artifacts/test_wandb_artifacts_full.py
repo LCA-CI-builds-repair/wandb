@@ -290,6 +290,7 @@ def test_artifact_upload_succeeds_with_async(
 ):
     with wandb_init(
         settings=dict(_async_upload_concurrency_limit=_async_upload_concurrency_limit)
+    ):
     ) as run:
         artifact = wandb.Artifact("art", type="dataset")
         (tmp_path / "my-file.txt").write_text("my contents")

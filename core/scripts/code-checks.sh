@@ -69,12 +69,12 @@ while (( "$#" )); do
       exit 2
       ;;
     -*|--*)
-      echo "Error: Unsupported flag $1" >&2
+      echo "Error: Unsupported flag encountered: $1" >&2
       usage
       exit 1
       ;;
     *)
-      echo "Error: Unknown command $1" >&2
+      echo "Error: Unknown command encountered: $1" >&2
       usage
       exit 1
       ;;

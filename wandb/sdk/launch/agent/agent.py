@@ -599,7 +599,7 @@ class LaunchAgent:
             )
         except LaunchDockerError as e:
             wandb.termerror(
-                f"{LOG_PREFIX}agent {self._name} encountered an issue while starting Docker, see above output for details."
+                f"{LOG_PREFIX}agent {self._name} encountered an issue while starting Docker. See above output for details."
             )
             exception = e
             wandb._sentry.exception(e)

@@ -46,7 +46,7 @@ def test_print_status(runner, mock_server, capsys):
     # as there are write permissions warnings.
     try:
         assert stderr == "", "stderr should be empty, but got warnings"
-    except AssertionError:
+    except AssertionError as e:
         pass
 
 

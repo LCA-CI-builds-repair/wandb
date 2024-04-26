@@ -156,7 +156,7 @@ def wandb_internal(
             logger.warning(f"Internal process interrupt: {interrupt_count}")
         finally:
             if interrupt_count >= 2:
-                logger.error("Internal process interrupted.")
+                logger.error("Internal process interrupted due to multiple interruptions.")
                 stopped.set()
 
     for thread in threads:

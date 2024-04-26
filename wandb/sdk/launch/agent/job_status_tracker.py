@@ -50,4 +50,4 @@ class JobAndRunStatusTracker:
             return bool(await check_stop(self.project, self.entity, self.run_id))
         except CommError as e:
             _logger.error(f"CommError when checking if wandb run stopped: {e}")
-        return False
+            return False

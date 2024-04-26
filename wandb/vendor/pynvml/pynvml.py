@@ -450,11 +450,11 @@ NVML_FI_DEV_ECC_DBE_VOL_TOTAL = 4  # Total double bit volatile ECC errors
 NVML_FI_DEV_ECC_SBE_AGG_TOTAL = 5  # Total single bit aggregate (persistent) ECC errors
 NVML_FI_DEV_ECC_DBE_AGG_TOTAL = 6  # Total double bit aggregate (persistent) ECC errors
 # Individual ECC locations
-NVML_FI_DEV_ECC_SBE_VOL_L1 = 7  # L1 cache single bit volatile ECC errors
-NVML_FI_DEV_ECC_DBE_VOL_L1 = 8  # L1 cache double bit volatile ECC errors
-NVML_FI_DEV_ECC_SBE_VOL_L2 = 9  # L2 cache single bit volatile ECC errors
-NVML_FI_DEV_ECC_DBE_VOL_L2 = 10  # L2 cache double bit volatile ECC errors
-NVML_FI_DEV_ECC_SBE_VOL_DEV = 11  # Device memory single bit volatile ECC errors
+NVML_FI_DEV_ECC_SBE_VOL_L1 = 7  # Represents L1 cache single bit volatile ECC errors
+NVML_FI_DEV_ECC_DBE_VOL_L1 = 8  # Represents L1 cache double bit volatile ECC errors
+NVML_FI_DEV_ECC_SBE_VOL_L2 = 9  # Represents L2 cache single bit volatile ECC errors
+NVML_FI_DEV_ECC_DBE_VOL_L2 = 10  # Represents L2 cache double bit volatile ECC errors
+NVML_FI_DEV_ECC_SBE_VOL_DEV = 11  # Represents Device memory single bit volatile ECC errors
 NVML_FI_DEV_ECC_DBE_VOL_DEV = 12  # Device memory double bit volatile ECC errors
 NVML_FI_DEV_ECC_SBE_VOL_REG = 13  # Register file single bit volatile ECC errors
 NVML_FI_DEV_ECC_DBE_VOL_REG = 14  # Register file double bit volatile ECC errors

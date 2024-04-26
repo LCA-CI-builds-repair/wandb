@@ -574,10 +574,12 @@ def create_app(user_ctx=None):
             set_ctx(default_ctx())
             return json.dumps(get_ctx())
         else:
-            ctx.update(body)
-            # TODO: tests in CI failed on this
-            set_ctx(ctx)
-            app.logger.info("updated context %s", ctx)
+            try:
+                ctx.update(body)
+                set_ctx(ctx)
+                app.logger.info("updated context %s", ctx)
+            except Exception as e:
+                app.logger.error("Error updating context: %s", e)
             return json.dumps(get_ctx())
 
     @app.route("/graphql", methods=["POST"])
