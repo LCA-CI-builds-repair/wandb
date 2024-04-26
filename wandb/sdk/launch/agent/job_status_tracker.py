@@ -29,9 +29,10 @@ class JobAndRunStatusTracker:
 
     @property
     def job_completed(self) -> bool:
-        return self.failed_to_start or self.completed_status is not None
+        return self.failed_to_start or self.completed_status == "completed"
 
     def update_run_info(self, launch_project: LaunchProject) -> None:
+        # Add the necessary code inside the update_run_info method
         self.run_id = launch_project.run_id
         self.project = launch_project.target_project
         self.entity = launch_project.target_entity
@@ -45,9 +46,11 @@ class JobAndRunStatusTracker:
             and self.project is not None
             and self.entity is not None
         ), "Job tracker does not contain run info. Update with run info before checking if run stopped"
-        check_stop = event_loop_thread_exec(api.api.check_stop_requested)
+        
+        check_stop = event_loop_thread_exec(api.api.check_stop_requested())
         try:
             return bool(await check_stop(self.project, self.entity, self.run_id))
         except CommError as e:
+            _logger.error(f"CommError when checking if wandb run stopped: {e}")
             _logger.error(f"CommError when checking if wandb run stopped: {e}")
         return False
