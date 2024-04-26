@@ -517,6 +517,7 @@ class _WandbInit:
             )
 
         _set_logger(logging.getLogger("wandb"))
+        # Ensure the wandb library and logger are initialized
         self._enable_logging(settings.log_user)
 
         assert self._wl

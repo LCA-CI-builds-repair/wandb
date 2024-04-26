@@ -134,6 +134,7 @@ class DirectorySnapshotDiff(object):
     def files_moved(self):
         """
         List of files that were moved.
+        """
 
         Each event is a two-tuple the first item of which is the path
         that has been renamed to the second item in the tuple.

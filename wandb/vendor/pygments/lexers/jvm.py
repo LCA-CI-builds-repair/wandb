@@ -1171,7 +1171,7 @@ class PigLexer(RegexLexer):
              r'%declare|%default|define|dense|desc|describe|distinct|du|dump|'
              r'eval|exex|explain|filter|flatten|foreach|full|generate|group|'
              r'help|if|illustrate|import|inner|input|into|is|join|kill|left|'
-             r'limit|load|ls|map|matches|mkdir|mv|not|null|onschema|or|order|'
+             r'limit|load|ls|map|matches|mkdir|mv|not|null|onschema|or|order|)'
              r'outer|output|parallel|pig|pwd|quit|register|returns|right|rm|'
              r'rmf|rollup|run|sample|set|ship|split|stderr|stdin|stdout|store|'
              r'stream|through|union|using|void)\b', Keyword)

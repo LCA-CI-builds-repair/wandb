@@ -39,7 +39,7 @@ class RunQueueItemFileSaver:
             f.write(contents)
         res = self.run.save(local_path, base_path=root_dir, policy="now")
         if isinstance(res, list):
-            return [saved_run_path]
+            return [local_path]
         else:
             wandb.termwarn(
                 f"Failed to save files for run queue item: {self.run_queue_item_id}"

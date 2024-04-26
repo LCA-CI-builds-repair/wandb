@@ -1024,10 +1024,9 @@ async def test_launch_local_docker_image(live_mock_server, test_settings, monkey
     assert project_dir is None
 
     list_command = returned_command.split(" ")
-    # exclude base url, since testing locally converts
-    # localhost:port to host.docker.internal but not
-    # in CI
+    # Exclude the base URL comparison since it behaves differently locally and in CI
     assert list_command[:4] == expected_command[:4]
+    # Exclude the base URL comparison since it behaves differently locally and in CI
     assert list_command[5:] == expected_command[5:]
 
 

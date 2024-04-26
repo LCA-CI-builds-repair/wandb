@@ -499,7 +499,7 @@ def test_unwritable_staging_dir(monkeypatch):
     # Use a non-writable directory as the staging directory.
     # CI just doesn't care about permissions, so we're patching os.makedirs 🙃
     def nope(*args, **kwargs):
-        raise OSError(13, "Permission denied")
+        raise PermissionError(13, "Permission denied")
 
     monkeypatch.setattr(os, "makedirs", nope)
 

@@ -211,7 +211,7 @@ class StreamMux:
         # run_id = action.stream_id  # will want to fix if a streamid != runid
         settings = action._data
         thread = StreamThread(
-            target=wandb.wandb_sdk.internal.internal.wandb_internal,
+            target=wandb.sdk.internal.internal.wandb_internal,
             kwargs=dict(
                 settings=settings,
                 record_q=stream._record_q,

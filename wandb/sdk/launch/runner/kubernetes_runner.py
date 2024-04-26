@@ -140,7 +140,7 @@ class KubernetesSubmittedRun(AbstractRun):
             await asyncio.sleep(5)
         return (
             status.state == "finished"
-        )  # todo: not sure if this (copied from aws runner) is the right approach? should we return false on failure
+        )  # Consider returning False on failure instead of True
 
     async def get_status(self) -> Status:
         return LaunchKubernetesMonitor.get_status(self.name)

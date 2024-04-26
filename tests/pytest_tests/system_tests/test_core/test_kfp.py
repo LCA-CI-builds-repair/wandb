@@ -126,18 +126,15 @@
 
 
 # @pytest.mark.xfail(
-#     reason="This test sometimes fails in CI (not sure why)", strict=False
-# )
-# def test_unpatching():
-#     assert (
-#         inspect.getmodule(kfp.components._python_op.create_component_from_func)
-#         is wandb.integration.kfp.kfp_patch
-#     )
-#     assert (
-#         inspect.getmodule(kfp.components._python_op._get_function_source_definition)
-#         is wandb.integration.kfp.kfp_patch
-#     )
-#     assert (
+def test_unpatching():
+    assert (
+        inspect.getmodule(kfp.components._python_op.create_component_from_func)
+        is not wandb.integration.kfp.kfp_patch
+    )
+    assert (
+        inspect.getmodule(kfp.components._python_op._get_function_source_definition)
+        is not wandb.integration.kfp.kfp_patch
+    )
 #         inspect.getmodule(kfp.components._python_op.strip_type_hints)
 #         is wandb.integration.kfp.kfp_patch
 #     )

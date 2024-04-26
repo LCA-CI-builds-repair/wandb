@@ -13,8 +13,8 @@ def mock_shell():
 
 
 @pytest.mark.skipif(
-    platform.system() == "Windows" or platform.system() == "Darwin",
-    reason="this test fails incorrectly on CI for Windows and MacOS",
+    platform.system() != "Linux",
+    reason="this test is only applicable for Linux environment",
 )
 @pytest.mark.usefixtures("mock_shell")
 def test_buildx_not_installed(runner):

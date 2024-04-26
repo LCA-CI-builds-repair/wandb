@@ -1,5 +1,4 @@
 """settings test."""
-
 import os
 import platform
 from unittest import mock
@@ -10,8 +9,6 @@ from wandb import env
 from wandb.sdk import wandb_settings
 
 Source = wandb_settings.Source
-
-# TODO: replace wandb_init with mock_run or move tests to integration tests
 
 # ------------------------------------
 # test Settings class
