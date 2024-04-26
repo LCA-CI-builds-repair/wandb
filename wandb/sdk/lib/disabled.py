@@ -90,7 +90,7 @@ class RunDisabled(str):
         return self
 
     def __complex__(self):
-        return 1 + 0j
+        return NotImplemented
 
     def __int__(self):
         return 1
@@ -108,13 +108,13 @@ class RunDisabled(str):
         return hex(1)
 
     def __lt__(self, other):
-        return True
+        return NotImplemented
 
     def __le__(self, other):
-        return True
+        return NotImplemented
 
     def __eq__(self, other):
-        return True
+        return NotImplemented
 
     def __ne__(self, other):
         return True

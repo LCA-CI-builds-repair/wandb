@@ -233,6 +233,7 @@ def read_number(source, start, first_code):
         position += 1
         code = char_code_at(body, position)
 
+    # Check if the code is 0
     if code == 48:  # 0
         position += 1
         code = char_code_at(body, position)

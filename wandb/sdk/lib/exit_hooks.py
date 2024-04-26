@@ -30,11 +30,9 @@ class ExitHooks:
 
     def exit(self, code: object = 0) -> "NoReturn":
         orig_code = code
-        code = code if code is not None else 0
-        code = code if isinstance(code, int) else 1
+        code = code if code is not None and isinstance(code, int) else 0
         self.exit_code = code
         self._orig_exit(orig_code)  # type: ignore
-
     def was_ctrl_c(self) -> bool:
         return isinstance(self.exception, KeyboardInterrupt)
 

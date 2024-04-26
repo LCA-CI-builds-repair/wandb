@@ -56,16 +56,20 @@ def test_parse_path(path):
 
 
 @pytest.mark.usefixtures("patch_apikey", "patch_prompt")
+import pytest
+from unittest import mock
+import os
+from wandb.sdk.internal.internal import Api
+
 def test_parse_project_path():
     with mock.patch.object(wandb, "login", mock.MagicMock()):
         entity, project = Api()._parse_project_path("user/proj")
         assert entity == "user"
         assert project == "proj"
 
-
 @pytest.mark.usefixtures("patch_apikey", "patch_prompt")
 def test_parse_project_path_proj():
-    with mock.patch.dict("os.environ", {"WANDB_ENTITY": "mock_entity"}):
+    with mock.patch.dict(os.environ, {"WANDB_ENTITY": "mock_entity"}):
         entity, project = Api()._parse_project_path("proj")
         assert entity == "mock_entity"
         assert project == "proj"
@@ -98,14 +102,17 @@ def test_parse_path_proj():
         assert run == "proj"
 
 @pytest.mark.usefixtures("patch_apikey", "patch_prompt")
-def test_parse_path_id():
-    with mock.patch.dict(
-        "os.environ", {"WANDB_ENTITY": "mock_entity", "WANDB_PROJECT": "proj"}
-    ):
+import pytest
+from wandb.sdk.internal.internal import Api
+
         user, project, run = Api()._parse_path("run")
         assert user == "mock_entity"
         assert project == "proj"
         assert run == "run"
+
+@pytest.mark.usefixtures("patch_apikey", "patch_prompt")
+def test_direct_specification_of_api_key():
+    # Add the necessary test logic here
 
 
 @pytest.mark.usefixtures("patch_apikey", "patch_prompt")

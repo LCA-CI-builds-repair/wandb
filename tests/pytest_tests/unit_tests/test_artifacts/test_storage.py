@@ -486,6 +486,9 @@ def test_storage_handler_incomplete():
         pass
 
     ush = UnfinishedStorageHandler()
+import pytest
+from wandb.sdk.internal.internal import urlparse
+from wandb.sdk.internal.internal import ush
 
     with pytest.raises(NotImplementedError):
         ush.can_handle(parsed_url=urlparse("https://wandb.com"))
