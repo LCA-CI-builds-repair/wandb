@@ -47,7 +47,7 @@ class JobAndRunStatusTracker:
         ), "Job tracker does not contain run info. Update with run info before checking if run stopped"
         check_stop = event_loop_thread_exec(api.api.check_stop_requested)
         try:
-            return bool(await check_stop(self.project, self.entity, self.run_id))
+            return bool(await asyncio.wait_for(check_stop(self.project, self.entity, self.run_id), timeout=10))
         except CommError as e:
             _logger.error(f"CommError when checking if wandb run stopped: {e}")
         return False

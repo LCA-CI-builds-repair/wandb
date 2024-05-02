@@ -45,6 +45,9 @@ class DiffusersPipelineResolver:
         if pipeline_name in SUPPORTED_MULTIMODAL_PIPELINES:
             resolver = DiffusersMultiModalPipelineResolver(pipeline_name)
         elif pipeline_name in SUPPORTED_SDXL_PIPELINES:
+            resolver = DiffusersSDXLPipelineResolver(pipeline_name)
+        else:
+            raise ValueError("Unsupported pipeline name")
             resolver = SDXLResolver(pipeline_name)
         loggable_dict = resolver(args, kwargs, response, start_time, time_elapsed)
         return loggable_dict

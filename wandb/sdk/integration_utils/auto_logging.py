@@ -168,12 +168,11 @@ class AutologAPI:
         self._patch_api = PatchAPI(
             name=name,
             symbols=symbols,
-            resolver=resolver,
+            resolver=resolver
         )
         self._name = self._patch_api.name
         self._run: Optional[wandb.sdk.wandb_run.Run] = None
         self.__run_created_by_autolog: bool = False
-
     @property
     def _is_enabled(self) -> bool:
         """Returns whether autologging is enabled."""
