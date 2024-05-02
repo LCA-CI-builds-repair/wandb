@@ -45,17 +45,21 @@ def _create_import_hook_from_string(name: str) -> Callable:
 
 
 def register_post_import_hook(
-    hook: Union[str, Callable], hook_id: str, name: str
+from typing import Union
+import sys
+
+def register_post_import_hook(
+    hook: Union[str, Callable[..., Any], hook_id: str, name: str
 ) -> None:
     # Create a deferred import hook if hook is a string name rather than
     # a callable function.
-
+    
     if isinstance(hook, (str,)):
         hook = _create_import_hook_from_string(hook)
 
     # Automatically install the import hook finder if it has not already
     # been installed.
-
+    
     with _post_import_hooks_lock:
         global _post_import_hooks_init
 
@@ -73,13 +77,13 @@ def register_post_import_hook(
 
     # If the module is already imported, we fire the hook right away. Note that
     # the hook is called outside of the lock to avoid deadlocks if code run as a
-    # consequence of calling the module import hook in turn triggers a separate
-    # thread which tries to register an import hook.
-
-    if module is not None:
         hook(module)
 
 
+def unregister_post_import_hook(name: str, hook_id: Optional[str]) -> None:
+    # Remove the import hook if it has been registered.
+    with _post_import_hooks_lock:
+        hooks = _post_import_hooks.get(name)
 def unregister_post_import_hook(name: str, hook_id: Optional[str]) -> None:
     # Remove the import hook if it has been registered.
     with _post_import_hooks_lock:
