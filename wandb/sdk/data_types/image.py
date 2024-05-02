@@ -299,9 +299,8 @@ class Image(BatchableMedia):
             if data.ndim > 2:
                 data = data.squeeze()  # get rid of trivial dimensions as a convenience
             self._image = pil_image.fromarray(
-                self.to_uint8(data), mode=mode or self.guess_mode(data)
-            )
-
+                self.to_uint8(data), mode=mode or self.guess_mode(data))
+            
         tmp_path = os.path.join(MEDIA_TMP.name, runid.generate_id() + ".png")
         self.format = "png"
         assert self._image is not None
