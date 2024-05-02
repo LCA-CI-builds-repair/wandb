@@ -110,7 +110,7 @@ def _get_modification_order(
             dependencies = (v for v in unbound_closure_vars if v in props)
             for d in dependencies:
                 dependency_graph.add_node(d)
-                dependency_graph.add_edge(setting, d)
+                dependency_graph.add_edge(prop, d)
 
     # extract dependencies from props' runtime hooks
     default_props = settings._default_props()

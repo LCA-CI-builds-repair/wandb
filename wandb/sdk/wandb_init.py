@@ -458,7 +458,8 @@ class _WandbInit:
                 ipython.events.unregister("pre_run_cell", hook)
         for hook in ipython.events.callbacks["post_run_cell"]:
             if "_pause_backend" in hook.__name__:
-                ipython.events.unregister("post_run_cell", hook)
+from wandb.sdk.wandb_settings import Settings
+
         ipython.display_pub.publish = ipython.display_pub._orig_publish
         del ipython.display_pub._orig_publish
 

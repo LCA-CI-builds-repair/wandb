@@ -58,7 +58,9 @@ def register_post_import_hook(
 
     with _post_import_hooks_lock:
         global _post_import_hooks_init
-
+        if not _post_import_hooks_init:
+            _install_import_hook_finder()
+            _post_import_hooks_init = True
         if not _post_import_hooks_init:
             _post_import_hooks_init = True
             sys.meta_path.insert(0, ImportHookFinder())  # type: ignore
@@ -106,9 +108,6 @@ def unregister_all_post_import_hooks() -> None:
 # the import of the target module to fail.
 
 
-def notify_module_loaded(module: Any) -> None:
-    name = getattr(module, "__name__", None)
-
     with _post_import_hooks_lock:
         hooks = _post_import_hooks.pop(name, {})
 
@@ -118,7 +117,6 @@ def notify_module_loaded(module: Any) -> None:
     for hook in hooks.values():
         if hook:
             hook(module)
-
 
 # A custom module import finder. This intercepts attempts to import
 # modules and watches out for attempts to import target modules of
