@@ -288,10 +288,11 @@ def test_artifact_upload_succeeds_with_async(
     _async_upload_concurrency_limit: Optional[int],
     tmp_path: Path,
 ):
-    with wandb_init(
-        settings=dict(_async_upload_concurrency_limit=_async_upload_concurrency_limit)
-    ) as run:
-        artifact = wandb.Artifact("art", type="dataset")
+    with mock.patch.dict():  # Add the correct parameters for mock.patch.dict
+        with wandb_init(
+            settings=dict(_async_upload_concurrency_limit=_async_upload_concurrency_limit)
+        ) as run:
+            artifact = wandb.Artifact("art", type="dataset")
         (tmp_path / "my-file.txt").write_text("my contents")
         artifact.add_dir(str(tmp_path))
         run.log_artifact(artifact).wait(timeout=5)
