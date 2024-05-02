@@ -453,13 +453,15 @@ class _WandbInit:
             logger.info("saved code and history: %s", res)  # type: ignore
         logger.info("cleaning up jupyter logic")  # type: ignore
         # because of how we bind our methods we manually find them to unregister
-        for hook in ipython.events.callbacks["pre_run_cell"]:
-            if "_resume_backend" in hook.__name__:
-                ipython.events.unregister("pre_run_cell", hook)
-        for hook in ipython.events.callbacks["post_run_cell"]:
-            if "_pause_backend" in hook.__name__:
-                ipython.events.unregister("post_run_cell", hook)
-        ipython.display_pub.publish = ipython.display_pub._orig_publish
+        if hasattr(ipython, 'events'):
+            for hook in ipython.events.callbacks["pre_run_cell"]:
+                if hasattr(hook, '__name__') and "_resume_backend" in hook.__name__:
+                    ipython.events.unregister("pre_run_cell", hook)
+            for hook in ipython.events.callbacks["post_run_cell"]:
+                if hasattr(hook, '__name') and "_pause_backend" in hook.__name__:
+                    ipython.events.unregister("post_run_cell", hook)
+        if hasattr(ipython, 'display_pub'):
+            ipython.display_pub.publish = getattr(ipython.display_pub, '_orig_publish', None)
         del ipython.display_pub._orig_publish
 
     def _jupyter_setup(self, settings: Settings) -> None:
