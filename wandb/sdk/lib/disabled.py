@@ -97,14 +97,8 @@ class RunDisabled(str):
 
     def __long__(self):
         return 1
-
-    def __float__(self):
-        return 1.0
-
-    def __oct__(self):
-        return oct(1)
-
     def __hex__(self):
+        return hex(1)
         return hex(1)
 
     def __lt__(self, other):

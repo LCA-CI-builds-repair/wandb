@@ -105,6 +105,9 @@ def test_parse_path_id():
         user, project, run = Api()._parse_path("run")
         assert user == "mock_entity"
         assert project == "proj"
+        user, project, run = Api()._parse_path("run")
+        assert user == "mock_entity"
+        assert project == "proj"
         assert run == "run"
 
 
