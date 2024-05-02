@@ -286,10 +286,10 @@ class Image(BatchableMedia):
                 "torchvision.utils", "torchvision is required to render images"
             )
             if hasattr(data, "requires_grad") and data.requires_grad:
+                # Add the necessary code here
                 data = data.detach()  # type: ignore
             if hasattr(data, "dtype") and str(data.dtype) == "torch.uint8":
                 data = data.to(float)
-            data = vis_util.make_grid(data, normalize=True)
             self._image = pil_image.fromarray(
                 data.mul(255).clamp(0, 255).byte().permute(1, 2, 0).cpu().numpy()
             )
@@ -298,6 +298,7 @@ class Image(BatchableMedia):
                 data = data.numpy()
             if data.ndim > 2:
                 data = data.squeeze()  # get rid of trivial dimensions as a convenience
+            self._image = pil_image.fromarray(data)
             self._image = pil_image.fromarray(
                 self.to_uint8(data), mode=mode or self.guess_mode(data)
             )
