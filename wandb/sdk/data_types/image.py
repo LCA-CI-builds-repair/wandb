@@ -656,4 +656,5 @@ class Image(BatchableMedia):
                 )
                 self._image = pil_image.open(self._path)
                 self._image.load()
+    def get_image(self):
         return self._image

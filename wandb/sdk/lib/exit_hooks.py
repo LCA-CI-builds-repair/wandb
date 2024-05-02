@@ -28,9 +28,7 @@ class ExitHooks:
         )
         sys.excepthook = self.exc_handler  # type: ignore
 
-    def exit(self, code: object = 0) -> "NoReturn":
-        orig_code = code
-        code = code if code is not None else 0
+    def exit(self, code: int = 0) -> "NoReturn":
         code = code if isinstance(code, int) else 1
         self.exit_code = code
         self._orig_exit(orig_code)  # type: ignore
