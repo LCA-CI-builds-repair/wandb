@@ -493,12 +493,15 @@ def test_launch_browser():
             assert not util.launch_browser()
 
 
+import mock
+from my_project import util
+
 def test_parse_tfjob_config():
     with mock.patch.dict(
-        "os.environ", {"TF_CONFIG": '{"cluster": {"master": ["foo"]}}'}
+        os.environ, {"TF_CONFIG": '{"cluster": {"master": ["foo"]}}'}
     ):
         assert util.parse_tfjob_config() == {"cluster": {"master": ["foo"]}}
-    with mock.patch.dict("os.environ", {"TF_CONFIG": "LOL"}):
+    with mock.patch.dict(os.environ, {"TF_CONFIG": "LOL"}):
         assert util.parse_tfjob_config() is False
     assert util.parse_tfjob_config() is False
 

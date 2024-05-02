@@ -237,17 +237,19 @@ class LaunchAgent:
         run_queue_item_id: str,
         message: str,
         phase: str,
+    ):
         files: Optional[List[str]] = None,
     ) -> None:
         if self._gorilla_supports_fail_run_queue_items:
             fail_rqi = event_loop_thread_exec(self._api.fail_run_queue_item)
-            await fail_rqi(run_queue_item_id, message, phase, files)
+from wandb.sdk.lib import wandb
 
     def _init_agent_run(self) -> None:
         # TODO: has it been long enough that all backends support agents?
         if self.gorilla_supports_agents:
             settings = wandb.Settings(silent=True, disable_git=True)
             self._wandb_run = wandb.init(
+                project=self._project,
                 project=self._project,
                 entity=self._entity,
                 settings=settings,
@@ -485,13 +487,12 @@ class LaunchAgent:
             return
         k8s_config = launch_spec.get("resource_args", {}).get("kubernetes", {})
 
-        pod_secure_keys = ["hostPID", "hostIPC", "hostNetwork", "initContainers"]
-        pod_spec = k8s_config.get("spec", {}).get("template", {}).get("spec", {})
         for key in pod_secure_keys:
             if key in pod_spec:
                 raise ValueError(
                     f'This agent is configured to lock "{key}" in pod spec '
                     "but the job specification attempts to override it."
+                )
                 )
 
         container_specs = pod_spec.get("containers", [])

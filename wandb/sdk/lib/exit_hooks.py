@@ -34,8 +34,10 @@ class ExitHooks:
         code = code if isinstance(code, int) else 1
         self.exit_code = code
         self._orig_exit(orig_code)  # type: ignore
+        return None
 
     def was_ctrl_c(self) -> bool:
+        # Add implementation for was_ctrl_c method here
         return isinstance(self.exception, KeyboardInterrupt)
 
     def exc_handler(
