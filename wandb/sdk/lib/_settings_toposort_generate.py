@@ -112,6 +112,9 @@ def _get_modification_order(
                 dependency_graph.add_node(d)
                 dependency_graph.add_edge(setting, d)
 
+    # import the settings module
+    from wandb.sdk import settings
+    
     # extract dependencies from props' runtime hooks
     default_props = settings._default_props()
     for prop, spec in default_props.items():

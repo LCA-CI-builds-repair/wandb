@@ -112,7 +112,7 @@ class TorchHistory:
                 )
             )
             self._hook_handles["parameters/" + prefix] = hook
-            module._wandb_hook_names.append("parameters/" + prefix)
+            module.add_wandb_hook_name("parameters/" + prefix)
         except RuntimeError as e:
             wandb.termwarn(
                 f"Trying to register forward_hook failed ({e}) - skipping parameter tracking."
