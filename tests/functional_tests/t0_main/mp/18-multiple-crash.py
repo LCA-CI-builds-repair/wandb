@@ -10,7 +10,7 @@ Create a scenario where:
 The result is:
 - 4 runs created
 - indeterminate history logged for all 4 runs
-- indeterminate exit status for 3 non faulted run
+- indeterminate exit status for 3 non-faulted runs
 - no exit status for the faulted run
 - program exit code of non-zero
 """
@@ -19,6 +19,29 @@ import multiprocessing as mp
 import shutil
 from typing import List
 
+# Import necessary modules for logging data and finishing runs
+import wandb
+
+def run_experiment(run_id):
+    # Simulate logging data
+    wandb.init(id=run_id)
+    wandb.log({"metric": run_id})
+
+    # Simulate possible fault
+    if run_id == 2:
+        raise ValueError("Fault injected in run 2")
+
+    # Finish the run
+    wandb.run.finish()
+
+if __name__ == "__main__":
+    # Create 4 runs in parallel
+    with mp.Pool(processes=4) as pool:
+        run_ids = [1, 2, 3, 4]
+        pool.map(run_experiment, run_ids)
+
+    # Ensure proper cleanup and termination
+    wandb.join()
 import wandb
 
 
