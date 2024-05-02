@@ -277,10 +277,13 @@ class Image(BatchableMedia):
         )
         if util.is_matplotlib_typename(util.get_full_typename(data)):
             buf = BytesIO()
-            util.ensure_matplotlib_figure(data).savefig(buf, format='png')
-            self._image = pil_image.open(buf, formats=["PNG"])
-        elif isinstance(data, pil_image.Image):
-            self._image = data
+            if isinstance(data, matplotlib.figure.Figure):
+                util.ensure_matplotlib_figure(data).savefig(buf, format='png')
+                self._image = pil_image.open(buf, formats=["PNG"])
+            elif isinstance(data, pil_image.Image):
+                self._image = data
+            else:
+                raise ValueError("Unsupported data type for image: {}".format(type(data)))
         elif util.is_pytorch_tensor_typename(util.get_full_typename(data)):
             vis_util = util.get_module(
                 "torchvision.utils", "torchvision is required to render images"
@@ -646,14 +649,11 @@ class Image(BatchableMedia):
         if self._path is not None:
             self._image = None
 
-    @property
-    def image(self) -> Optional["PILImage"]:
-        if self._image is None:
             if self._path is not None and not self.path_is_reference(self._path):
                 pil_image = util.get_module(
                     "PIL.Image",
                     required='wandb.Image needs the PIL package. To get it, run "pip install pillow".',
                 )
-                self._image = pil_image.open(self._path)
-                self._image.load()
+                if isinstance(self._image, pil_image.Image):
+                    self._image.load()
         return self._image
