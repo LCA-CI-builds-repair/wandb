@@ -125,12 +125,11 @@ def _get_modification_order(
             hook = [hook]
 
         for h in hook:
-            unbound_closure_vars = inspect.getclosurevars(h).unbound
+            unbound_closure_vars = inspect.getclosurevars(h).nonlocals
             dependencies = (v for v in unbound_closure_vars if v in props)
             for d in dependencies:
                 dependency_graph.add_node(d)
                 dependency_graph.add_edge(prop, d)
-
     modification_order = dependency_graph.topological_sort_dfs()
     return props, tuple(modification_order)
 

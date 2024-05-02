@@ -50,7 +50,7 @@ def register_post_import_hook(
     # Create a deferred import hook if hook is a string name rather than
     # a callable function.
 
-    if isinstance(hook, (str,)):
+    if isinstance(hook, str):
         hook = _create_import_hook_from_string(hook)
 
     # Automatically install the import hook finder if it has not already
@@ -58,7 +58,6 @@ def register_post_import_hook(
 
     with _post_import_hooks_lock:
         global _post_import_hooks_init
-
         if not _post_import_hooks_init:
             _post_import_hooks_init = True
             sys.meta_path.insert(0, ImportHookFinder())  # type: ignore
@@ -118,7 +117,6 @@ def notify_module_loaded(module: Any) -> None:
     for hook in hooks.values():
         if hook:
             hook(module)
-
 
 # A custom module import finder. This intercepts attempts to import
 # modules and watches out for attempts to import target modules of
