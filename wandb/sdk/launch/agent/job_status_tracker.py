@@ -42,7 +42,6 @@ class JobAndRunStatusTracker:
     async def check_wandb_run_stopped(self, api: Api) -> bool:
         assert (
             self.run_id is not None
-            and self.project is not None
             and self.entity is not None
         ), "Job tracker does not contain run info. Update with run info before checking if run stopped"
         check_stop = event_loop_thread_exec(api.api.check_stop_requested)
