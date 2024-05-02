@@ -570,12 +570,13 @@ def create_app(user_ctx=None):
             ctx = snoop.context_enrich(ctx)
             return json.dumps(ctx)
         elif request.method == "DELETE":
-            app.logger.info("resetting context")
+            app.logger.info(f"Resetting context for {request.method} method")
             set_ctx(default_ctx())
-            return json.dumps(get_ctx())
+            return json.dumps(ctx)
         else:
+            if request.method not in ["GET", "DELETE"]:
+                app.logger.error(f"Unsupported HTTP method: {request.method}")
             ctx.update(body)
-            # TODO: tests in CI failed on this
             set_ctx(ctx)
             app.logger.info("updated context %s", ctx)
             return json.dumps(get_ctx())
