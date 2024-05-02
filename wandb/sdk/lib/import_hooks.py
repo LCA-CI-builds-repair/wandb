@@ -44,6 +44,8 @@ def _create_import_hook_from_string(name: str) -> Callable:
     return import_hook
 
 
+from typing import Union
+
 def register_post_import_hook(
     hook: Union[str, Callable], hook_id: str, name: str
 ) -> None:
@@ -58,6 +60,7 @@ def register_post_import_hook(
 
     with _post_import_hooks_lock:
         global _post_import_hooks_init
+        _post_import_hooks_init = True
 
         if not _post_import_hooks_init:
             _post_import_hooks_init = True

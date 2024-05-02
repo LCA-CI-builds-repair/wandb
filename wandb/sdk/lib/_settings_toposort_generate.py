@@ -133,7 +133,7 @@ def _get_modification_order(
 
     modification_order = dependency_graph.topological_sort_dfs()
     return props, tuple(modification_order)
-
+from wandb.sdk.lib.settings import Settings
 
 def generate(settings: Settings) -> None:
     _settings_literal_list, _settings_topologically_sorted = _get_modification_order(
