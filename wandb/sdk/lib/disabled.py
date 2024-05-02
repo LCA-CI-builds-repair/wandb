@@ -20,25 +20,8 @@ class RunDisabled(str):
     def __floordiv__(self, other):
         return self
 
-    def __mod__(self, other):
-        return self
-
-    def __pow__(self, other, modulo=None):
-        return self
-
-    def __lshift__(self, other):
-        return self
-
-    def __rshift__(self, other):
-        return self
-
-    def __and__(self, other):
-        return self
-
-    def __xor__(self, other):
-        return self
-
     def __or__(self, other):
+        return self
         return self
 
     def __iadd__(self, other):
