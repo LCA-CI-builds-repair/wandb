@@ -283,8 +283,7 @@ class Image(BatchableMedia):
             self._image = data
         elif util.is_pytorch_tensor_typename(util.get_full_typename(data)):
             vis_util = util.get_module(
-                "torchvision.utils", "torchvision is required to render images"
-            )
+                "torchvision.utils", "torchvision is required to render images")
             if hasattr(data, "requires_grad") and data.requires_grad:
                 data = data.detach()  # type: ignore
             if hasattr(data, "dtype") and str(data.dtype) == "torch.uint8":
