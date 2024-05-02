@@ -21,5 +21,5 @@ def get_staging_dir() -> FilePathStr:
             f"Unable to write staging files to {path}. To fix this problem, please set "
             f"{env.DATA_DIR} to a directory where you have the necessary write access."
         ) from e
-
+    return path
     return FilePathStr(os.path.abspath(os.path.expanduser(path)))

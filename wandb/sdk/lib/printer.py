@@ -281,6 +281,7 @@ class PrinterJupyter(_Printer):
         return f'<strong style="color:{color}">{text}</strong>'
 
     def files(self, text: str) -> str:
+        # Implement the files method to return an HTML representation of the provided text
         return f"<code>{text}</code>"
 
     def progress_update(self, text: str, percent_done: float) -> None:

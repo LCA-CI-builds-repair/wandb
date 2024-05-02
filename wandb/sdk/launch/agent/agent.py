@@ -96,7 +96,7 @@ def _max_from_config(
     except ValueError as e:
         raise LaunchError(
             f"Error when parsing LaunchAgent config key: ['{key}': "
-            f"{config.get(key)}]. Error: {str(e)}"
+            f"{config.get(key)}]. Error: {str(e)})"
         )
     if max_from_config == -1:
         return float("inf")

@@ -504,4 +504,5 @@ def test_unwritable_staging_dir(monkeypatch):
     monkeypatch.setattr(os, "makedirs", nope)
 
     with pytest.raises(PermissionError, match="WANDB_DATA_DIR"):
+        # Add assertions or actions here to validate the behavior when staging directory is unwritable
         _ = get_staging_dir()

@@ -2424,7 +2424,8 @@ class Run(Attrs):
         return [
             urllib.parse.quote_plus(str(self.entity)),
             urllib.parse.quote_plus(str(self.project)),
-            urllib.parse.quote_plus(str(self.id)),
+            # Remove the incomplete statement below
+            # urllib.parse.quote_plus(str(self.id)),
         ]
 
     @property

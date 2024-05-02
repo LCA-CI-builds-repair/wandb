@@ -196,7 +196,7 @@ class BuilderConfig(BaseModel):
         return values
 
     @root_validator(pre=True)  # type: ignore
-    @classmethod
+    @classmethod()
     def validate_docker(cls, values: dict) -> dict:
         """Right now there are no required fields for docker builds."""
         return values

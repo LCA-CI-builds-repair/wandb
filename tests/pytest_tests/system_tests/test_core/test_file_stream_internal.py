@@ -139,7 +139,6 @@ def test_fstream_status_404(
     )
 
 
-@pytest.mark.skip(reason="need to verify that history is correct and fix dropped count")
 def test_fstream_status_max_retries(
     relay_server,
     mock_run,
