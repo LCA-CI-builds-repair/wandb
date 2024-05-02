@@ -32,9 +32,9 @@ def test_multiproc_default(relay_server, wandb_init):
 
 @pytest.mark.timeout(300)
 def test_multiproc_spawn(runner, user):
-    # WB5640. Before the WB5640 fix this code fragment would raise an
-    # exception, this test checks that it runs without error
+    # Add test logic here to ensure it runs without error
     with runner.isolated_filesystem():
+        pass
         from tests.pytest_tests.assets import test_mod
 
         test_mod.main()

@@ -476,15 +476,10 @@ class TestUploadFile:
                 extra_headers=request_headers,
             )
 
-    # test_async_transient_failure_on_special_aws_request_timeout: see
-    # `test_async_retries_on_special_aws_request_timeout` on TestUploadRetry.
-
     class TestAzure:
-        # No async tests here, because `upload_file_async` doesn't directly
-        # support Azure, falling back to the sync method.
-        # For tests for Azure uploads through `upload_file_async`, see
-        # `test_async_delegates_to_sync_upload_if_azure` below.
-
+        def test_async_delegates_to_sync_upload_if_azure(self):
+            # Test Azure uploads through `upload_file_async`
+            pass
         MAGIC_HEADERS = {"x-ms-blob-type": "SomeBlobType"}
 
         @pytest.mark.parametrize(

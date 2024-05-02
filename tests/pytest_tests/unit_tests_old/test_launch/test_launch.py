@@ -1028,6 +1028,7 @@ async def test_launch_local_docker_image(live_mock_server, test_settings, monkey
     # localhost:port to host.docker.internal but not
     # in CI
     assert list_command[:4] == expected_command[:4]
+    assert list_command[4:] == expected_command[4:]
     assert list_command[5:] == expected_command[5:]
 
 

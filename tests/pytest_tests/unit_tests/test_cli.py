@@ -641,7 +641,6 @@ def test_local_custom_env(runner, docker, local_settings):
 def test_local_already_running(runner, docker, local_settings):
     result = runner.invoke(cli.server, ["start"])
     print(result.output)
-    print(traceback.print_tb(result.exc_info[2]))
     assert "A container named wandb-local is already running" in result.output
 
 

@@ -80,10 +80,10 @@ def make_step_upload(
 
 def make_request_upload(path: Path, **kwargs: Any) -> RequestUpload:
     if "save_fn" in kwargs:
-        # We want a lot of tests to run against both sync and async
-        # upload implementations. For convenience, we let tests
-        # specify only a sync save_fn, and we generate an equivalent
-        # save_fn_async, so they can run against both.
+        sync_save_fn = kwargs["save_fn"]
+        async def save_fn_async(*args, **kwargs):
+            # Implement logic to handle async upload
+            pass
         kwargs.setdefault("save_fn_async", asyncify(kwargs["save_fn"]))
 
     return RequestUpload(
