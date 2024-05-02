@@ -10,7 +10,7 @@ Create a scenario where:
 The result is:
 - 4 runs created
 - indeterminate history logged for all 4 runs
-- indeterminate exit status for 3 non faulted run
+- indeterminate exit status for 3 non-faulted runs
 - no exit status for the faulted run
 - program exit code of non-zero
 """
@@ -18,7 +18,6 @@ The result is:
 import multiprocessing as mp
 import shutil
 from typing import List
-
 import wandb
 
 

@@ -793,14 +793,13 @@ class Api:
             filters: (dict) queries for specific runs using the MongoDB query language.
                 You can filter by run properties such as config.key, summary_metrics.key, state, entity, createdAt, etc.
                 For example: {"config.experiment_name": "foo"} would find runs with a config entry
-                    of experiment name set to "foo"
-                You can compose operations to make more complicated queries,
-                    see Reference for the language is at  https://docs.mongodb.com/manual/reference/operator/query
-            order: (str) Order can be `created_at`, `heartbeat_at`, `config.*.value`, or `summary_metrics.*`.
-                If you prepend order with a + order is ascending.
-                If you prepend order with a - order is descending (default).
-                The default order is run.created_at from newest to oldest.
-
+                    # of experiment name set to "foo"
+                # You can compose operations to make more complicated queries,
+                #     see Reference for the language is at  https://docs.mongodb.com/manual/reference/operator/query
+            # order: (str) Order can be `created_at`, `heartbeat_at`, `config.*.value`, or `summary_metrics.*`.
+            #     If you prepend order with a + order is ascending.
+            #     If you prepend order with a - order is descending (default).
+            #     The default order is run.created_at from newest to oldest.
         Returns:
             A `Runs` object, which is an iterable collection of `Run` objects.
         """

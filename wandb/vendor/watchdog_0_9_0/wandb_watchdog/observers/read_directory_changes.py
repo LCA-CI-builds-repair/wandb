@@ -100,14 +100,14 @@ class WindowsApiEmitter(EventEmitter):
                             # queuing events.
                             for sub_moved_event in generate_sub_moved_events(src_path, dest_path):
                                 self.queue_event(sub_moved_event)
-                        self.queue_event(event)
-                    else:
-                        self.queue_event(FileMovedEvent(src_path, dest_path))
-                elif winapi_event.is_modified:
-                    cls = DirModifiedEvent if os.path.isdir(src_path) else FileModifiedEvent
-                    self.queue_event(cls(src_path))
-                elif winapi_event.is_added:
-                    isdir = os.path.isdir(src_path)
+                            self.queue_event(event)
+                        else:
+                            self.queue_event(FileMovedEvent(src_path, dest_path))
+                    elif winapi_event.is_modified:
+                        cls = DirModifiedEvent if os.path.isdir(src_path) else FileModifiedEvent
+                        self.queue_event(cls(src_path))
+                    elif winapi_event.is_added:
+                        isdir = os.path.isdir(src_path)
                     cls = DirCreatedEvent if isdir else FileCreatedEvent
                     self.queue_event(cls(src_path))
                     if isdir:
