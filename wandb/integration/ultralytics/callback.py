@@ -66,6 +66,16 @@ try:
 except ImportError as e:
     wandb.Error(e)
 
+try:
+    import ultralytics
+    if version.parse(ultralytics.__version__) > version.parse("8.0.186"):
+        wandb.termwarn(
+            """This integration is tested and supported for ultralytics v8.0.186 and below.
+            Please report any issues to https://github.com/wandb/wandb/issues with the tag `yolov8`.""",
+            repeat=False,
+        )
+except (ImportError, AttributeError):
+    pass
 
 TRAINER_TYPE = Union[
     ClassificationTrainer, DetectionTrainer, SegmentationTrainer, PoseTrainer
