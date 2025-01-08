@@ -2,8 +2,6 @@ import copy
 from datetime import datetime
 from typing import Callable, Dict, Optional, Union
 
-from packaging import version
-
 try:
     import dill as pickle
 except ImportError:
@@ -65,6 +63,7 @@ try:
     )
 except ImportError as e:
     wandb.Error(e)
+from packaging import version  # Moved after wandb imports
 
 
 TRAINER_TYPE = Union[
