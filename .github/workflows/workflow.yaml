@@ -1,9 +1,6 @@
 name: pre-commit
 
-on:
-  pull_request:
-  push:
-    branches: [main]
+on: push
 
 jobs:
   pre-commit:
@@ -22,3 +19,7 @@ jobs:
         extra_args: --hook-stage pre-push --all-files
       env:
         SKIP: go-generate-graphql
+
+env:
+  PIP_INDEX_URL: https://pypi-wayback-449168051873.europe-west3.run.app/2023-12-16
+  UV_INDEX_URL: https://pypi-wayback-449168051873.europe-west3.run.app/2023-12-16
