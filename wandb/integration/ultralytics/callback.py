@@ -219,6 +219,8 @@ class WandBUltralyticsCallback:
         model_checkpoint_artifact = wandb.Artifact(
             f"run_{wandb.run.id}_model", "model", metadata=vars(trainer.args)
         )
+        if not self.enable_model_checkpointing:
+            return
         checkpoint_dict = {
             "epoch": trainer.epoch,
             "best_fitness": trainer.best_fitness,
@@ -241,6 +243,8 @@ class WandBUltralyticsCallback:
         with telemetry.context(run=wandb.run) as tel:
             tel.feature.ultralytics_yolov8 = True
         wandb.config.train = vars(trainer.args)
+        if self.enable_model_checkpointing:
+            self._save_model(trainer)
 
     def on_fit_epoch_end(self, trainer: TRAINER_TYPE):
         if self.task in self.supported_tasks:
@@ -263,7 +267,6 @@ class WandBUltralyticsCallback:
                         predictor=self.predictor,
                         visualize_skeleton=self.visualize_skeleton,
                         table=self.train_validation_table,
-                        max_validation_batches=self.max_validation_batches,
                         epoch=trainer.epoch,
                     )
                 elif self.task == "segment":
