@@ -2,8 +2,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 
 import torch
 from ultralytics.engine.results import Results
-from ultralytics.models.yolo.detect import DetectionPredictor
-try:
+from ultralytics.models.yolo.detect import DetectionPredictortry:
     from ultralytics.yolo.utils import ops
 except ModuleNotFoundError:
     from ultralytics.utils import ops
@@ -32,7 +31,6 @@ def scale_bounding_box_to_original_image_shape(
     # # Convert bounding box format from xyxy to xywh for Comet logging
     box = ops.xyxy2xywh(box)
     return box.tolist()
-
 
 def get_ground_truth_bbox_annotations(
     img_idx: int, image_path: str, batch: Dict, class_name_map: Dict = None
@@ -78,7 +76,6 @@ def get_ground_truth_bbox_annotations(
 
     return data
 
-
 def get_mean_confidence_map(
     classes: List, confidence: List, class_id_to_label: Dict
 ) -> Dict[str, float]:
@@ -93,7 +90,6 @@ def get_mean_confidence_map(
         else:
             updated_confidence_map[label] = 0
     return updated_confidence_map
-
 
 def get_boxes(result: Results) -> Tuple[Dict, Dict]:
     """Convert an ultralytics prediction result into metadata for the `wandb.Image` overlay system."""
@@ -126,7 +122,6 @@ def get_boxes(result: Results) -> Tuple[Dict, Dict]:
         },
     }
     return boxes, mean_confidence_map
-
 
 def plot_predictions(
     result: Results, model_name: str, table: Optional[wandb.Table] = None
