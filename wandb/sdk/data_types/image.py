@@ -277,7 +277,15 @@ class Image(BatchableMedia):
         )
         if util.is_matplotlib_typename(util.get_full_typename(data)):
             buf = BytesIO()
-            util.ensure_matplotlib_figure(data).savefig(buf, format='png')
+            util.ensure_matplotlib_figure(data).savefig(buf, format="png")
+        elif isinstance(data, (int, float)):
+            raise ValueError("Input must be a valid image data type")
+        else:
+            self._image = pil_image.fromarray(
+                self.to_uint8(data), mode=mode or self.guess_mode(data)
+            )
+
+        if self._image is not None:
             self._image = pil_image.open(buf, formats=["PNG"])
         elif isinstance(data, pil_image.Image):
             self._image = data
@@ -293,8 +301,28 @@ class Image(BatchableMedia):
             self._image = pil_image.fromarray(
                 data.mul(255).clamp(0, 255).byte().permute(1, 2, 0).cpu().numpy()
             )
+        elif hasattr(data, "numpy"):  # TF data eager tensors
+            self._image = pil_image.fromarray(
+                self.to_uint8(data.numpy()), mode=mode or self.guess_mode(data.numpy())
+            )
         else:
-            if hasattr(data, "numpy"):  # TF data eager tensors
+            raise ValueError(
+                "Input must be a valid image data type (numpy array, PIL Image, or PyTorch Tensor)"
+            )
+
+        self._retry_limit = 3
+        for _ in range(self._retry_limit):
+            try:
+                tmp_path = os.path.join(MEDIA_TMP.name, runid.generate_id() + ".png")
+                self.format = "png"
+                self._image.save(tmp_path, transparency=None)
+                self._set_file(tmp_path, is_tmp=True)
+                break
+            except Exception as e:
+                logging.warning(f"Error saving image: {e}")
+        else:
+            raise RuntimeError(f"Failed to save image after {self._retry_limit} attempts")
+
                 data = data.numpy()
             if data.ndim > 2:
                 data = data.squeeze()  # get rid of trivial dimensions as a convenience
