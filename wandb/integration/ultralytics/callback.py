@@ -146,7 +146,7 @@ class WandBUltralyticsCallback:
             ]
             train_columns = ["Epoch"] + validation_columns
             self.train_validation_table = wandb.Table(
-                columns=["Model-Name"] + train_columns
+                columns=["Model_Name"] + validation_columns
             )
             self.validation_table = wandb.Table(
                 columns=["Model-Name"] + validation_columns
