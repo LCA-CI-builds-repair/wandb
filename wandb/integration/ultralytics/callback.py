@@ -264,9 +264,48 @@ class WandBUltralyticsCallback:
                         visualize_skeleton=self.visualize_skeleton,
                         table=self.train_validation_table,
                         max_validation_batches=self.max_validation_batches,
-                        epoch=trainer.epoch,
+                        epoch=trainer.epoch
                     )
-                elif self.task == "segment":
+                elif self.task == "classify":
+                    self.train_validation_table = plot_classification_validation_results(
+                        dataloader=dataloader,
+                        class_label_map=class_label_map,
+                        model_name=self.model_name,
+                        predictor=self.predictor,
+                        table=self.train_validation_table,
+                        max_validation_batches=self.max_validation_batches,
+                        epoch=trainer.epoch
+                    )
+                else:
+                    self.train_validation_table = plot_validation_results(
+                        dataloader=dataloader,
+                        class_label_map=class_label_map,
+                        model_name=self.model_name,
+                        predictor=self.predictor,
+                        table=self.train_validation_table,
+                        max_validation_batches=self.max_validation_batches,
+                        epoch=trainer.epoch
+                    )
+                wandb.log({"Train-Validation-Table": self.train_validation_table})
+                if self.enable_model_checkpointing:
+                    self._save_model(trainer)
+
+    def on_val_end(self, validator: VALIDATOR_TYPE):
+        if self.task in self.supported_tasks:
+            if isinstance(validator.metrics.names, dict):
+                wandb.run.summary.update(validator.metrics.names)
+            wandb.log({"Validation": validator.metrics.names})
+
+    def on_predict_batch_end(
+        self, predictor: PREDICTOR_TYPE, batch: Dict, idx: int
+    ):
+        """Callback function called after the end of a predict batch."""
+        if self.task in self.supported_tasks:
+            if idx == 0:
+                self.predictor = predictor
+            output = predictor.results[0]
+            if output is not None:
+                self._log_predictions(output)                elif self.task == "segment":
                     self.train_validation_table = plot_mask_validation_results(
                         dataloader=dataloader,
                         class_label_map=class_label_map,
