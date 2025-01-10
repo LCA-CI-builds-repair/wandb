@@ -3,6 +3,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 import torch
 from ultralytics.engine.results import Results
 from ultralytics.models.yolo.detect import DetectionPredictor
+
 try:
     from ultralytics.yolo.utils import ops
 except ModuleNotFoundError:
@@ -79,7 +80,7 @@ def get_ground_truth_bbox_annotations(
     return data
 
 
-def get_mean_confidence_map(
+def get_mean_confidence_map(  # noqa: C901
     classes: List, confidence: List, class_id_to_label: Dict
 ) -> Dict[str, float]:
     """Get Mean-confidence map from the predictions to be logged into a `wandb.Table`."""
@@ -128,7 +129,7 @@ def get_boxes(result: Results) -> Tuple[Dict, Dict]:
     return boxes, mean_confidence_map
 
 
-def plot_predictions(
+def plot_predictions(  # noqa: C901
     result: Results, model_name: str, table: Optional[wandb.Table] = None
 ) -> Union[wandb.Table, Tuple[wandb.Image, Dict, Dict]]:
     """Plot the images with the W&B overlay system. The `wandb.Image` is either added to a `wandb.Table` or returned."""
