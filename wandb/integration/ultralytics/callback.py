@@ -130,6 +130,10 @@ class WandBUltralyticsCallback:
         self.visualize_skeleton = visualize_skeleton
         self.task = model.task
         self.task_map = model.task_map
+        self.max_attempts = 3
+        self.retry_delay = 2
+        self.current_attempt = 0
+
         self.model_name = model.overrides["model"].split(".")[0]
         self._make_tables()
         self._make_predictor(model)
@@ -137,7 +141,7 @@ class WandBUltralyticsCallback:
 
     def _make_tables(self):
         if self.task in ["detect", "segment"]:
-            validation_columns = [
+            self.validation_columns = [
                 "Data-Index",
                 "Batch-Index",
                 "Image",
@@ -149,7 +153,7 @@ class WandBUltralyticsCallback:
                 columns=["Model-Name"] + train_columns
             )
             self.validation_table = wandb.Table(
-                columns=["Model-Name"] + validation_columns
+                columns=["Model-Name"] + self.validation_columns
             )
             self.prediction_table = wandb.Table(
                 columns=[
@@ -182,7 +186,7 @@ class WandBUltralyticsCallback:
                 columns=["Model-Name"] + classification_columns
             )
         elif self.task == "pose":
-            validation_columns = [
+            self.validation_columns = [
                 "Data-Index",
                 "Batch-Index",
                 "Image-Ground-Truth",
@@ -196,7 +200,7 @@ class WandBUltralyticsCallback:
                 columns=["Model-Name"] + train_columns
             )
             self.validation_table = wandb.Table(
-                columns=["Model-Name"] + validation_columns
+                columns=["Model-Name"] + self.validation_columns
             )
             self.prediction_table = wandb.Table(
                 columns=[
@@ -214,6 +218,20 @@ class WandBUltralyticsCallback:
         self.predictor = self.task_map[self.task]["predictor"](
             overrides=overrides, _callbacks=None
         )
+
+    def _process_data(self, dataloader):
+        while self.current_attempt < self.max_attempts:
+            try:
+                return dataloader
+            except Exception as e:
+                self.current_attempt += 1
+                if self.current_attempt == self.max_attempts:
+                    wandb.error(f"Failed to process data after {self.max_attempts} attempts: {e}")
+                    return None
+                wandb.warn(f"Error processing data, retrying in {self.retry_delay} seconds: {e}")
+                import time
+                time.sleep(self.retry_delay)
+        return None
 
     def _save_model(self, trainer: TRAINER_TYPE):
         model_checkpoint_artifact = wandb.Artifact(
@@ -257,7 +275,7 @@ class WandBUltralyticsCallback:
                 self.predictor.setup_model(model=self.model, verbose=False)
                 if self.task == "pose":
                     self.train_validation_table = plot_pose_validation_results(
-                        dataloader=dataloader,
+                        dataloader=self._process_data(dataloader),
                         class_label_map=class_label_map,
                         model_name=self.model_name,
                         predictor=self.predictor,
@@ -268,9 +286,13 @@ class WandBUltralyticsCallback:
                     )
                 elif self.task == "segment":
                     self.train_validation_table = plot_mask_validation_results(
-                        dataloader=dataloader,
+                        dataloader=self._process_data(dataloader),
                         class_label_map=class_label_map,
                         model_name=self.model_name,
+                        predictor=self.predictor,
+                        table=self.train_validation_table,
+                        max_validation_batches=self.max_validation_batches,
+                        epoch=trainer.epoch,
                         predictor=self.predictor,
                         table=self.train_validation_table,
                         max_validation_batches=self.max_validation_batches,
