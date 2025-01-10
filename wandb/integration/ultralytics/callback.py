@@ -42,29 +42,31 @@ try:
         SegmentationValidator,
     )
     from ultralytics.utils.torch_utils import de_parallel
+
     try:
         from ultralytics.yolo.utils import RANK, __version__
     except ModuleNotFoundError:
         from ultralytics.utils import RANK, __version__
 
-    from wandb.integration.ultralytics.bbox_utils import (
-        plot_predictions,
-        plot_validation_results,
-    )
-    from wandb.integration.ultralytics.classification_utils import (
-        plot_classification_predictions,
-        plot_classification_validation_results,
-    )
-    from wandb.integration.ultralytics.mask_utils import (
-        plot_mask_predictions,
-        plot_mask_validation_results,
-    )
-    from wandb.integration.ultralytics.pose_utils import (
-        plot_pose_predictions,
-        plot_pose_validation_results,
-    )
 except ImportError as e:
-    wandb.Error(e)
+    print(f"Error importing ultralytics modules: {e}")
+    sys.exit(1)
+from wandb.integration.ultralytics.bbox_utils import (
+    plot_predictions,
+    plot_validation_results,
+)
+from wandb.integration.ultralytics.classification_utils import (
+    plot_classification_predictions,
+    plot_classification_validation_results,
+)
+from wandb.integration.ultralytics.mask_utils import (
+    plot_mask_predictions,
+    plot_mask_validation_results,
+)
+from wandb.integration.ultralytics.pose_utils import (
+    plot_pose_predictions,
+    plot_pose_validation_results,
+)
 
 
 TRAINER_TYPE = Union[
