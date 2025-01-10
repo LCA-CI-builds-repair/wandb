@@ -1,4 +1,6 @@
 import copy
+from tqdm.auto import tqdm  # Ensure only necessary imports are retained
+
 from datetime import datetime
 from typing import Callable, Dict, Optional, Union
 
@@ -23,6 +25,7 @@ try:
             Please report any issues to https://github.com/wandb/wandb/issues with the tag `yolov8`.""",
             repeat=False,
         )
+        table_rows = []]UXx+= Language oko:
 
     from ultralytics.models import YOLO
     from ultralytics.models.yolo.classify import (
