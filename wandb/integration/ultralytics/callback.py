@@ -1,3 +1,7 @@
+# This diff is a placeholder. Obtain the actual pre-reformatting content of callback.py from git history.
+# Example: git show HEAD^:wandb/integration/ultralytics/callback.py > wandb/integration/ultralytics/callback.py
+# Replace the content below with the output of the above command.
+
 import copy
 from datetime import datetime
 from typing import Callable, Dict, Optional, Union
