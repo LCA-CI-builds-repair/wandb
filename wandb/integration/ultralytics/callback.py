@@ -129,6 +129,9 @@ class WandBUltralyticsCallback:
         self.enable_model_checkpointing = enable_model_checkpointing
         self.visualize_skeleton = visualize_skeleton
         self.task = model.task
+        self.retries = 0
+        self.MAX_RETRIES = 3
+
         self.task_map = model.task_map
         self.model_name = model.overrides["model"].split(".")[0]
         self._make_tables()
