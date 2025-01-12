@@ -260,7 +260,12 @@ class WandBUltralyticsCallback:
                         dataloader=dataloader,
                         class_label_map=class_label_map,
                         model_name=self.model_name,
+                       
                         predictor=self.predictor,
+                        table=self.train_validation_table,
+                        max_validation_batches=self.max_validation_batches,
+                        epoch=trainer.epoch,
+                    ) predictor=self.predictor,
                         visualize_skeleton=self.visualize_skeleton,
                         table=self.train_validation_table,
                         max_validation_batches=self.max_validation_batches,
