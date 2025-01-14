@@ -36,8 +36,8 @@ def test_sync_tensorboard(relay_server, wandb_init):
         model.fit(
             x=x_train,
             y=y_train,
-            # epochs=5,
-            epochs=1,
+            epochs=5,
+            # epochs=1,
             validation_data=(x_test, y_test),
             callbacks=[tensorboard_callback],
         )

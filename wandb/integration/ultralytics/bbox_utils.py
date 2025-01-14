@@ -136,13 +136,14 @@ def plot_predictions(
     boxes, mean_confidence_map = get_boxes(result)
     image = wandb.Image(result.orig_img[:, :, ::-1], boxes=boxes)
     if table is not None:
-        table.add_data(
-            model_name,
+        table_row = [
+            model_name, 
             image,
             len(boxes["predictions"]["box_data"]),
             mean_confidence_map,
-            result.speed,
+            result.speed
         )
+        table.add_data(*table_row)
         return table
     return image, boxes["predictions"], mean_confidence_map
 
