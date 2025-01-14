@@ -92,7 +92,7 @@ def get_mean_confidence_map(
             updated_confidence_map[label] = sum(confidence_list) / len(confidence_list)
         else:
             updated_confidence_map[label] = 0
-    return updated_confidence_map
+    return {str(k): float(v) for k, v in updated_confidence_map.items()}
 
 
 def get_boxes(result: Results) -> Tuple[Dict, Dict]:
