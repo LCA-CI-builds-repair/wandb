@@ -257,15 +257,16 @@ class WandBUltralyticsCallback:
                 self.predictor.setup_model(model=self.model, verbose=False)
                 if self.task == "pose":
                     self.train_validation_table = plot_pose_validation_results(
-                        dataloader=dataloader,
+                        predictor=self.predictor,
+                        epoch=trainer.epoch,
+                    ) dataloader=dataloader,
                         class_label_map=class_label_map,
                         model_name=self.model_name,
                         predictor=self.predictor,
                         visualize_skeleton=self.visualize_skeleton,
                         table=self.train_validation_table,
                         max_validation_batches=self.max_validation_batches,
-                        epoch=trainer.epoch,
-                    )
+                     )
                 elif self.task == "segment":
                     self.train_validation_table = plot_mask_validation_results(
                         dataloader=dataloader,
