@@ -65,7 +65,7 @@ autolog = AutologAPI(
         "TextToVideoSDPipeline.__call__",
         "TextToVideoZeroPipeline.__call__",
         "StableVideoDiffusionPipeline.__call__",
-        "AmusedPipeline.__call__"
+        "AmusedPipeline.__call__",  # added a trailing comma
     ),
     resolver=DiffusersPipelineResolver(),
     telemetry_feature="diffusers_autolog",
