@@ -249,14 +249,17 @@ class WandBUltralyticsCallback:
             class_label_map = validator.names
             with torch.no_grad():
                 self.device = next(trainer.model.parameters()).device
-                if isinstance(trainer.model, torch.nn.parallel.DistributedDataParallel):
+                if isinstance(
+                    trainer.model, torch.nn.parallel.DistributedDataParallel
+                ):
                     model = trainer.model.module
                 else:
                     model = trainer.model
                 self.model = copy.deepcopy(model).eval().to(self.device)
                 self.predictor.setup_model(model=self.model, verbose=False)
                 if self.task == "pose":
-                    self.train_validation_table = plot_pose_validation_results(
+                    self.train_validation_table = (
+                        plot_pose_validation_results(
                         dataloader=dataloader,
                         class_label_map=class_label_map,
                         model_name=self.model_name,
@@ -265,13 +268,16 @@ class WandBUltralyticsCallback:
                         table=self.train_validation_table,
                         max_validation_batches=self.max_validation_batches,
                         epoch=trainer.epoch,
-                    )
+                        )
+                    ) 
                 elif self.task == "segment":
-                    self.train_validation_table = plot_mask_validation_results(
+                    self.train_validation_table = (
+                        plot_mask_validation_results(
                         dataloader=dataloader,
                         class_label_map=class_label_map,
                         model_name=self.model_name,
-                        predictor=self.predictor,
+                        )
+                    ) predictor=self.predictor,
                         table=self.train_validation_table,
                         max_validation_batches=self.max_validation_batches,
                         epoch=trainer.epoch,
